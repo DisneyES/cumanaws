@@ -1,0 +1,34 @@
+<% content_for :titulo_pagina do %>editar cuenta<% end %>
+<% content_for :titulo_bloque do %>editar cuenta<% end %>
+<%# content_for :head do stylesheet_link_tag "form", :media => "all" end %>
+<%# content_for :head do javascript_include_tag :form end %>
+<%# content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function(){return formjs.constructor();});
+  </script>
+<%# end %>
+<%#= formulario crearcuenta_path do |f| %>
+<%= form_for resource, url:  edit_cuenta_registration_path, remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <div style="text-align: center; font-weight: bold; font-size: 16px">Autenticar usuario</div>
+  <%= form_campo f, :current_password, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <br/>
+  <div style="text-align: center; font-weight: bold; font-size: 16px">Cambiar contraseña <span style="font-weight: normal">(dejar en blanco para conservar igual)</span></div>
+  <%= form_campo f, :password, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <%= form_campo f, :password_confirmation, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <br/>
+  <!-- <div style="text-align: center; font-weight: bold; font-size: 16px">Datos personales</div>
+  <%#= form_campo f, :doc_id, 'id_field', :categorias => select_doc_id_categorias('ve','persona'), :autocomplete => "off" %>
+  <%#= form_campo f, :nombre, 'text_field', :autocomplete => "off" %>
+  <%#= form_campo f, :apellidos, 'text_field', :autocomplete => "off" %>
+  <%#= form_campo f, :email, 'text_field', :autocomplete => "off" %>
+  <%#= form_campo f, :telefono, 'text_field', :autocomplete => "off" %>
+  <%#= form_campo f, :entidad_federal, 'select', :opciones => select_efs('ve'), 'validar-con-ruta' => 'validarpersonaef' %>
+  <%#= form_campo f, :localidad, 'select', :opciones => [] %>
+  <%#= form_campo f, :direccion, 'text_field', :autocomplete => "off" %>
+  <br/> -->
+  <!-- <div style="text-align: center; font-weight: bold; font-size: 16px">Escribe los caracteres que ves en la imagen</div>
+  <div style="margin: 0 auto; width: 318px"><%#= recaptcha_tags :display => {:theme => 'white'} %></div>
+  <br/> -->
+  <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "editar cuenta", data: { disable_with: 'enviando...' } %></div>
+<% end %>

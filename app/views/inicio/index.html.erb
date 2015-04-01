@@ -1,0 +1,220 @@
+<% content_for :titulo_pagina do %>pagina principal<% end %>
+<%# content_for :head do javascript_include_tag 'jquery.slides.min' end %>
+<%# @bloques_izq=[] %>
+<%# @bloques_izq << {:titulo => 'Uno ahí', :contenido => capture do %>
+<%#*bla bla bla...%>
+<%# end } %>
+<%# @bloques_der=[] %>
+<%# @bloques_izq << {:titulo => 'Otro ahí', :contenido => capture do %>
+<%#*bla bla bla...%>
+<%# end } %>
+<% @bloques_sup=[] %>
+<% @bloques_sup << {:transparente => true, :contenido => capture do %>
+<style>
+    #slides {
+      display: none;
+      border-radius: 10px
+    }
+    
+    .slidesjs-container {
+        z-index: -1;
+    }
+
+    #slides .slidesjs-navigation {
+      margin-top:3px;
+    }
+
+    #slides .slidesjs-previous {
+      margin-right: 5px;
+      float: left;
+    }
+
+    #slides .slidesjs-next {
+      margin-right: 5px;
+      float: left;
+    }
+
+    .slidesjs-pagination {
+      display: table;
+      list-style: outside none none;
+      margin: -15px auto 0;
+      padding: 0 0 2px;
+    }
+
+    .slidesjs-pagination li {
+      float: left;
+      margin: 0 2px;
+    }
+
+    .slidesjs-pagination li a {
+      display: block;
+      width: 13px;
+      height: 0;
+      padding-top: 13px;
+      background-image: url('<%=asset_path('slide/pagination.png')%>');
+      background-position: 0 0;
+      float: left;
+      overflow: hidden;
+    }
+
+    .slidesjs-pagination li a.active,
+    .slidesjs-pagination li a:hover.active {
+      background-position: 0 -13px
+    }
+
+    .slidesjs-pagination li a:hover {
+      background-position: 0 -26px
+    }
+
+    #slides a:link,
+    #slides a:visited {
+      color: #333
+    }
+
+    #slides a:hover,
+    #slides a:active {
+      color: #9e2020
+    }
+
+    .navbar {
+      overflow: hidden
+    }
+  </style>
+  <!-- End SlidesJS Optional-->
+
+ 
+<script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 1000,
+        height: 300,
+        navigation: false,
+        play: {
+          interval: 5000,
+          auto: true,
+          pauseOnHover: true,
+        }
+      });
+    });
+  </script>
+  <div class="container">
+    <div id="slides">
+      <img src="<%=asset_path('slide/slide-1.jpg')%>">
+      <img src="<%=asset_path('slide/slide-2.jpg')%>">
+      <img src="<%=asset_path('slide/slide-3.jpg')%>">
+      <img src="<%=asset_path('slide/slide-4.jpg')%>">
+      <img src="<%=asset_path('slide/slide-5.jpg')%>">
+      <%#*<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>%>
+      <%#*<a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>%>
+    </div>
+  </div>
+<% end } %>
+<%# @bloques_der=[] %>
+<%# @bloques_der << {:titulo => 'nuestros clientes', :contenido => capture do %>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/cumanaws.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>cumanaws.com.ve</b>%>
+  <%#*</div>%>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/caray.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>caray.net</b>%>
+  <%#*</div>%>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/cumanaws.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>cumanaws.com.ve</b>%>
+  <%#*</div>%>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/caray.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>caray.net</b>%>
+  <%#*</div>%>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/cumanaws.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>cumanaws.com.ve</b>%>
+  <%#*</div>%>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/caray.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>caray.net</b>%>
+  <%#*</div>%>
+  <%#*<div style="margin: 0 0 10px 0">%>
+    <%#*<img src="<%=asset_path('clientes/cumanaws.jpg')%><%#*" style="width:210px">%>
+    <%#*<b>cumanaws.com.ve</b>%>
+  <%#*</div>%>
+<%# end } %>
+<%# @bloques_inf=[] %>
+<%# @bloques_inf << {:titulo => 'blog', :contenido => capture do %>
+  <%#*<div>%>
+      <%#*<div style="float:right">Hace 0 minutos</div>%>
+      <%#*<div style="font-weight:bold;font-size: 14px">Titulo de la publicación</div>%>
+      <%#*<div>Resumen de la publicación... Ya saben todo eso... Lorems ipsum bla bla bla...</div>%>
+      <%#*<div style="text-align:right">por: <b>autor</b></div>%>
+      <%#*<hr style="border:1px solid #BBB" />%>
+  <%#*</div>%>
+  <%#*<div>%>
+      <%#*<div style="float:right">Hace 0 minutos</div>%>
+      <%#*<div style="font-weight:bold;font-size: 14px">Titulo de la publicación</div>%>
+      <%#*<div>Resumen de la publicación... Ya saben todo eso... Lorems ipsum bla bla bla...</div>%>
+      <%#*<div style="text-align:right">por: <b>autor</b></div>%>
+      <%#*<hr style="border:1px solid #BBB" />%>
+  <%#*</div>%>
+<%# end } %>
+<% @bloques_pri=[] %>
+<% @bloques_pri << {:titulo => 'buscador de dominios', :contenido => capture do %>
+buscador de nombres de dominios disponibles.
+<div style="text-align:center">
+    <form method="post" action="<%=servicios_dominios_path %>">
+      <input type="text" name="nombre" />
+      <b>.</b>
+      <select name="dominio">
+          <% AppConfig.preferencias.planes_dominios.each do |dom| %>
+            <option><%= dom['nombre'] %></option>
+          <% end %>
+      </select>
+      <input type="submit" name="buscar_dominio" value="buscar" />
+    </form>
+</div>
+<% end } %>
+<% @bloques_pri << {:titulo => 'planes de hospejade web', :contenido => capture do %>
+  Todos nuestros planes ofrecen:<br/>
+  <ul>
+      <li>Dominios ilimitados.</li>
+      <li>Correos electrónicos ilimitados.</li>
+      <li>Administración de archivos remotamente mediante FTP y SSH.</li>
+      <li>Servidores de aplicaciones con PHP5, Python, Ruby y NodeJS.</li>
+      <li>Bases de datos ilimitadas con MySQL, PostgreSQL y MongoDB.</li>
+      <li>Soporte para HTTPS.</li>
+  </ul>
+  Y todo puede ser administrado cómodamente con nuestro moderno panel para usuarios.
+  <br/><br/>
+  <div style="display: inline-block">
+  <% AppConfig.preferencias.planes_hospedaje.each do |hos| %>
+    <div style="background-color: #EEE;margin: 5px;padding: 10px;border-radius: 10px; width: 460px; float: left">
+      <h2><%= hos['nombre'] %></h2>
+      <div>
+          Espacio de almacenamiento: <b><%= number_to_human_size(hos['espacio']*1048576) %></b>
+          <div style="font-weight: bold; text-align: right"><%= link_to 'más información', servicios_hospedaje_path %></div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+<% end } %>
+<%#*<!-- <script>%>
+<%#*var dots = window.setInterval( function() {%>
+    <%#*var wait = document.getElementById("wait");%>
+    <%#*if ( wait.innerHTML.length >= 6 )%> 
+        <%#*wait.innerHTML = "";%>
+    <%#*else%> 
+        <%#*wait.innerHTML += " .";%>
+    <%#*}, 500);%>
+<%#*</script>%>
+<%#*<div style="font-weight: bold; font-size: 18px; text-align: center; padding-top: 50px; color: #2e3b43">cargando <span id="wait" style="display: inline-flex; width: 40px;"></span></div>%>
+<%#*<div style="font-weight: bold; font-size: 20px; text-align: center; padding-top: 50px;">Estamos trabajando para poder brindarte las mejores soluciones de hospedaje de sitios web.</div>%>
+<%#*<div style="text-align: center; padding-top: 50px; padding-bottom: 20px;"><img src="<%#=asset_path('perro.png')%><%#" /></div> -->%>
+
+<%#*<div style="font-size: 26px;">Bienvenido a <span style="font-weight: bold" title="Cumaná Web Services">cumanáws</span>.</div>%>
+<%#*<br/>%>
+<%#*<div style="font-size: 22px; text-align: right">Le ofrecemos las mejores y más económicas soluciones de Hospedaje Web</div>%>
+<%#*<br/>%>
+<%#*<div  style="font-size: 20px">Con una gran variedad de planes y servicios para el desarrollo de tu empresa, negocio</div>%>
+<%#*<div  style="font-size: 20px; text-align: right">o para lo que desees...</div>%>
+<%#*<br/>%>
+<%#*<div></div>%>

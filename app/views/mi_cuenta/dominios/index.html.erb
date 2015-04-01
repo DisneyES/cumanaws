@@ -1,0 +1,45 @@
+<% content_for :titulo_pagina do %>mi cuenta > dominios<% end %>
+<% content_for :titulo_bloque do %>mis dominios<% end %>
+<% @bloques_sup=[] %>
+<% @bloques_sup << {:titulo => 'mi cuenta', :contenido => capture do %>
+    <%= render "mi_cuenta/shared/enlaces" %>
+  <% end } %>
+<style>
+    .dominio {
+        margin: 10px 0;
+    }
+    .dominio > div {
+        margin-bottom: 5px;
+    }
+    .dominio > div > .titulo {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .dominio > .nombre {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .dominio > .hosts > .host {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+</style>
+<div class="dominio">
+    <div class="nombre">
+        cumanaws.com.ve
+    </div>
+    <div class="hosts">
+        <div class="titulo">hosts:</div>
+        <div class="host">www.cumanaws.com.ve</div>
+        <div class="host">www1.cumanaws.com.ve</div>
+        <%= form_tag do %>
+          <%= text_field_tag 'host' %>.cumanaws.com.ve &nbsp; <%= submit_tag 'agregar host' %>
+        <% end %>
+    </div>
+    <hr/>
+</div>
+<!-- <div style="text-align: center">Aun no posees dominios activos.<br/>
+  Puedes solicitar uno en la sección: <%= link_to 'servicios > dominios', '#' %>.<br/>
+  Si presenta algún inconveniente diríjase a la sección: <%= link_to 'contacto', '#' %>, para notificarlo.
+</div> -->

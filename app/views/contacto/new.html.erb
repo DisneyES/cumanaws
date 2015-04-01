@@ -1,0 +1,19 @@
+<% content_for :titulo_pagina do %>contacto<% end %>
+<% content_for :titulo_bloque do %>contacto<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+
+<%= form_for resource, url:  contacto_path, remote: true, html: { id: resource_name, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <% unless cuenta_signed_in? %>
+    <%= form_campo f, :tu_nombre, 'text_field', autofocus: true, autocomplete: "off"  %>
+    <%= form_campo f, :tu_correo_electronico, 'text_field', autofocus: true, autocomplete: "off"  %>
+  <% end %>
+
+  <%= form_campo f, :asunto, 'text_field', autofocus: true, autocomplete: "off"  %>
+  <%= form_campo f, :contenido, 'text_area' %>
+
+  <br/><div style="text-align:center" id="campo_mensaje_commit"><%= f.submit "enviar", data: { disable_with: 'enviando...' } %></div>
+<% end %>

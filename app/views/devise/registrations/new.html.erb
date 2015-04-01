@@ -1,0 +1,62 @@
+<% content_for :titulo_pagina do %>crear cuenta<% end %>
+<% content_for :titulo_bloque do %>crear cuenta<% end %>
+<%# content_for :head do stylesheet_link_tag "form", :media => "all" end %>
+<%# content_for :head do javascript_include_tag :form end %>
+<%# content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function(){return formjs.constructor();});
+  </script>
+<%# end %>
+<%#= formulario crearcuenta_path do |f| %>
+<%= form_for resource, url:  crearcuenta_path, remote: true, html: { id: resource_name, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <div style="text-align: center; font-weight: bold; font-size: 16px">Datos de la cuenta</div>
+  <%= form_campo f, :username, 'text_field', autofocus: true, autocomplete: "off", placeholder: 'juan123'  %>
+  <%= form_campo f, :password, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <%= form_campo f, :password_confirmation, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <br/><div style="text-align: center; font-weight: bold; font-size: 16px">Datos personales</div>
+  <%#= f.fields_for :persona do |fp| %>
+    <%#= fp.fields_for :doc_ids do |fpd| %>
+      <%= form_campo f, :doc_id, 'id_field', :categorias => select_doc_id_categorias('ve','persona'), :autocomplete => "off" %>
+    <%# end %>
+    <%= form_campo f, :nombre, 'text_field', :autocomplete => "off" %>
+    <%= form_campo f, :apellidos, 'text_field', :autocomplete => "off" %>
+    <%#= fp.fields_for :emails do |fpe|   %>
+      <%= form_campo f, :email, 'text_field', :autocomplete => "off" %>
+    <%# end %>
+    <%#= fp.fields_for :telefonos do |fpt|  %>
+      <%= form_campo f, :telefono, 'text_field', :autocomplete => "off" %>
+    <%# end %>
+    <%= form_campo f, :entidad_federal, 'select', :opciones => select_efs('ve'), 'validar-con-ruta' => 'validarpersonaef' %>
+    <%= form_campo f, :localidad, 'select', :opciones => [] %>
+    <%= form_campo f, :direccion, 'text_area' %>
+  <%# end %>
+  <br/>
+  <!-- <div style="text-align: center; font-weight: bold; font-size: 16px">Datos de la organización que representa</div>
+  <%#= form_campo f, :organizacion, 'check_box', 'validar-con-ruta' => '' %>
+  <%#= f.fields_for :organizaciones do |fo| %>
+    <%#= form_campo fo, :tipo, 'select', :opciones => select_organizaciones('ve'), :disabled => '' %>
+    <%#= fo.fields_for :doc_ids do |fod| %>
+      <%#= form_campo fod, :doc_id, 'id_field',  :categorias => select_doc_id_categorias('ve','organizacion'), :autocomplete => "off", :disabled => '' %>
+    <%# end %>
+    <%#= form_campo fo, :nombre, 'text_field', :autocomplete => "off", :disabled => '' %>
+    <%#= fo.fields_for :emails do |foe|   %>
+      <%#= form_campo foe, :email, 'text_field', :autocomplete => "off", :disabled => '' %>
+    <%# end %>
+    <%#= fo.fields_for :telefonos do |fot| %>
+      <%#= form_campo fot, :telefono, 'text_field', :autocomplete => "off", :disabled => '' %>
+    <%# end %>
+    <%#= form_campo fo, :entidad_federal, 'select', :opciones => select_efs('ve'), 'validar-con-ruta' => 'validarorganizacionef', :disabled => '' %>
+    <%#= form_campo fo, :localidad, 'select', :opciones => [], :disabled => '' %>
+    <%#= form_campo fo, :direccion, 'text_field', :autocomplete => "off", :disabled => '' %>
+  <%# end %> -->
+  <br/>
+  <div style="text-align: center; font-weight: bold; font-size: 16px">Responda la siguiente pregunta</div>
+    <%= form_campo f, :humanizer_answer, 'text_field', :label => resource.humanizer_question, :autocomplete => "off" %>
+    <%= f.hidden_field :humanizer_question_id %>
+  <br/>
+  <div style="text-align: center; font-weight: bold; font-size: 16px">Términos y condiciones</div>
+  <div style="margin: 0 auto; width: 50%; text-align: justify">Aquí va algo...</div>
+  <%= form_campo f, :terminos, 'check_box' %>
+  <br/><div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "crear cuenta", data: { disable_with: 'enviando...' } %></div>
+<% end %>
