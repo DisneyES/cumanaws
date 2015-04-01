@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <% if etiquetas %>
+      <meta name="keywords" content="<%= etiquetas %>" />
+    <% end %>
+    <title><%= yield(:titulo_pagina).present? ? titulo+' | '+yield(:titulo_pagina) : titulo %></title>
+    <% if favicon_src %>
+      <link rel="shortcut icon" href="<%= favicon_src %>" />
+    <% end %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= yield(:head) %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="cabezal">
+        <% if logo_src %>
+          <div id="logo"><img src="<%= logo_src %>" alt="cuman&aacute;ws" /></div>
+        <% else %>
+          <div id="titulo"><%= link_to 'cuman&aacute;ws'.html_safe, root_path %></div>
+        <% end %>
+        <% if eslogan %>
+          <div id="eslogan"><%= eslogan %></div>
+        <%end %>
+        <div id="menuprincipal">
+          <ul>
+            <li><%= link_to 'inicio', root_path %></li>
+            <li class="expandible"><%= link_to 'servicios', 'javascript:void(0)' %>
+              <ul>
+                <li><%= link_to fa_icon("globe lg")+' dominios', servicios_dominios_path %></li>
+                <li><%= link_to fa_icon("server lg")+' hospedaje web', servicios_hospedaje_path %></li>
+              </ul>
+            </li>
+            <%#*<li><%= link_to 'blog', blog_path %><%#*</li>%>
+            <%#*<li><%= link_to 'nuestros clientes', clientes_path %><%#*</li>%>
+          </ul>
+        </div>
+        <div id="menusesion">
+          <% if cuenta_signed_in? %>
+            <ul>
+              <li><span>Hola, <%= current_cuenta.username %></span></li>
+              <li class="expandible"><%= link_to fa_icon("bars"), 'javascript:void(0)' %>
+                  <ul>
+                    <li><%= link_to fa_icon("user lg")+' mi cuenta', mi_cuenta_path %></b></li>
+                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('globe lg')+' dominios ', mi_cuenta_dominios_path %></li>
+                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('server lg')+' hospedaje web', mi_cuenta_hospedaje_path %></li>
+                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('money lg')+' (0) balance'.html_safe, mi_cuenta_balance_path %></li>
+                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('wrench lg')+' configuración', mi_cuenta_configuracion_path %></li>
+                    <% if current_cuenta.rol == 'administrador' %>
+                      <li><hr/></li>
+                      <li><%= link_to fa_icon("cogs")+' administración', administracion_path %></li>
+                    <% end %>
+                    <li><hr/></li>
+                    <li><%= link_to fa_icon("sign-out")+' cerrar sesión', cerrarsesion_path %></li>
+                  </ul>
+              </li>
+              <li><%= link_to fa_icon("shopping-cart"), carrito_path, :title => 'carrito de compras' %>
+            </ul>
+          <% else %>
+            <ul>
+              <li><%= link_to fa_icon("sign-in"), iniciarsesion_path, :title => 'ingresar al area de clientes' %>
+                <%#*<ul>%>
+                  <%#*<li>%>
+                    <%#*<form>%>
+                      <%#*<input type="text" /> <input type="password" /> <input type="submit" value="iniciar sesión" />%>
+                    <%#*</form>%>
+                  <%#*</li>%>
+                <%#*</ul>%>
+              </li>
+              <li><%= link_to fa_icon("shopping-cart"), carrito_path, :title => 'carrito de compras' %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+      <%= notice %>
+      <%= alert %>
+      <div id="cuerpo">
+        <% if @bloques_sup %>
+          <div id="bloques_sup">
+            <% @bloques_sup.each do |bloque| %>
+              <div class="<%= bloque[:transparente] ? 'bloque_transparente' : 'bloque' %>">
+                <% if bloque[:titulo] %>
+                  <div class="bloque_titulo">
+                    <%= bloque[:titulo] %>
+                  </div>
+                <% end %>
+                <div class="bloque_contenido">
+                  <%= bloque[:contenido] %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div id="contenedor_cen">
+        <% if @bloques_izq %>
+          <div id="bloques_izq" class="lateral">
+            <% @bloques_izq.each do |bloque| %>
+              <div class="bloque">
+                <% if bloque[:titulo] %>
+                  <div class="bloque_titulo">
+                    <%= bloque[:titulo] %>
+                  </div>
+                <% end %>
+                <div class="bloque_contenido">
+                  <%= bloque[:contenido] %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <% if @bloques_izq && @bloques_der %>
+          <div id="contenedor_pri" class="masreducido_pri">
+        <% elsif @bloques_izq || @bloques_der %>
+          <div id="contenedor_pri"  class="reducido_pri">
+        <% else %>
+          <div id="contenedor_pri" >
+        <% end %>
+        <% if yield.present? || content_for?(:titulo_bloque) %>
+          <%# if @bloques_izq && @bloques_der %>
+            <%#*<div id="bloque_pri" class="bloque masreducido_pri">%>
+          <%# elsif @bloques_izq || @bloques_der %>
+            <%#*<div id="bloque_pri" class="bloque reducido_pri">%>
+          <%# else %>
+            <div id="bloque_pri" class="bloque">
+          <%# end %>
+            <% if content_for?(:titulo_bloque) %>
+              <div class="bloque_titulo">
+                <%= yield(:titulo_bloque) %>
+              </div>
+            <% end %>
+            <div class="bloque_contenido">
+              <%= yield %>
+            </div>
+          </div>
+        <% end %>
+        <% if @bloques_pri %>
+          <%# if @bloques_izq && @bloques_der %>
+            <%#*<div id="bloques_pri" class="masreducido_pri">%>
+          <%# elsif @bloques_izq || @bloques_der %>
+            <%#*<div id="bloques_pri" class="reducido_pri">%>
+          <%# else %>
+            <div id="bloques_pri" >
+          <%# end %>
+          <% @bloques_pri.each do |bloque| %>
+            <div class="bloque">
+                <% if bloque[:titulo] %>
+                  <div class="bloque_titulo">
+                    <%= bloque[:titulo] %>
+                  </div>
+                <% end %>
+                <div class="bloque_contenido">
+                  <%= bloque[:contenido] %>
+                </div>
+            </div>
+          <% end %>
+          </div>
+        <% end %>
+        </div>
+        <% if @bloques_der %>
+          <div id="bloques_der" class="lateral">
+            <% @bloques_der.each do |bloque| %>
+              <div class="bloque">
+                <% if bloque[:titulo] %>
+                  <div class="bloque_titulo">
+                    <%= bloque[:titulo] %>
+                  </div>
+                <% end %>
+                <div class="bloque_contenido">
+                  <%= bloque[:contenido] %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        </div>
+        <% if @bloques_inf %>
+          <div id="bloques_inf">
+            <% @bloques_inf.each do |bloque| %>
+              <div class="bloque">
+                <% if bloque[:titulo] %>
+                  <div class="bloque_titulo">
+                    <%= bloque[:titulo] %>
+                  </div>
+                <% end %>
+                <div class="bloque_contenido">
+                  <%= bloque[:contenido] %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div id="pie">
+        <div id="menuinferior">
+          <%= link_to 'acerca de nosotros', nosotros_path %>
+          <%= link_to 'contacto', contacto_path %>
+        </div>
+        <div id="menulocalizacion">
+          <ul>
+              <li><%= link_to 'Español', '#' %></li>
+              <li><%= link_to 'Venezuela', '#' %></li>
+              <li><%= link_to 'Bs.', '#' %></li>
+          </ul>
+        </div>
+        <div id="resumen"><%= resumen %></div>
+      </div>
+    </div>
+  </body>
+</html>

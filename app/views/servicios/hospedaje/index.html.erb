@@ -1,0 +1,28 @@
+<% content_for :titulo_pagina do %>servicios > hospedaje<% end %>
+<% @bloques_pri=[] %>
+<% @bloques_pri << {:titulo => 'planes de hospejade web', :contenido => capture do %>
+  Todos nuestros planes ofrecen:<br/>
+  <ul>
+      <li>Dominios ilimitados.</li>
+      <li>Correos electrónicos ilimitados.</li>
+      <li>Administración de archivos remotamente mediante FTP y SSH.</li>
+      <li>Servidores de aplicaciones con PHP5, Python, Ruby y NodeJS.</li>
+      <li>Bases de datos ilimitadas con MySQL, PostgreSQL y MongoDB.</li>
+      <li>Soporte para HTTPS.</li>
+  </ul>
+  Y todo puede ser administrado cómodamente con nuestro moderno panel para usuarios.
+  <br/><br/>
+  <div style="display: inline-block">
+  <% AppConfig.preferencias.planes_hospedaje.each do |hos| %>
+    <div style="background-color: #EEE;margin: 5px;padding: 10px;border-radius: 10px; width: 460px; float: left">
+      <h2><%= hos['nombre'] %></h2>
+      <div>
+          Espacio de almacenamiento: <b><%= number_to_human_size(hos['espacio']*1048576) %></b><br/>
+          Precio mensual: <b><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*hos['precio_mensual'], :unit => AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['simbolo']+' ', separator: ",", delimiter: "." ) %></b><br/>
+          Precio anual: <b><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*hos['precio_anual'], :unit => AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['simbolo']+' ', separator: ",", delimiter: "." ) %></b>
+          <div style="font-weight: bold; text-align: right"><%=link_to 'adquirir', agregar_hospedaje_al_carrito_path('hospedaje',hos['nombre']) %></div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+<% end } %>

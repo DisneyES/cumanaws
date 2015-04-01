@@ -1,0 +1,19 @@
+
+Instalar el bundler:
+
+    # apt-get install bundler libpq-dev nodejs
+
+Configurar el usuario para que instale las gemas localmente:
+
+    $ mkdir $HOME/.bundle
+    $ echo "---" > $HOME/.bundle/config
+    $ echo "BUNDLE_PATH: vendor/bundle" >> $HOME/.bundle/config
+
+Instalar las gemas:
+    
+    $ cd <directorio del sistema>
+    $ bundle install
+
+Para instalar en el servidor de bases de datos:
+
+    # apt-get install mongodb

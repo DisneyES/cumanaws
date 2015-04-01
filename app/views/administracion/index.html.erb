@@ -1,0 +1,63 @@
+<% content_for :titulo_pagina do %>administración<% end %>
+<% content_for :titulo_bloque do %>administración<% end %>
+<style>
+    .admin_enlace {
+      font-weight: bold;
+      text-align: center;
+      width: 153px;
+      margin: 5px;
+      float: left;
+      background-color: #EEE;
+      border-radius: 10px;
+    }
+    .admin_enlace:hover {
+      background-color: #f5f5f5;
+    }
+    .admin_enlace > a {
+      padding: 10px;
+      text-decoration: none;
+      display: block;
+    }
+    .admin_enlace > a > i {
+      display: block;
+      margin: 5px;
+    }
+</style>
+<div style="display: table">
+  <div class="admin_enlace">
+    <%= link_to(administracion_cuentas_path) do %>
+      <%= fa_icon "users 5x" %>
+      cuentas de usuario
+    <% end %>
+  </div>
+  <div class="admin_enlace">
+    <%= link_to(administracion_pagos_path) do %>
+      <%= fa_icon "money 5x" %>
+      pagos
+    <% end %>
+  </div>
+  <div class="admin_enlace">
+    <%= link_to(administracion_compras_path) do %>
+      <%= fa_icon "shopping-cart 5x" %>
+      compras
+    <% end %>
+  </div>
+  <div class="admin_enlace">
+    <%= link_to(administracion_planes_dominios_path) do %>
+      <%= fa_icon "globe 5x" %>
+      planes de dominios
+    <% end %>
+  </div>
+  <div class="admin_enlace">
+    <%= link_to(administracion_planes_hospedaje_path) do %>
+      <%= fa_icon "server 5x" %>
+      planes de hospedaje web
+    <% end %>
+  </div>
+  <div class="admin_enlace">
+    <%= link_to(administracion_cuentas_bancarias_path) do %>
+      <%= fa_icon "bank 5x" %>
+      cuentas bancarias
+    <% end %>
+  </div>
+</div>

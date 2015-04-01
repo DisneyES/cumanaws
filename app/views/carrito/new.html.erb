@@ -1,0 +1,16 @@
+<% content_for :titulo_pagina do %>pagar artículos del carrito<% end %>
+<% content_for :titulo_bloque do %>pagar artículos del carrito<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  pagar_carrito_path, remote: true, html: { id: resource_name, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <%= form_campo f, :metodo_pago, 'select', :opciones => select_metodos_pago %>
+  <%= form_campo f, :ent_cta_bancaria, 'select', :label => 'Cuenta bancaria', :opciones => select_cta_bancaria %>
+  <%= form_campo f, :codigo, 'text_field', :label => 'Número de transacción', placeholder: '0000000000' %>
+  <%= form_campo f, :ent_monto, 'text_field', :label => 'Monto (Bs.)', placeholder: '0000,00' %>
+  <%= form_campo f, :fecha, 'date_field', :label => 'Fecha de la transacción', default: Date.today, desde: Date.new(2015,03,29), hasta: Date.today %>
+  <%= form_campo f, :observaciones, 'text_area' %>
+
+  <br/><div style="text-align:center" id="campo_mensaje_commit"><%= f.submit "enviar", data: { disable_with: 'enviando...' } %></div>
+<% end %>

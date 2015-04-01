@@ -1,0 +1,127 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/12/2014, 10:57:18 PM
+    Author     : javier
+*/
+
+form /*div[id^=campo_]*/  {
+    margin: 10px auto;
+    display: table;
+}
+
+form div[id^=campo_] {
+    /*width: 300px;*/
+    margin: 6px;
+}
+
+form /*div[id^=campo_]*/ label {
+    font-weight: bold;
+}
+
+form /*div[id^=campo_]*/ input, select, form textarea,button {
+    font-weight: bold;
+    color: #444;
+    background-color: #F4F4F4;
+    border-radius: 6px;
+    border: 1px solid #BBB;
+    padding: 4px;
+    margin: 3px 2px;
+    width: 287px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 45px;
+}
+
+select, input[type=submit], button {
+    width: auto !important;
+}
+
+form /*div[id^=campo_]*/ input:hover {
+    border: 1px solid #999;
+    box-shadow: 0 0 2px 1px #BBB;
+    background-color: #F9F9F9;
+}
+
+form /*div[id^=campo_]*/ input:focus {
+    border: 1px solid #666;
+    box-shadow: 0 0 2px 1px #999;
+    background-color: #FCFCFC;
+}
+
+/*form div[id^=campo_] textarea {
+    font-weight: bold;
+    color: #444;
+    background-color: #F4F4F4;
+    border-radius: 6px;
+    border: 1px solid #BBB;
+    padding: 4px;
+    margin: 3px 2px;
+}*/
+
+form /*div[id^=campo_]*/ textarea:hover {
+    border: 1px solid #999;
+    box-shadow: 0 0 2px 1px #BBB;
+    background-color: #F9F9F9;
+}
+
+form /*div[id^=campo_]*/ textarea:focus {
+    border: 1px solid #666;
+    box-shadow: 0 0 2px 1px #999;
+    background-color: #FCFCFC;
+}
+
+form.tiene_errores > div.resumen_errores {
+    border: 1px #C00 solid;
+    border-radius: 5px;
+    background-color: #FFAAAA;
+    color: #500;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+form /*div[id^=campo_]*/.tiene_errores {
+    border-radius: 5px;
+    background-color: #FFBFBF;
+    padding: 3px;
+}
+
+form /*div[id^=campo_]*/.tiene_errores > .msg_error {
+    color: #A00;
+    font-size: 11px;
+    font-weight: bold;
+    display:block
+}
+
+form /*div[id^=campo_]*/.cargando {
+    border-radius: 5px;
+    background-color: #d5d5d5;
+    padding: 3px;
+}
+
+form /*div[id^=campo_]*/.cargando > .msg_error {
+    color: #333;
+    font-size: 11px;
+    font-weight: bold;
+    display:block
+}
+
+form /*div[id^=campo_]*/ select.id_field {
+    width: 50px;
+}
+
+form /*div[id^=campo_]*/ input.id_field {
+    width: 190px;
+}
+
+form /*div[id^=campo_]*/ input[type=checkbox]{
+    margin-right: 10px;
+    width: 18px;
+    padding: 0;
+}

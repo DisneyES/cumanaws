@@ -1,0 +1,74 @@
+<% content_for :titulo_pagina do %>carrito de compras<% end %>
+<% content_for :titulo_bloque do %>carrito de compras<% end %>
+
+<% unless articulos.empty? %>
+  <div id="cabezal-articulos">
+   <div style="background-color: #fff; border-top-left-radius: 10px;float: left; width: 654px; text-align: center; font-weight: bold; padding: 5px; margin: 2px">articulo</div>
+    <div style="background-color: #fff;float: left; width: 100px; text-align: center; font-weight: bold; padding: 5px; margin: 2px">duración</div>
+    <div style="background-color: #fff;float: left; width: 100px; text-align: center; font-weight: bold; padding: 5px; margin: 2px">precio (Bs.)</div>
+    <div style="background-color: #fff; border-top-right-radius: 10px; float: left; width: 70px; text-align: center; padding: 5px; margin: 2px">...</div>
+  </div>
+  <% total = 0 %>
+  <div id="lista-articulos">
+  <% articulos.each do |articulo| %>
+    <% if articulo[:servicio] == 'hospedaje' %>
+      <% plan = AppConfig.preferencias.planes_hospedaje.select{|k| k['nombre'] == articulo[:plan] }[0] %>
+      <% descripcion = 'Hospedaje web: <b>'+plan['nombre']+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(plan['espacio']*1048576)+'</b>' %>
+      <% precio = number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*(articulo[:duracion] == 12 ? plan['precio_anual'] : plan['precio_mensual']*articulo[:duracion]), :unit => '', separator: ",", delimiter: "." ) %>
+    <% else %>
+      <% plan = AppConfig.preferencias.planes_dominios.select{|k| k['nombre'] == articulo[:plan] }[0] %>
+      <% descripcion = 'Dominio: <b>'+articulo['nombre_dominio']+'.'+articulo['plan']+'</b>' %>
+      <% precio = number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan['precio_anual'], :unit => '', separator: ",", delimiter: "." ) %>
+    <% end %>
+    <div class="articulo" style="display: inline-flex;">
+      <div class="articulo-descripcion" style="background-color: #eee; width: 654px; padding: 5px; margin: 2px"><%= descripcion.html_safe %></div>
+      <div style="background-color: #eee;float: left; width: 100px; text-align: center; font-weight: bold; padding: 5px; margin: 2px">
+      <% if articulo[:servicio] == 'hospedaje' %>
+        <select onchange="alterarDuracion('<%=articulo[:_id]%>',this)">
+          <option value="1" <%= articulo[:duracion] == 1 ? 'selected' : '' %> >1 mes</option>
+          <option value="3" <%= articulo[:duracion] == 3 ? 'selected' : '' %> >3 meses</option>
+          <option value="6" <%= articulo[:duracion] == 6 ? 'selected' : '' %> >6 meses</option>
+          <option value="12" <%= articulo[:duracion] == 12 ? 'selected' : '' %> >1 año</option>
+        </select>
+      <% else %>
+          1 año
+      <% end %></div>
+      <div class="articulo-precio" style="background-color: #eee; width: 100px; text-align: right; padding: 12px 5px; margin: 2px"><%= precio %></div>
+      <div class="articulo-remover" style="background-color: #eee; text-align: center; width: 70px; padding: 12px 5px; margin: 2px"><%= link_to 'remover', remover_del_carrito_path(articulo[:_id]) %></div>
+    </div>
+    <% total = total + ( articulo[:duracion] == 12 ? plan['precio_anual'] : ( articulo[:duracion] == 6 ? plan['precio_mensual']*6 : ( articulo[:duracion] == 3 ? plan['precio_mensual']*3 : plan['precio_mensual'] ) ) ) %>
+  <% end %>
+  </div>
+  <div id="pie-articulos">
+    <div  style="background-color: #fff; border-bottom-left-radius: 10px;float: left; width: 768px; text-align: right; font-weight: bold; padding: 5px; margin: 2px">total (Bs.):</div>
+    <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*total, :unit => '', separator: ",", delimiter: "." ) %></div>
+    <div style="background-color: #fff; border-bottom-right-radius: 10px; float: left; width: 70px; text-align: center; padding: 5px; margin: 2px">...</div>
+  </div>
+
+<% else %>
+  <div style="text-align: center;font-weight:bold; padding: 10px">No se han agregado artículos</div>
+<% end %>
+<div style="margin: 50px 0 0 0">
+  Si deseas pagar mediante deposito o transferencia bancaria, puedes hacerlo a través de las siguientes cuentas:
+  <% AppConfig.preferencias.metodos_pago.select{|k| k['tipo'] == 'banco'}[0]['cuentas'].each do |cta| %>
+    <div style="margin: 15px 0">
+      <% if cta['logo'] %>
+        <%= image_tag 'logos/'+cta['logo'], :align => 'left', :style =>'height: 65px; padding: 0 10px 0 0;' %>
+      <% end %>
+      Banco: <b><%= cta['empresa'] %></b><br/>
+      Número de cuenta: <b><%= cta['nro'] %></b><br/>
+      Tipo de cuenta: <b><%= cta['tipo'].capitalize %></b><br/>
+      Titular de la cuenta: <b><%= cta['titular'] %></b><br/>
+    </div>
+  <% end %>
+  Luego registra la transacción haciendo clic en el botón "proceder a pagar".
+</div>
+<% if cuenta_signed_in? %>
+  <div style="text-align: center;font-weight:bold; padding: 10px">
+    <%= form_tag(pagar_carrito_path, method: :get) do -%>
+      <%= button_tag 'proceder a pagar', type: 'submit', confirm: '¿esta seguro que desea continuar?' %>
+    <% end -%>
+  </div>
+<% else %>
+  <div style="text-align: center;font-weight:bold; padding: 10px"><%= link_to 'para adquirir estos servicios debes tener una cuenta de usuario', iniciarsesion_redir_path('carrito') %></div>
+<% end %>

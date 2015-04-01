@@ -1,0 +1,420 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require jquery-ui
+ *= require adaptativo
+ *= require font-awesome
+ *= require_tree .
+ *= require_self
+ */
+
+body {
+    font-family: sans-serif, arial;
+    font-size: 13px;
+    color: #222222;
+    background-color: #91f2e3;
+}
+
+#wrapper {
+    position: absolute;
+    top: 90px;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #555;
+}
+
+a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+#cabezal {
+    top:0;
+    width: 100%;
+    position:fixed;
+    height: 90px;
+    display: inline-table;
+    background-color: #078081;
+    z-index: 100;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+#cabezal a {
+    color: lightgray;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#cabezal a:hover {
+    color: white;
+}
+
+#titulo {
+    color: lightgray;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px #AAA;
+    float: left;
+    transition: all 0.2s;
+}
+
+#titulo a {
+    display: block;
+    padding: 25px 15px 29px;
+    transition: all 0.2s;
+}
+
+#titulo a:hover {
+    background-color: #037a7b;
+}
+
+#menuprincipal {
+    float:left;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+
+#menuprincipal > ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#menuprincipal > ul > li {
+    float:left;
+}
+
+#menuprincipal a {
+    display: block;
+    color: #6af3f4;
+    padding: 35px 15px 35px;
+    float: left;
+    transition: all 0.2s;
+}
+
+#menuprincipal a:hover {
+    background-color: #037a7b;
+    color: #6af3f4;
+}
+
+/*#menuprincipal li.expandible {
+    direction: rtl;
+}*/
+
+#menuprincipal li.expandible > ul {
+    display: none;
+    background:#078081;
+    transition: all 0.2s;
+    padding: 0;
+}
+
+#menuprincipal li.expandible > ul > li {
+    list-style-type:none;
+    transition: all 0.2s;
+    float: none;
+}
+
+#menuprincipal li.expandible:hover > ul {
+    display: block;
+    transition: all 0.2s;
+    position: fixed;
+    top: 90px;
+    /*width: 160px;*/
+    float: none;
+}
+
+#menuprincipal li.expandible:hover > ul > li > a {
+    padding: 10px;
+    width: 190px;
+}
+
+#menusesion {
+    float:right;
+    margin: 0 0 0 25px;
+    color: white;
+    font-size: 13px;
+}
+
+#menusesion ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#menusesion li {
+    float:left;
+}
+
+#menusesion a {
+    color: #DFDFDF;
+    padding: 13px;
+    display:block;
+    transition: all 0.2s;
+}
+
+#menusesion a:hover {
+    background-color: #037a7b;
+}
+
+#menusesion a img {
+    height: 60px;
+    transition: all 0.2s;
+}
+
+#menusesion li.expandible {
+    direction: rtl;
+}
+
+#menusesion li.expandible > ul {
+    display: none;
+    background:#078081;
+    transition: all 0.2s;
+}
+
+#menusesion li.expandible > ul > li {
+    transition: all 0.2s;
+    float: none;
+}
+
+#menusesion li.expandible:hover > ul {
+    display: block;
+    transition: all 0.2s;
+    position: fixed;
+    top: 90px;
+    /*width: 160px;*/
+    float: none;
+}
+
+#menusesion li.expandible:hover > ul > li > a {
+    padding: 10px;
+}
+
+#cabezal.scroll {
+    height: 50px;
+    transition: all 0.2s;
+}
+
+#cabezal.scroll > #titulo a {
+    padding: 6px 15px 8px;
+    transition: all 0.2s;
+}
+
+#cabezal.scroll > #menuprincipal a {
+    padding: 15px 15px 15px;
+    transition: all 0.2s;
+}
+
+#cabezal.scroll > #menusesion a {
+    padding: 8px;
+    transition: all 0.2s;
+}
+#cabezal > #menusesion span {
+    display: block;
+    padding: 16px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+#cabezal > div#menusesion > ul > li > a > i {
+    font-size: 64px;
+    transition: all 0.2s;
+}
+
+#cabezal.scroll > div#menusesion > ul > li > a > i {
+    font-size: 35px;
+    transition: all 0.2s;
+}
+
+#cabezal.scroll > #menusesion li.expandible:hover > ul {
+    top: 50px;
+}
+
+#cabezal.scroll > #menuprincipal li.expandible:hover > ul {
+    top: 50px;
+}
+
+#cuerpo {
+    min-height: calc(100% - 25px);
+    /*display: flex;*/
+    width: 1000px;
+    margin: 10px auto 0;
+}
+
+.bloque {
+    background: rgba(230, 230, 230, 0.8);
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px 2px #AAA;
+    margin: 0 0 10px 0;
+}
+
+.bloque_transparente {
+    margin: 0 0 10px 0;
+}
+
+.bloque_transparente .bloque_titulo {
+    padding: 0 !important;
+}
+
+.bloque_transparente .bloque_contenido  {
+    padding: 0 !important;
+}
+
+.bloque_titulo {
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 1px #A9A9A9;
+    padding: 10px;
+}
+
+.bloque_contenido {
+    /* display: table; */
+    padding: 10px;
+}
+
+.lateral {
+    width:230px;
+    /*float: left;*/
+}
+
+.lateral .bloque_titulo {
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+}
+
+.lateral .bloque_contenido {
+}
+
+#bloques_izq {
+    margin: 0 10px 0 0;
+}
+
+#bloques_der {
+    margin: 0 0 0 10px;
+}
+
+#bloques_sup {
+    width: 1000px;
+}
+
+#bloques_sup .bloque {
+}
+
+#bloques_inf {
+    width: 1000px;
+}
+
+#bloques_inf .bloque {
+    width: 1000px;
+}
+
+#contenedor_cen {
+    display: flex;
+}
+
+#contenedor_pri {
+    width: 1000px;
+}
+
+#bloque_pri {
+    /*float: left;
+    width: 1000px;*/
+}
+
+#bloques_pri {
+    /*float: left;
+    width: 1000px;*/
+}
+
+.reducido_pri {
+    width:760px !important;
+}
+
+.masreducido_pri {
+    width: 520px !important;
+}
+
+#pie {
+    width:100%;
+    height: 90px;
+    background-color: #35af91;
+/*    background: linear-gradient(top, #FA0000 0%,#990000 100%);
+    background: -webkit-linear-gradient(top, #FA0000 0%,#990000 100%);
+    background: -o-linear-gradient(top, #FA0000 0%,#990000 100%);
+    background: -moz-linear-gradient(top, #FA0000 0%,#990000 100%);*/
+    /*position:fixed;
+    bottom:0;
+    z-index: 100;*/
+    font-weight: bold;
+    color:white;
+}
+
+#menuinferior {
+    display: inline-flex;
+    text-transform: uppercase;
+}
+
+#menuinferior a {
+    display: block;
+    padding: 10px 15px 14px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#menuinferior a:hover {
+    background-color: #212e36;
+}
+
+#menulocalizacion {
+    float:right;
+    margin: 0 0 0 25px;
+    color: white;
+    text-transform: capitalize;
+}
+
+#menulocalizacion ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+}
+
+#menulocalizacion li {
+    float:left;
+}
+
+#menulocalizacion a {
+    color: #DFDFDF;
+    padding: 12px;
+    display:block;
+    float: left;
+    transition: all 0.2s;
+}
+
+#menulocalizacion a:hover {
+    background-color: #037a7b;
+}
+
+#resumen {
+    padding: 19px;
+    text-align: center;
+    background-color: #020106;
+    height: 17px
+}

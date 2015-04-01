@@ -1,0 +1,224 @@
+pordefecto:
+    version:
+        numero: "0.1"
+    entorno:
+        url: "http://localhost:3000/"
+    servidor:
+        puerto: 3000
+        entorno_rails: 'development'
+    preferencias:
+        titulo: 'cuman&aacute; web services'
+        eslogan: ''
+        favicon_src: ''
+        logo_src: ''
+        descripcion: ''
+        etiquetas: 'dominios, registro de dominios, hospedaje web, alojamiento web, hosting, web hosting'
+        resumen: '<!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+                    <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+                        &copy;
+                    </span>
+                    <!--[if lte IE 8]></span><![endif]-->
+                    2015 cuman&aacute; web services'
+                    
+        roles:
+            - nombre: usuario
+              
+            - nombre: administrador
+              
+
+        parametros_por_pais:
+            - nombre: Venezuela
+              codigo: ve
+              moneda: vef 
+              entidades_federales:
+                  - nombre: Amazonas
+                    codigo: am
+                  - nombre: Anzoátegui
+                    codigo: an
+                  - nombre: Apure
+                    codigo: ap
+                  - nombre: Aragua
+                    codigo: ar
+                  - nombre: Barinas
+                    codigo: ba
+                  - nombre: Bolívar
+                    codigo: bo
+                  - nombre: Carabobo
+                    codigo: ca
+                  - nombre: Cojedes
+                    codigo: co
+                  - nombre: Delta Amacuro
+                    codigo: da
+                  - nombre: Dependencias Federales
+                    codigo: df
+                  - nombre: Distrito Capital
+                    codigo: dc
+                  - nombre: Falcón
+                    codigo: fa
+                  - nombre: Guarico
+                    codigo: gu
+                  - nombre: Lara
+                    codigo: la
+                  - nombre: Mérida
+                    codigo: me
+                  - nombre: Miranda
+                    codigo: mi
+                  - nombre: Monagas
+                    codigo: mo
+                    localidades:
+                        - nombre: Maturín
+                          codigo: ma
+                  - nombre: Nueva Esparta
+                    codigo: ne
+                  - nombre: Portuguesa
+                    codigo: po
+                  - nombre: Sucre
+                    codigo: su
+                    localidades:
+                        - nombre: Cumaná
+                          codigo: cu
+                        - nombre: Carupano
+                          codigo: ca
+                  - nombre: Táchira
+                    codigo: ta
+                  - nombre: Trujillo
+                    codigo: tr
+                  - nombre: Vargas
+                    codigo: va
+                  - nombre: Yaracuy
+                    codigo: ya
+                  - nombre: Zulia
+                    codigo: zu
+              documentos_identidad:
+                  - categoria: V
+                    modelos:
+                        - persona
+                        - organizacion
+                  - categoria: E
+                    modelos:
+                        - persona
+                        - organizacion
+                  - categoria: J
+                    modelos:
+                        - organizacion
+                  - categoria: G
+                    modelos:
+                        - organizacion
+                  - categoria: P
+                    modelos:
+                        - persona
+              organizaciones:
+                - nombre: Firma personal
+                  codigo: fp
+                - nombre: Cooperativa
+                  codigo: co
+                - nombre: Empresa
+                  codigo: em
+                - nombre: Gubernamental
+                  codigo: gu
+                - nombre: Sin animo de lucro
+                  codigo: sl
+        
+        monedas:
+            - codigo: btc
+              nombre: Bitcoin
+              simbolo: BTC
+              conversion: 0.00004631
+            - codigo: vef
+              nombre: Bolívar
+              simbolo: Bs.
+              conversion: 1
+              delimitador: '.'
+              separador: ','
+            - codigo: usd
+              nombre: 'Dolar estadounidense'
+              simbolo: $
+              conversion: 0.01
+            - codigo: eur
+              nombre: Euro
+              simbolo: €
+              conversion: 0.00883377
+              
+        planes_dominios:
+            - nombre: com
+              descripcion: ''
+              pais: int
+              precio_anual: 1500
+            - nombre: net
+              descripcion: ''
+              pais: int
+              precio_anual: 1500
+            - nombre: org
+              descripcion: ''
+              pais: int
+              precio_anual: 1500
+            - nombre: com.ve
+              descripcion: ''
+              pais: ve
+              precio_anual: 150
+            - nombre: net.ve
+              descripcion: ''
+              pais: ve
+              precio_anual: 150
+            - nombre: org.ve
+              descripcion: ''
+              pais: ve
+              precio_anual: 150
+            
+        planes_hospedaje:
+            - nombre: inicio
+              espacio: 256
+              precio_mensual: 100
+              precio_anual: 1000
+            - nombre: personal
+              espacio: 512
+              precio_mensual: 175
+              precio_anual: 1750
+            - nombre: intermedio
+              espacio: 1024
+              precio_mensual: 300
+              precio_anual: 3000
+            - nombre: profesional
+              espacio: 2048
+              descripcion: ''
+              precio_mensual: 500
+              precio_anual: 5000
+            - nombre: empresarial
+              espacio: 4096
+              descripcion: ''
+              precio_mensual: 800
+              precio_anual: 8000
+        
+        metodos_pago:
+            - tipo: banco
+              nombre: Deposito o transferencia bancaria
+              cuentas:
+                  - empresa: Banco de Venezuela
+                    logo: bdv.png
+                    nro: 01234567890123456789
+                    tipo: ahorros
+                    titular: Bar Foo
+                    monedas:
+                        - vef
+                  - empresa: Banesco
+                    logo: banesco.png
+                    nro: 98765432109876543210
+                    tipo: ahorros
+                    titular: Foo Bar
+                    monedas:
+                        - vef
+#            - tipo: paypal
+#              id: ''
+#              monedas:
+#                  - usd
+#                  - eur
+#            - tipo: bitcoin
+#              cartera: ''
+#            - tipo: litecoin
+#              cartera: ''
+            
+development:
+    
+production:
+    
+test:

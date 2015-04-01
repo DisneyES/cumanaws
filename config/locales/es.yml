@@ -1,0 +1,103 @@
+es:
+    date:
+        order:
+            - "day"
+            - "month"
+            - "year"
+        formats:
+            default: "%d/%m/%Y"
+            long: "%A, %d de %B de %Y"
+            short: "%d de %b"
+        month_names:
+            -
+            - enero
+            - febrero
+            - marzo
+            - abril
+            - mayo
+            - junio
+            - julio
+            - agosto
+            - septiembre
+            - octubre
+            - noviembre
+            - diciembre
+        abbr_month_names:
+            -
+            - ene
+            - feb
+            - mar
+            - abr
+            - may
+            - jun
+            - jul
+            - ago
+            - sep
+            - oct
+            - nov
+            - dic
+        prompts:
+            day: día
+            hour: hora
+            minute: minutos
+            month: mes
+            second: segundos
+            year: año
+            
+    mongoid:
+        attributes:
+            cuenta:
+                login: 'Nombre de usuario'
+                username: 'Nombre de usuario'
+                password: 'Contraseña'
+                password_confirmation: 'Confirmar contraseña'
+                current_password: 'Contraseña actual'
+                doc_id: 'Documento de identidad'
+                email: 'Correo electrónico'
+                telefono: 'Teléfono'
+                direccion: 'Dirección'
+                organizacion: 'Represento a una organización'
+                terminos: 'Acepto los terminos y condiciones'
+            doc_id:
+                doc_id: 'Documento de identidad'
+            email:
+                email: 'Correo electrónico'
+            telefono:
+                telefono: 'Teléfono'
+            persona:
+                direccion: 'Dirección'
+            organizacion:
+                direccion: 'Dirección'
+            recarga:
+                metodo_pago: 'Metodo de pago'
+                
+        errors:
+            messages:
+                blank: 'Este campo es requerido'
+                invalid_options:
+                    message: "Invalid option :%{invalid} provided to relation :%{name}."
+                    summary: "Mongoid checks the options that are passed to the relation
+                    macros to ensure that no ill side effects occur by letting something
+                    slip by."
+                    resolution: "Valid options are: %{valid}, make sure these are the ones
+                    you are using."
+                no_session_config:
+                    message: "No configuration could be found for a session named
+                    '%{name}'."
+                    summary: "When attempting to create the new session, Mongoid could
+                    not find a session configuration for the name: '%{name}'. This is
+                    necessary in order to know the host, port, and options needed
+                    to connect."
+                    resolution: "Double check your mongoid.yml to make sure under the
+                    sessions key that a configuration exists for '%{name}'. If you
+                    have set the configuration programatically, ensure that '%{name}'
+                    exists in the configuration hash."
+            models:
+                cuenta:
+                    attributes:
+                        username:
+                            blank: 'este campo es requerido'
+                        password:
+                            blank: 'este campo es requerido'
+                        terminos:
+                            accepted: 'Debes aceptar los terminos y condiciones'

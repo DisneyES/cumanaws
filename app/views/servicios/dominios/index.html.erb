@@ -1,0 +1,48 @@
+<% content_for :titulo_pagina do %>servicios > dominios<% end %>
+<% @bloques_pri=[] %>
+<% @bloques_pri << {:titulo => 'buscador de dominios', :contenido => capture do %>
+buscador de nombres de dominios disponibles.
+<div style="text-align:center">
+    <form method="post" action="<%=servicios_dominios_path %>">
+      <input type="text" name="nombre" <%= defined?(nombre) ? 'value='+nombre+'' : '' %> />
+      <b>.</b>
+      <select name="dominio">
+          <% AppConfig.preferencias.planes_dominios.each do |dom| %>
+            <option <%= defined?(dominio) && dominio == dom['nombre'] ? 'selected' : '' %> ><%= dom['nombre'] %></option>
+          <% end %>
+      </select>
+      <input type="submit" name="buscar_dominio" value="buscar" />
+    </form>
+</div>
+<% if defined?(nombre) && defined?(dominio) %>
+  <div>
+    <div style="background-color: #EEE;margin: 10px;padding: 10px;border-radius: 10px">
+      El dominio <b><%=nombre%>.<%=dominio%></b> <%=  disponible ? '' : 'no' %> se encuentra disponible. <%=disponible ? '| <b>'.html_safe+link_to('adquirir', agregar_dominio_al_carrito_path('dominio',dominio.gsub('.','_'),nombre))+'</b>'.html_safe : '' %>
+    </div>
+    <% unless otros.empty? %>
+      <div>
+        También puedes escoger alguna de las siguientes opciones:
+        <% otros.each do |otro| %>
+          <div style="background-color: #EEE;margin: 10px;padding: 10px;border-radius: 10px">
+            El dominio <b><%=otro[:nombre]%>.<%=otro[:dominio]%></b> se encuentra disponible. | <b><%=link_to 'adquirir', agregar_dominio_al_carrito_path('dominio',otro[:dominio].gsub('.','_'),otro[:nombre]) %></b>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<% end } %>
+
+<% @bloques_pri << {:titulo => 'información de planes', :contenido => capture do %>
+  <div style="display: inline-block">
+  <% AppConfig.preferencias.planes_dominios.each do |dom| %>
+    <div style="background-color: #EEE;margin: 5px;padding: 10px;border-radius: 10px; width: 460px; float: left">
+      <h2>.<%= dom['nombre'] %></h2>
+      <div>
+        Territorio: <b><%= dom['pais'] == 'int' ? 'Internacional' : AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==dom['pais']}[0]['nombre'] %></b><br/>
+        Precio anual: <b><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*dom['precio_anual'], :unit => AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['simbolo']+' ', separator: ",", delimiter: "." ) %></b>
+    </div>
+    </div>
+  <% end %>
+  </div>
+<% end } %>
