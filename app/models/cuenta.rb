@@ -75,6 +75,9 @@ class Cuenta
   field :pais, type: String, default: 've'
   field :rol, type: String, default: 'usuario'
   
+  field :borrado, type: Boolean
+  field :suspendido, type: Boolean
+  
   validates_presence_of :username
   validates_length_of :username, minimum: 5, maximum: 20, allow_blank: true
   validates_format_of :username, :with => /\A[A-Za-z0-9_\-.]+\z/i, allow_blank: true, message: 'posee caracteres invalidos'

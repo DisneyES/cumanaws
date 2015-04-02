@@ -1,0 +1,60 @@
+<% content_for :titulo_pagina do %>administración > cuentas de usuario<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > cuentas de usuario<% end %>
+
+<style>
+  #lista-cuentas {
+
+  }
+  .cuenta {
+    display: inline-flex;
+  }
+  .cuenta-usuario {
+    font-weight: bold;
+    background-color: #eee;
+    width: 270px;
+    padding: 10px;
+    margin: 2px;
+  }
+  .cuenta-rol {
+    background-color: #eee;
+    float: left;
+    width: 270px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 2px;
+  }
+  .cuenta-ultimasesion {
+    background-color: #eee;
+    float: left;
+    width: 270px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 2px;
+  }
+  .cuenta-editar {
+    background-color: #eee;
+    text-align: center;
+    width: 74px;
+    padding: 10px;
+    margin: 2px;
+  }
+</style>
+
+<% unless cuentas.empty? %>
+  <div id="cabezal-cuentas">
+    <div style="background-color: #fff; border-top-left-radius: 10px;float: left; width: 270px; text-align: center; font-weight: bold; padding: 5px 10px; margin: 2px">nombre de usuario</div>
+    <div style="background-color: #fff;float: left; width: 270px; text-align: center; font-weight: bold; padding: 5px 10px; margin: 2px">rol</div>
+    <div style="background-color: #fff;float: left; width: 270px; text-align: center; font-weight: bold; padding: 5px 10px; margin: 2px">ultima sesión</div>
+    <div style="background-color: #fff; border-top-right-radius: 10px; float: left; width: 74px; text-align: center; padding: 5px 10px; margin: 2px">...</div>
+  </div>
+  <div id="lista-cuentas">
+    <% cuentas.each do |cuenta| %>
+      <div class="cuenta">
+        <div class="cuenta-usuario"><%= cuenta[:username] %></div>
+        <div class="cuenta-rol"><%= cuenta[:rol] %></div>
+        <div class="cuenta-ultimasesion"><%= cuenta[:last_sign_in_at] %></div>
+        <div class="cuenta-editar"><%= link_to 'editar', administracion_editar_cuenta_path(cuenta[:_id]) %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

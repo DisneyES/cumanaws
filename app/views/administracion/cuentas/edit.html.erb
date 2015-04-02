@@ -1,0 +1,16 @@
+<% content_for :titulo_pagina do %>administración > cuentas de usuario > editar<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'cuentas de usuario' , administracion_cuentas_path %> > editar<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  administracion_editar_cuenta_path(resource[:_id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <div style="font-weight: bold; font-size: 16px">Cambiar contraseña <span style="font-weight: normal">(dejar en blanco para conservar igual)</span></div>
+  <%= form_campo f, :password, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <%= form_campo f, :password_confirmation, 'password_field', autocomplete: "off", placeholder: '********' %>
+  <br/>
+  <div style="font-weight: bold; font-size: 16px">Editar rol</div>
+  <%= form_campo f, :rol, 'select', :opciones => [['seleccionar',''],'usuario','moderador','administrador'] %>
+  <br/>
+  <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "editar cuenta", data: { disable_with: 'enviando...' } %></div>
+<% end %>

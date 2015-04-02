@@ -99,6 +99,8 @@ Rails.application.routes.draw do
   
   get 'administracion', controller: 'administracion', action: 'index', as: :administracion
   get 'administracion/cuentas', controller: 'administracion/cuentas', action: 'index', as: :administracion_cuentas
+  get 'administracion/editarcuenta/:id', controller: 'administracion/cuentas', action: 'edit', as: :administracion_editar_cuenta
+  put 'administracion/editarcuenta/:id', controller: 'administracion/cuentas', action: 'update'
   get 'administracion/pagos', controller: 'administracion/pagos', action: 'index', as: :administracion_pagos
   get 'administracion/compras', controller: 'administracion/compras', action: 'index', as: :administracion_compras
   get 'administracion/planesdominios', controller: 'administracion/planes_dominios', action: 'index', as: :administracion_planes_dominios
