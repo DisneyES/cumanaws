@@ -8,6 +8,8 @@
     <title><%= yield(:titulo_pagina).present? ? titulo+' | '+yield(:titulo_pagina) : titulo %></title>
     <% if favicon_src %>
       <link rel="shortcut icon" href="<%= favicon_src %>" />
+    <% else %>
+      <link rel="shortcut icon" href="favicon.png" />
     <% end %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -20,7 +22,12 @@
         <% if logo_src %>
           <div id="logo"><img src="<%= logo_src %>" alt="cuman&aacute;ws" /></div>
         <% else %>
-          <div id="titulo"><%= link_to 'cuman&aacute;ws'.html_safe, root_path %></div>
+          <div id="titulo">
+            <%= link_to root_path do %>
+              <%=  image_tag 'solo-logo.png', :class => 'logo' %>
+              <%=  image_tag 'cumanaws.png', :class => 'titulo' %>
+            <% end %>
+          </div>
         <% end %>
         <% if eslogan %>
           <div id="eslogan"><%= eslogan %></div>
