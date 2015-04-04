@@ -1,7 +1,7 @@
 class CuentaBancaria
   include Mongoid::CumanawsBase
   
-  field :empresa, type: String
+  belongs_to :banco
   field :nro, type: String
   field :tipo, type: String
   field :titular, type: String

@@ -101,7 +101,9 @@ Rails.application.routes.draw do
   get 'administracion/cuentas', controller: 'administracion/cuentas', action: 'index', as: :administracion_cuentas
   get 'administracion/editarcuenta/:id', controller: 'administracion/cuentas', action: 'edit', as: :administracion_editar_cuenta
   put 'administracion/editarcuenta/:id', controller: 'administracion/cuentas', action: 'update'
-  get 'administracion/pagos', controller: 'administracion/pagos', action: 'index', as: :administracion_pagos
+  get 'administracion/recargas', controller: 'administracion/recargas', action: 'index', as: :administracion_recargas
+  get 'administracion/procesarrecarga/:id', controller: 'administracion/recargas', action: 'edit', as: :administracion_procesar_recarga
+  put 'administracion/procesarrecarga/:id', controller: 'administracion/recargas', action: 'update'
   get 'administracion/compras', controller: 'administracion/compras', action: 'index', as: :administracion_compras
   get 'administracion/planesdominios', controller: 'administracion/planes_dominios', action: 'index', as: :administracion_planes_dominios
   get 'administracion/planeshospedaje', controller: 'administracion/planes_hospedaje', action: 'index', as: :administracion_planes_hospedaje

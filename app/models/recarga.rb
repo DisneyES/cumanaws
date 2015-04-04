@@ -1,7 +1,7 @@
 class Recarga
   include Mongoid::CumanawsBase
   
-  belongs_to :cuenta, default: $cuenta
+  belongs_to :cuenta
   
   attr_accessor :ent_cta_bancaria, :ent_monto
   
@@ -13,7 +13,8 @@ class Recarga
   field :fecha, type: DateTime
   field :observaciones, type: String
   field :puntos, type: Integer
-  field :estado, type: Integer
+  field :aceptado, type: Boolean
+  field :rechazado, type: Boolean
   
   validates_presence_of :metodo_pago
   validates_presence_of :moneda
@@ -29,23 +30,56 @@ class Recarga
   
   before_create :insertar_datos
   
+  after_initialize :para_procesar
+  
+  before_update :procesar
+  
   protected
     
   def insertar_datos
     self.monto = ent_monto.gsub(',', '.').to_f
     self.puntos = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
-    
-#    unless self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cuenta_bancaria).first
-#      self.cuenta_bancaria = CuentaBancaria.new
-#      cta = AppConfig.preferencias.metodos_pago.select{|k| k['tipo'] == 'banco' }[0]['cuentas'].select{|k| k['nro'] == ent_cuenta_bancaria}[0]
-#      self.cuenta_bancaria.empresa = cta['empresa']
-#      self.cuenta_bancaria.nro = cta['nro']
-#      self.cuenta_bancaria.tipo = cta['tipo']
-#      self.cuenta_bancaria.titular = cta['titular']
-#      self.cuenta_bancaria.monedas = cta['monedas']
-#    end
-    
-    
+    if self.metodo_pago == 'banco'
+      self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cta_bancaria).first
+    end
+  end
+  
+  def para_procesar
+    if self.cuenta_bancaria && self.monto
+      self.ent_cta_bancaria = self.cuenta_bancaria.nro
+      self.ent_monto = self.monto.gsub.to_s.gsub('.', ',')
+    end
+  end
+  
+  def procesar
+    self.monto = ent_monto.gsub(',', '.').to_f
+    self.puntos = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
+    if self.metodo_pago == 'banco'
+      self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cta_bancaria).first
+    end
+    puntaje = Puntaje.where(:cuenta_id => self.cuenta._id).first
+    fondos = Fondo.where(:moneda => self.moneda).first
+    puntaje.espera = puntaje.espera - self.puntos
+    fondos.espera = fondos.espera - self.monto
+    if self.aceptado
+      puntaje.activo = puntaje.activo + self.puntos
+      fondos.activo = fondos.activo + self.monto
+      movimiento_puntaje = MovimientoPuntaje.new
+      movimiento_puntaje.cuenta = self.cuenta
+      movimiento_puntaje.recarga = self
+      movimiento_puntaje.puntos = self.puntos
+      movimiento_puntaje.tipo = true
+      movimiento_puntaje.motivo = 'recarga'
+      movimiento_puntaje.save
+      movimiento_fondo = MovimientoFondo.new
+      movimiento_fondo.recarga = self
+      movimiento_fondo.tipo = true
+      movimiento_fondo.monto = self.monto
+      movimiento_fondo.motivo = 'recarga'
+      movimiento_fondo.save
+    end
+    puntaje.save
+    fondos.save
   end
   
 end

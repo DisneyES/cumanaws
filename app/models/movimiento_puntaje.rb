@@ -8,7 +8,7 @@ class MovimientoPuntaje
   field :puntos, type: Integer
   field :tipo, type: Boolean
   field :descripcion, type: String
-  field :motivo, type: Integet
+  field :motivo, type: String
   field :cancelado_desde, type: Datetime
   field :cancelado_hasta, type: Datetime
   
