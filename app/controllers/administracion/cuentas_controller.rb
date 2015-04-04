@@ -22,10 +22,13 @@ class Administracion::CuentasController < ApplicationController
       params[:cuenta].delete(:password)
       params[:cuenta].delete(:password_confirmation) if params[:cuenta][:password_confirmation].blank?
     end
+    if params[:cuenta][:suspendido] == '0'
+      params[:cuenta].delete(:suspendido)
+    end
     if resource.update_attributes(params[:cuenta])
       respond_with resource do |format|
-          format.json {render :json => { _exito: true, _mensaje: 'Cuenta editada exitosamente.', _ubicacion: administracion_cuentas_path } }
-        end
+        format.json {render :json => { _exito: true, _mensaje: 'Cuenta editada exitosamente.', _ubicacion: administracion_cuentas_path } }
+      end
     else
       campos={}
       resource.errors.each do |error|

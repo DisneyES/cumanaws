@@ -152,9 +152,9 @@ class Cuenta
 #    arr_telefono = telefono.split('-')
 #    self.persona.telefonos = [ Telefono.new(codigo: arr_telefono[0], numero: arr_telefono[1]) ]
   end
-  
-  def editar_persona
-    
-  end
+#  
+#  def editar_persona
+#    
+#  end
   
 end

@@ -9,7 +9,7 @@ pordefecto:
     preferencias:
         titulo: 'cuman&aacute; web services'
         eslogan: ''
-        favicon_src: ''
+        favicon_src: 'favicon.png'
         logo_src: ''
         descripcion: ''
         etiquetas: 'dominios, registro de dominios, hospedaje web, alojamiento web, hosting, web hosting'
@@ -195,14 +195,14 @@ pordefecto:
               cuentas:
                   - empresa: Banco de Venezuela
                     logo: bdv.png
-                    nro: 01234567890123456789
+                    nro: '01234567890123456789'
                     tipo: ahorros
                     titular: Bar Foo
                     monedas:
                         - vef
                   - empresa: Banesco
                     logo: banesco.png
-                    nro: 98765432109876543210
+                    nro: '98765432109876543210'
                     tipo: ahorros
                     titular: Foo Bar
                     monedas:
