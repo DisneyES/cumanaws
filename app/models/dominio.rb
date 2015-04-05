@@ -17,8 +17,7 @@ class Dominio
 $TTL 3600
 '+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  SOA   ns.cumanaws.net.ve. dns@cumanaws.net.ve. ( '+DateTime.now.strftime("%Y%m%d%H%M%S")+' 3H 1H 1W 1D )
                                                   IN  NS    ns.cumanaws.net.ve.
-'+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  A     cumanaws.net.ve
-; www                                               IN  CNAME '+self.nombre+'.'+self.plan_dominio[:dominio]+'.'
+'+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  CNAME cumanaws.net.ve.'
     zona.close
     
     # Agregar la zona a la configuración del servidor DNS
@@ -27,6 +26,8 @@ $TTL 3600
     named.close
     
     # Reiniciar servidor DNS
+    # service bind9 restart
+    system("service bind9 restart")
     
   end
   

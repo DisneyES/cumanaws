@@ -24,7 +24,6 @@ class Administracion::ComprasController < ApplicationController
       params[:compra][:rechazado] = true
     end
     if resource.update_attributes(params[:compra])
-      
       respond_with resource do |format|
         format.json {render :json => { _exito: true, _mensaje: 'Compra procesada exitosamente.', _ubicacion: administracion_compras_path } }
       end

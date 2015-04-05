@@ -13,21 +13,25 @@
 
 start() {
   log_begin_msg "Iniciando cumanaws"
+  /opt/cumanaws/scripts/rails server -d
   log_end_msg 0
 }
 
 stop() {
-  log_begin_msg "Reiniciando cumanaws"
+  log_begin_msg "Deteniendo cumanaws"
+  start-stop-daemon -p /opt/cumanaws/tmp/pids/server.pid --stop
   log_end_msg 0
 }
 
 restart() {
-  log_begin_msg "Deteniendo cumanaws"
+  log_begin_msg "Reiniciando cumanaws"
+  stop
+  start
   log_end_msg 0
 }
 
 status() {
-  
+  start-stop-daemon -p /opt/cumanaws/tmp/pids/server.pid --status
 }
 
 case "$1" in
