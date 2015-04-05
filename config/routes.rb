@@ -76,11 +76,12 @@ Rails.application.routes.draw do
     
     delete 'eliminarcuenta', to: "devise/registrations#destroy" #, as: :edit_cuenta_registration
     
-    get 'validarpersonaef/:ef' , to: 'registrations#validar_persona_ef'
+    get 'crearcuenta/validarpais/:pais' , to: 'registrations#validar_pais'
+    get 'crearcuenta/validaref/:pais/:ef' , to: 'registrations#validar_ef'
     
-    get 'validarorganizacion/:representa' , to: 'registrations#validar_organizacion'
+    #get 'validarorganizacion/:representa' , to: 'registrations#validar_organizacion'
     
-    get 'validarorganizacionef/:ef' , to: 'registrations#validar_organizacion_ef'
+    #get 'validarorganizacionef/:ef' , to: 'registrations#validar_organizacion_ef'
     
     get "recuperarcontrasenia", to: "devise/passwords#new", as: :new_cuenta_password
     post "recuperarcontrasenia", to: "devise/passwords#create", as: :cuenta_password
@@ -105,6 +106,8 @@ Rails.application.routes.draw do
   get 'administracion/procesarrecarga/:id', controller: 'administracion/recargas', action: 'edit', as: :administracion_procesar_recarga
   put 'administracion/procesarrecarga/:id', controller: 'administracion/recargas', action: 'update'
   get 'administracion/compras', controller: 'administracion/compras', action: 'index', as: :administracion_compras
+  get 'administracion/procesarcompra/:id', controller: 'administracion/compras', action: 'edit', as: :administracion_procesar_compra
+  put 'administracion/procesarcompra/:id', controller: 'administracion/compras', action: 'update'
   get 'administracion/planesdominios', controller: 'administracion/planes_dominios', action: 'index', as: :administracion_planes_dominios
   get 'administracion/planeshospedaje', controller: 'administracion/planes_hospedaje', action: 'index', as: :administracion_planes_hospedaje
   get 'administracion/cuentasbancarias', controller: 'administracion/cuentas_bancarias', action: 'index', as: :administracion_cuentas_bancarias

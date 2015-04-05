@@ -29,40 +29,164 @@ pordefecto:
         parametros_por_pais:
             - nombre: Venezuela
               codigo: ve
+              idioma: es
               moneda: vef 
               entidades_federales:
                   - nombre: Amazonas
                     codigo: am
+                    localidades:
+                        - nombre: Puerto Ayacucho
+                          codigo: pa
                   - nombre: Anzoátegui
                     codigo: an
+                    localidades:
+                        - nombre: Anaco
+                          codigo: an
+                        - nombre: Barcelona
+                          codigo: ba
+                        - nombre: El Tigre
+                          codigo: ti
+                        - nombre: Puerto la Cruz
+                          codigo: pc
                   - nombre: Apure
                     codigo: ap
+                    localidades:
+                        - nombre: Guasdualito
+                          codigo: gu
+                        - nombre: San Fernando de Apure
+                          codigo: sf
                   - nombre: Aragua
                     codigo: ar
+                    localidades:
+                        - nombre: Cagua
+                          codigo: ca
+                        - nombre: El Limón
+                          codigo: li
+                        - nombre: La Victoria
+                          codigo: vi
+                        - nombre: Maracay
+                          codigo: ma
+                        - nombre: Santa Rita
+                          codigo: sr
+                        - nombre: Turmero
+                          codigo: tu
+                        - nombre: Villa de Cura
+                          codigo: vc
                   - nombre: Barinas
                     codigo: ba
+                    localidades:
+                        - nombre: Barinas
+                          codigo: ba
                   - nombre: Bolívar
                     codigo: bo
+                    localidades:
+                        - nombre: Caicara del Orinoco
+                          codigo: co
+                        - nombre: Ciudad Bolívar
+                          codigo: cb
+                        - nombre: Ciudad Guayana
+                          codigo: cg
+                        - nombre: Upata
+                          codigo: up
                   - nombre: Carabobo
                     codigo: ca
+                    localidades:
+                        - nombre: Guacara
+                          codigo: gu
+                        - nombre: Güigüe
+                          codigo: gi
+                        - nombre: Los Guayos
+                          codigo: ga
+                        - nombre: Mariara
+                          codigo: ma
+                        - nombre: Naguanagua
+                          codigo: na
+                        - nombre: Puerto Cabello
+                          codigo: pc
+                        - nombre: Tocuyito
+                          codigo: to
+                        - nombre: Valencia
+                          codigo: va
                   - nombre: Cojedes
                     codigo: co
+                    localidades:
+                        - nombre: San Carlos
+                          codigo: sc
+                        - nombre: Tinaquillo
+                          codigo: ti
                   - nombre: Delta Amacuro
                     codigo: da
+                    localidades:
+                        - nombre: Tucupita
+                          codigo: tu
                   - nombre: Dependencias Federales
                     codigo: df
                   - nombre: Distrito Capital
                     codigo: dc
+                    localidades:
+                        - nombre: Caracas
+                          codigo: ca
                   - nombre: Falcón
                     codigo: fa
+                    localidades:
+                        - nombre: Coro
+                          codigo: co
+                        - nombre: Punto Fijo
+                          codigo: pf
                   - nombre: Guarico
                     codigo: gu
+                    localidades:
+                        - nombre: Calabozo
+                          codigo: ca
+                        - nombre: San Juan de Los Morros
+                          codigo: sj
+                        - nombre: Valle de la Pascua
+                          codigo: vp
+                        - nombre: Zaraza
+                          codigo: za
                   - nombre: Lara
                     codigo: la
+                    localidades:
+                        - nombre: Barquisimeto
+                          codigo: ba
+                        - nombre: Cabudare
+                          codigo: ca
+                        - nombre: Carora
+                          codigo: cr
+                        - nombre: El Tocuyo
+                          codigo: to
+                        - nombre: Quíbor
+                          codigo: qu
                   - nombre: Mérida
                     codigo: me
+                    localidades:
+                        - nombre: Ejido
+                          codigo: ej
+                        - nombre: El Vigía
+                          codigo: vi
+                        - nombre: Mérida
+                          codigo: me
+                        - nombre: Tovar
+                          codigo: to
                   - nombre: Miranda
                     codigo: mi
+                    localidades:
+                        - nombre: Charallave
+                          codigo: ch
+                        - nombre: Cúa
+                          codigo: cu
+                        - nombre: Guarenas
+                          codigo: gu
+                        - nombre: Guatire
+                          codigo: ga
+                        - nombre: Los Teques
+                          codigo: te
+                        - nombre: Ocumare del Tuy
+                          codigo: ot
+                        - nombre: Santa Lucía
+                          codigo: sl
+                        - nombre: Santa Teresa del Tuy
+                          codigo: st
                   - nombre: Monagas
                     codigo: mo
                     localidades:
@@ -70,54 +194,63 @@ pordefecto:
                           codigo: ma
                   - nombre: Nueva Esparta
                     codigo: ne
+                    localidades:
+                        - nombre: Porlamar
+                          codigo: po
                   - nombre: Portuguesa
                     codigo: po
+                    localidades:
+                        - nombre: Acarigua
+                          codigo: ac
+                        - nombre: Araure
+                          codigo: ar
+                        - nombre: Guanare
+                          codigo: gu
                   - nombre: Sucre
                     codigo: su
                     localidades:
                         - nombre: Cumaná
                           codigo: cu
-                        - nombre: Carupano
+                        - nombre: Carúpano
                           codigo: ca
                   - nombre: Táchira
                     codigo: ta
+                    localidades:
+                        - nombre: San Cristóbal
+                          codigo: sc
+                        - nombre: Táriba
+                          codigo: ta
                   - nombre: Trujillo
                     codigo: tr
+                    localidades:
+                        - nombre: Valera
+                          codigo: va
                   - nombre: Vargas
                     codigo: va
                   - nombre: Yaracuy
                     codigo: ya
+                    localidades:
+                        - nombre: San Felipe
+                          codigo: sf
+                        - nombre: Yaritagua
+                          codigo: ya
                   - nombre: Zulia
                     codigo: zu
-              documentos_identidad:
-                  - categoria: V
-                    modelos:
-                        - persona
-                        - organizacion
-                  - categoria: E
-                    modelos:
-                        - persona
-                        - organizacion
-                  - categoria: J
-                    modelos:
-                        - organizacion
-                  - categoria: G
-                    modelos:
-                        - organizacion
-                  - categoria: P
-                    modelos:
-                        - persona
-              organizaciones:
-                - nombre: Firma personal
-                  codigo: fp
-                - nombre: Cooperativa
-                  codigo: co
-                - nombre: Empresa
-                  codigo: em
-                - nombre: Gubernamental
-                  codigo: gu
-                - nombre: Sin animo de lucro
-                  codigo: sl
+                    localidades:
+                        - nombre: Cabimas
+                          codigo: ca
+                        - nombre: Ciudad Ojeda
+                          codigo: co
+                        - nombre: La Concepción
+                          codigo: cn
+                        - nombre: Los Puertos de Altagracia
+                          codigo: pa
+                        - nombre: Machiques
+                          codigo: mc
+                        - nombre: Maracaibo
+                          codigo: ma
+                        - nombre: Santa Bárbara del Zulia
+                          codigo: sb
         
         monedas:
             - codigo: btc

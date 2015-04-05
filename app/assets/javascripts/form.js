@@ -6,8 +6,6 @@ function formjs(){
     
     this.constructor = function(){
         
-        
-        
         this.form=$('form[data-remote=true]');
         // Agregar eventos
         $('input[validar-con-ruta]').on('change',function(){formjs.validar_campo(this)});
@@ -37,7 +35,18 @@ function formjs(){
             $('div#campo_'+campo_id).addClass('cargando');
             $('div#campo_'+campo_id).children('.msg_error').html('cargando...');
             
-            var params=campo_valor;
+            var params='';
+            if($('#'+campo_id).attr('params')){
+                arr_params=$('#'+campo_id).attr('params').split(' ');
+                for(var i in arr_params){
+                    if($('#'+formjs.form.attr('id')+'_'+arr_params[i]).prop('value')!='')
+                        params+=$('#'+formjs.form.attr('id')+'_'+arr_params[i]).prop('value')+'/';
+                    else
+                        params+='nil/';
+                }
+            }
+            else
+                params= campo_valor ? campo_valor : 'nil' ;
             
             $.ajax({
                 url:$('#'+campo_id).attr('validar-con-ruta')+'/'+params,

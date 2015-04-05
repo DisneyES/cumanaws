@@ -52,14 +52,12 @@ es:
                 password: 'Contraseña'
                 password_confirmation: 'Confirmar contraseña'
                 current_password: 'Contraseña actual'
-                doc_id: 'Documento de identidad'
+                docid: 'Documento de identidad'
                 email: 'Correo electrónico'
                 telefono: 'Teléfono'
                 direccion: 'Dirección'
                 organizacion: 'Represento a una organización'
                 terminos: 'Acepto los terminos y condiciones'
-            doc_id:
-                doc_id: 'Documento de identidad'
             email:
                 email: 'Correo electrónico'
             telefono:

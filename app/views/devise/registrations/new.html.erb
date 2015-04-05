@@ -17,7 +17,7 @@
   <br/><div style="text-align: center; font-weight: bold; font-size: 16px">Datos personales</div>
   <%#= f.fields_for :persona do |fp| %>
     <%#= fp.fields_for :doc_ids do |fpd| %>
-      <%= form_campo f, :doc_id, 'id_field', :categorias => select_doc_id_categorias('ve','persona'), :autocomplete => "off" %>
+      <%= form_campo f, :docid, 'text_field', :autocomplete => "off", placeholder: 'V-00000000' %>
     <%# end %>
     <%= form_campo f, :nombre, 'text_field', :autocomplete => "off" %>
     <%= form_campo f, :apellidos, 'text_field', :autocomplete => "off" %>
@@ -27,7 +27,8 @@
     <%#= fp.fields_for :telefonos do |fpt|  %>
       <%= form_campo f, :telefono, 'text_field', :autocomplete => "off" %>
     <%# end %>
-    <%= form_campo f, :entidad_federal, 'select', :opciones => select_efs('ve'), 'validar-con-ruta' => 'validarpersonaef' %>
+    <%= form_campo f, :pais, 'select', :opciones => select_paises, 'validar-con-ruta' => 'crearcuenta/validarpais' %>
+    <%= form_campo f, :entidad_federal, 'select', :opciones => [], 'validar-con-ruta' => 'crearcuenta/validaref', 'params' => 'pais entidad_federal' %>
     <%= form_campo f, :localidad, 'select', :opciones => [] %>
     <%= form_campo f, :direccion, 'text_area' %>
   <%# end %>

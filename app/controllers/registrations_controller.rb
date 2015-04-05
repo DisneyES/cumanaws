@@ -2,29 +2,11 @@ class RegistrationsController < Devise::RegistrationsController
   
   def new
     build_resource({})
-#    resource.persona = Persona.new
-#    resource.persona.doc_ids << DocId.new
-#    resource.persona.emails << Email.new
-#    resource.persona.telefonos << Telefono.new
-#    organizacion = Organizacion.new
-#    organizacion.doc_ids << DocId.new
-#    organizacion.emails << Email.new
-#    organizacion.telefonos << Telefono.new
-#    resource.organizaciones << organizacion
     respond_with self.resource
   end
   
   def create
     build_resource(sign_up_params)
-#    resource.persona = Persona.new(sign_up_params[:persona_attributes])
-#    resource.persona.doc_ids << DocId.new(sign_up_params[:persona_attributes][:doc_ids_attributes][0])
-#    resource.persona.emails << Email.new(sign_up_params[:persona_attributes][:emails_attributes][0])
-#    resource.persona.telefonos << Telefono.new(sign_up_params[:persona_attributes][:telefonos_attributes][0])
-#    organizacion = Organizacion.new(sign_up_params[:organizacion_attributes])
-#    organizacion.doc_ids << DocId.new(sign_up_params[:organizacion_attributes][:doc_ids_attributes][0])
-#    organizacion.emails << Email.new(sign_up_params[:organizacion_attributes][:emails_attributes][0])
-#    organizacion.telefonos << Telefono.new(sign_up_params[:organizacion_attributes][:telefonos_attributes][0])
-#    resource.organizaciones << organizacion
     if resource.save
       yield resource if block_given?
       if resource.active_for_authentication?
@@ -100,10 +82,33 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   
-  def validar_persona_ef
-    unless AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']=='ve'}[0]['entidades_federales'].select{|k| k['codigo']==params[:ef]}[0]['localidades'].nil?
+  def validar_pais
+    unless AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==params[:pais]}[0].nil? ||
+        AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==params[:pais]}[0]['entidades_federales'].nil?
       opciones={ 'Seleccione'=>'' }
-      AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']=='ve'}[0]['entidades_federales'].select{|k| k['codigo']==params[:ef]}[0]['localidades'].each do |localidad|
+      AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==params[:pais]}[0]['entidades_federales'].each do |ef|
+        opciones.store(ef['nombre'], ef['codigo'])
+      end
+      arr={
+        _campos: {
+          entidad_federal: { _set: { opciones: opciones } }
+        }
+      }
+    else
+      arr={
+        _campos: {
+          entidad_federal: { _unset: { opciones: 1 } }
+        }
+      }
+    end
+    render :json => arr
+  end
+  
+  def validar_ef
+    unless AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==params[:pais]}[0]['entidades_federales'].select{|k| k['codigo']==params[:ef]}[0].nil? ||
+        AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==params[:pais]}[0]['entidades_federales'].select{|k| k['codigo']==params[:ef]}[0]['localidades'].nil?
+      opciones={ 'Seleccione'=>'' }
+      AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==params[:pais]}[0]['entidades_federales'].select{|k| k['codigo']==params[:ef]}[0]['localidades'].each do |localidad|
         opciones.store(localidad['nombre'], localidad['codigo'])
       end
       arr={
@@ -118,7 +123,6 @@ class RegistrationsController < Devise::RegistrationsController
         }
       }
     end
-    
     render :json => arr
   end
   

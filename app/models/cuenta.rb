@@ -31,13 +31,13 @@ class Cuenta
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable , :validatable, :trackable #, :rememberable
 
-  attr_accessor :login, :doc_id_cat, :doc_id, :nombre, :apellidos, :email, :telefono, :entidad_federal, :localidad, :direccion, :terminos
+  attr_accessor :login, :docid, :nombre, :apellidos, :email, :telefono, :pais, :entidad_federal, :localidad, :direccion, :terminos
   
   require_human_on :create
   
-  field :pais, type: String
-  
-  belongs_to :persona, autosave: true
+  has_one :persona, autosave: true  
+  has_one :puntaje, autosave: true
+  has_one :locale, autosave: true
   
   ## Database authenticatable
   field :username,            type: String, default: ""
@@ -46,10 +46,7 @@ class Cuenta
   ## Recoverable
   field :reset_password_token,   type: String
   field :reset_password_sent_at, type: Time
-  
-  #has_one :puntuacion, autosave: true
-  
-  has_many :organizaciones, autosave: true
+
 
   ## Rememberable
   # field :remember_created_at, type: Time
@@ -72,7 +69,6 @@ class Cuenta
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
   
-  field :pais, type: String, default: 've'
   field :rol, type: String, default: 'usuario'
   
   field :borrado, type: Boolean
@@ -83,22 +79,20 @@ class Cuenta
   validates_format_of :username, :with => /\A[A-Za-z0-9_\-.]+\z/i, allow_blank: true, message: 'posee caracteres invalidos'
   validates_uniqueness_of :username
   
-  validates_presence_of :doc_id_cat, on: :create
-  validates_presence_of :doc_id, on: :create
+  validates_presence_of :docid, on: :create
   validates_presence_of :nombre, on: :create
   validates_presence_of :apellidos, on: :create
   validates_presence_of :email, on: :create
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true
   validates_presence_of :telefono, on: :create
+  validates_presence_of :pais, on: :create
   validates_presence_of :entidad_federal, on: :create
   validates_presence_of :localidad, on: :create
   validates_presence_of :direccion, on: :create
   
   validates_acceptance_of :terminos, on: :create
   
-  #validates_associated :persona
-  
-  before_create :insertar_persona
+  before_create :insertar_datos
   
   # before_update :editar_persona
   
@@ -118,23 +112,24 @@ class Cuenta
       where(conditions).first
     end
   end 
-  
-  #accepts_nested_attributes_for :persona, reject_if: :all_blank
-  #accepts_nested_attributes_for :organizaciones
-  
   protected
     
-  def insertar_persona
+  def insertar_datos
     
     self.persona=Persona.new
-    self.persona.docs_id=[DocId.new(pais: 've', categoria: doc_id_cat, codigo: doc_id)]
+    self.persona.docid=docid
     self.persona.nombre=nombre
     self.persona.apellidos=apellidos
     self.persona.emails=[Email.new(email: email)]
     self.persona.telefonos=[Telefono.new(telefono: telefono)]
+    self.persona.pais=pais
     self.persona.entidad_federal=entidad_federal
     self.persona.localidad=localidad
     self.persona.direccion=direccion
+    
+    self.puntaje=Puntaje.new
+    
+    self.locale=Locale.new
     
 #    self.persona = Persona.buscar_por_docid(doc_id_cat,doc_id)
 #    unless self.persona
