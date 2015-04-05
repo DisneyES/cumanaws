@@ -5,7 +5,7 @@ class CarritoController < ApplicationController
   end
   
   def agregar
-    a = ArticuloCarrito.new
+    a = Compra.new
     a.servicio = params[:servicio]
     a.plan = params[:plan].gsub('_','.')
     if params[:servicio] == 'dominio'
@@ -32,9 +32,9 @@ class CarritoController < ApplicationController
   
   def remover
     if cuenta_signed_in?
-        articulo = ArticuloCarrito.where('_id' => params[:id], 'cuenta_id' => current_cuenta.id, :borrado.exists => false).first
+        articulo = Compra.where('_id' => params[:id], 'cuenta_id' => current_cuenta.id, :borrado.exists => false).first
      elsif defined?(cookies[:tmp_carrito]) && BSON::ObjectId.legal?(cookies[:tmp_carrito])
-        articulo = ArticuloCarrito.where('_id' => params[:id], 'tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false).first
+        articulo = Compra.where('_id' => params[:id], 'tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false).first
      end
     if articulo
       articulo.borrado = true
@@ -47,9 +47,9 @@ class CarritoController < ApplicationController
   def alterar
     if(params[:id] && params[:duracion])
       if cuenta_signed_in?
-          articulo = ArticuloCarrito.where('_id' => params[:id], 'cuenta_id' => current_cuenta.id, :borrado.exists => false).first
+          articulo = Compra.where('_id' => params[:id], 'cuenta_id' => current_cuenta.id, :borrado.exists => false).first
        elsif defined?(cookies[:tmp_carrito]) && BSON::ObjectId.legal?(cookies[:tmp_carrito])
-          articulo = ArticuloCarrito.where('_id' => params[:id], 'tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false).first
+          articulo = Compra.where('_id' => params[:id], 'tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false).first
        end
        if articulo
          articulo.duracion = params[:duracion]
@@ -61,9 +61,9 @@ class CarritoController < ApplicationController
   
   def articulos
     if cuenta_signed_in?
-       ArticuloCarrito.where('cuenta_id' => current_cuenta.id, :borrado.exists => false)
+       Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false)
     elsif defined?(cookies[:tmp_carrito]) && BSON::ObjectId.legal?(cookies[:tmp_carrito])
-       ArticuloCarrito.where('tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false)
+       Compra.where('tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false)
     else
       []
     end
@@ -79,7 +79,7 @@ class CarritoController < ApplicationController
   
   def new
     monto = 0
-    ArticuloCarrito.where('cuenta_id' => current_cuenta.id, :borrado.exists => false).each do |articulo|
+    Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false).each do |articulo|
       if articulo[:servicio] == 'hospedaje'
         plan = AppConfig.preferencias.planes_hospedaje.select{|k| k['nombre'] == articulo[:plan] }[0]
         monto = (articulo[:duracion] == 12 ? plan['precio_anual'] : plan['precio_mensual']*articulo[:duracion]) + monto 

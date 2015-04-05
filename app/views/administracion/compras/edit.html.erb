@@ -1,7 +1,27 @@
-<%#
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-%>
-
-<%= "edit" %>
+<% content_for :titulo_pagina do %>administración > compras > procesar<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'compras' , administracion_compras_path %> > procesar<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  administracion_procesar_compra_path(resource[:_id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  fecha:<br/><b><%= resource[:creado][:fecha] %></b><br/><br/>
+  usuario:<br/><b><%= resource.cuenta[:username] %></b><br/><br/>
+  descripción:<br/>
+  <% if resource.plan_hospedaje %>
+   Compra de hospedaje web: <b><%= resource.plan_hospedaje['nombre'] %></b> | Espacio de almacenamiento: <b><%= number_to_human_size(resource.plan_hospedaje['espacio']*1048576) %></b>
+  <% elsif resource.plan_dominio %>
+    Compra de dominio: <b><%= resource['nombre']+'.'+resource.plan_dominio['dominio'] %></b>
+  <% elsif resource.hospedaje %>
+    Renovación de hospedaje web: <b><%= resource.hospedaje.plan_hospedaje['nombre'] %></b><br/>Espacio de almacenamiento: <b><%= number_to_human_size(resource.hospedaje.plan_hospedaje['espacio']*1048576) %></b>
+  <% elsif resource.dominio %>
+    Renovación de dominio: <b><%= resource.dominio['nombre']+'.'+resource.dominio.plan_dominio['dominio'] %></b>
+  <% end %>
+  <br/><br/>
+  duración:<br/><b><%= resource[:duracion] == 12 ? '1 año' : ( resource[:duracion] == 1 ? '1 mes' : resource[:duracion]+' meses' ) %></b><br/><br/>
+  puntos:<br/><b><%= resource[:puntos] %></b><br/><br/>
+  <div style="text-align:center" id="campo_compra_commit">
+    <%= f.submit "aceptar", data: { disable_with: 'enviando...' } %>
+    <%= f.submit "rechazar", data: { disable_with: 'enviando...' } %>
+  </div>
+<% end %>

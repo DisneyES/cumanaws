@@ -29,3 +29,35 @@
     width: 100%;
   }
 </style>
+
+<% unless compras.empty? %>
+  <div class="grid-cabezal">
+    <div class="grid-celda-izq"style="min-width: 175px;">fecha</div>
+    <div>usuario</div>
+    <div style="min-width: 260px;">descripción</div>
+    <div>duración</div>
+    <div>puntos</div>
+    <div class="grid-celda-der">...</div>
+  </div>
+  <div class="grid-cuerpo">
+    <% compras.each do |compra| %>
+      <% if compra.plan_hospedaje %>
+        <% descripcion = 'Compra de hospedaje web: <b>'+compra.plan_hospedaje['nombre']+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(compra.plan_hospedaje['espacio']*1048576)+'</b>' %>
+      <% elsif compra.plan_dominio %>
+        <% descripcion = 'Compra de dominio: <b>'+compra['nombre']+'.'+compra.plan_dominio['dominio']+'</b>' %>
+      <% elsif compra.hospedaje %>
+        <% descripcion = 'Renovación de hospedaje web: <b>'+compra.hospedaje.plan_hospedaje['nombre']+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(compra.hospedaje.plan_hospedaje['espacio']*1048576)+'</b>' %>
+      <% elsif compra.dominio %>
+        <% descripcion = 'Renovación de dominio: <b>'+compra.dominio['nombre']+'.'+compra.dominio.plan_dominio['dominio']+'</b>' %>
+      <% end %>
+      <div class="grid-fila">
+        <div class="grid-celda" style="min-width: 175px;"><%= compra[:creado][:fecha] %></div>
+        <div class="grid-celda"><%= compra.cuenta[:username] %></div>
+        <div class="grid-celda" style="min-width: 260px;"><%= descripcion %></div>
+        <div class="grid-celda"><%= compra[:duracion] == 12 ? '1 año' : ( compra[:duracion] == 1 ? '1 mes' : compra[:duracion]+' meses' ) %></div>
+        <div class="grid-celda"><%= compra[:puntos] %></div>
+        <div class="grid-celda" style="text-align: center"><%= link_to 'procesar', administracion_procesar_compra_path(compra[:_id]) %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

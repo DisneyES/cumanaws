@@ -1,4 +1,4 @@
-class ArticuloCarrito
+class Compra
   include Mongoid::CumanawsBase
   
   belongs_to :cuenta
@@ -12,9 +12,14 @@ class ArticuloCarrito
   belongs_to :dominio
   
   field :duracion, type: Integer
-  field :nombre_dominio, type: String
   
-  field :procesado, type: Boolean
+  field :nombre, type: String   # para adquirir dominios
+  
+  field :puntos, type: Integer
+  
+  field :enviado, type: Boolean
+  field :aceptado, type: Boolean
+  field :rechazado, type: Boolean
   field :borrado, type: Boolean
   
 end

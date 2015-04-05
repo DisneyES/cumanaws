@@ -3,7 +3,7 @@ class MovimientoPuntaje
   
   belongs_to :cuenta
   belongs_to :recarga
-  belongs_to :articulo_carrito
+  belongs_to :compra
   
   field :puntos, type: Integer
   field :tipo, type: Boolean
