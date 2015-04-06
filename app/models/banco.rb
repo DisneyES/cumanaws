@@ -3,5 +3,6 @@ class Banco
   
   field :nombre, type: String
   field :logo_src, type: String
+  field :borrado, type: String
   
 end

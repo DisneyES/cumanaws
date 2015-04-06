@@ -99,18 +99,37 @@ Rails.application.routes.draw do
   get 'micuenta/configuracion', controller: 'mi_cuenta/configuracion', action: 'index', as: :mi_cuenta_configuracion
   
   get 'administracion', controller: 'administracion', action: 'index', as: :administracion
+  
   get 'administracion/cuentas', controller: 'administracion/cuentas', action: 'index', as: :administracion_cuentas
   get 'administracion/editarcuenta/:id', controller: 'administracion/cuentas', action: 'edit', as: :administracion_editar_cuenta
   put 'administracion/editarcuenta/:id', controller: 'administracion/cuentas', action: 'update'
+  
   get 'administracion/recargas', controller: 'administracion/recargas', action: 'index', as: :administracion_recargas
   get 'administracion/procesarrecarga/:id', controller: 'administracion/recargas', action: 'edit', as: :administracion_procesar_recarga
   put 'administracion/procesarrecarga/:id', controller: 'administracion/recargas', action: 'update'
+  
   get 'administracion/compras', controller: 'administracion/compras', action: 'index', as: :administracion_compras
   get 'administracion/procesarcompra/:id', controller: 'administracion/compras', action: 'edit', as: :administracion_procesar_compra
   put 'administracion/procesarcompra/:id', controller: 'administracion/compras', action: 'update'
+  
   get 'administracion/planesdominios', controller: 'administracion/planes_dominios', action: 'index', as: :administracion_planes_dominios
+  get 'administracion/nuevoplandominio', controller: 'administracion/planes_dominios', action: 'new', as: :administracion_nuevo_plan_dominio
+  post 'administracion/nuevoplandominio', controller: 'administracion/planes_dominios', action: 'create'
+  get 'administracion/editarplandominio/:id', controller: 'administracion/planes_dominios', action: 'edit', as: :administracion_editar_plan_dominio
+  put 'administracion/editarplandominio/:id', controller: 'administracion/planes_dominios', action: 'update'
+  
   get 'administracion/planeshospedaje', controller: 'administracion/planes_hospedaje', action: 'index', as: :administracion_planes_hospedaje
+  get 'administracion/nuevoplanhospedaje', controller: 'administracion/planes_hospedaje', action: 'new', as: :administracion_nuevo_plan_hospedaje
+  post 'administracion/nuevoplanhospedaje', controller: 'administracion/planes_hospedaje', action: 'create'
+  get 'administracion/editarplanhospedaje/:id', controller: 'administracion/planes_hospedaje', action: 'edit', as: :administracion_editar_plan_hospedaje
+  put 'administracion/editarplanhospedaje/:id', controller: 'administracion/planes_hospedaje', action: 'update'
+  
   get 'administracion/cuentasbancarias', controller: 'administracion/cuentas_bancarias', action: 'index', as: :administracion_cuentas_bancarias
+  get 'administracion/nuevactabancaria', controller: 'administracion/cuentas_bancarias', action: 'new', as: :administracion_nueva_cta_bancaria
+  post 'administracion/nuevactabancaria', controller: 'administracion/cuentas_bancarias', action: 'create'
+  get 'administracion/editarctabancaria/:id', controller: 'administracion/cuentas_bancarias', action: 'edit', as: :administracion_editar_cta_bancaria
+  put 'administracion/editarctabancaria/:id', controller: 'administracion/cuentas_bancarias', action: 'update'
+  
   
   get 'servicios', controller: 'servicios', action: 'index', as: :servicios
   

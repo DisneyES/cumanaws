@@ -19,6 +19,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'edicion', 'ediciones'
   inflect.irregular 'cuenta', 'cuentas'
   inflect.irregular 'organizacion', 'organizaciones'
-  inflect.irregular 'doc_id', 'docs_id'
   inflect.irregular 'cuenta_bancaria', 'cuentas_bancarias'
+  inflect.irregular 'plan_dominio', 'planes_dominios'
+  inflect.irregular 'plan_hospedaje', 'planes_hospedaje'
 end

@@ -6,5 +6,6 @@ class CuentaBancaria
   field :tipo, type: String
   field :titular, type: String
   field :monedas, type: Array
+  field :borrado, type: Boolean
   
 end
