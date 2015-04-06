@@ -11,6 +11,8 @@
 # Description:       cumanaws
 ### END INIT INFO
 
+. /lib/lsb/init-functions
+
 start() {
   log_begin_msg "Iniciando cumanaws"
   /opt/cumanaws/scripts/rails server -d
