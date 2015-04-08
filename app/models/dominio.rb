@@ -21,7 +21,7 @@ $TTL 3600
     zona.close
     
     # Agregar la zona a la configuración del servidor DNS
-    named = File.open('/etc/bind/named.conf.zonas', 'a')
+    named = File.open('/etc/bind/named.conf.cumanaws', 'a')
     named.puts 'zone "'+self.nombre+'.'+self.plan_dominio[:dominio]+'" { type master; file "/etc/bind/zonas/'+self.nombre+'.'+self.plan_dominio[:dominio]+'.zone"; };'
     named.close
     

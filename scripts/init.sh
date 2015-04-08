@@ -17,17 +17,23 @@ if [ $USER != 'root' ]
 then
     echo "Debes ejecutar este script como root o sudo."
     exit 1
-end
+fi
 
 start() {
   log_begin_msg "Iniciando cumanaws"
-  /opt/cumanaws/scripts/rails server unicorn -e production -d
+  if [! -e /opt/cumanaws/tmp/pids/daemon.pid ]
+  then
+    start-stop-daemon -b -m -p /opt/cumanaws/tmp/pids/daemon.pid --start --exec /opt/cumanaws/scripts/rails -- server unicorn -b 127.0.0.1
+  fi
   log_end_msg 0
 }
 
 stop() {
   log_begin_msg "Deteniendo cumanaws"
-  start-stop-daemon -p /opt/cumanaws/tmp/pids/server.pid --stop
+  if [ -e /opt/cumanaws/tmp/pids/daemon.pid ]
+  then
+    start-stop-daemon -p /opt/cumanaws/tmp/pids/daemon.pid --stop
+  fi
   log_end_msg 0
 }
 
@@ -39,7 +45,7 @@ restart() {
 }
 
 status() {
-  start-stop-daemon -p /opt/cumanaws/tmp/pids/server.pid --status
+  start-stop-daemon -p /opt/cumanaws/tmp/pids/daemon.pid --status
 }
 
 case "$1" in

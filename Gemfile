@@ -7,7 +7,8 @@ gem 'actionpack', '4.2.1'
 gem "activeresource", "~> 4.0.0"
 
 # Appserver
-gem 'unicorn', '~> 4.8.3'
+gem 'unicorn', '4.8.3'
+gem 'unicorn-rails', '2.2.0'
 
 # Bases de datos
 gem 'mongoid', '4.0.2'
