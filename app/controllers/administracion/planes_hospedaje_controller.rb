@@ -1,5 +1,7 @@
 class Administracion::PlanesHospedajeController < ApplicationController
   
+  before_action :authenticate_cuenta!
+  
   def index
     render :locals => { :planes_hospedaje => planes_hospedaje }
   end

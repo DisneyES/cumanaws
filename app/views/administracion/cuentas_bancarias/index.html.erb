@@ -1,0 +1,51 @@
+<% content_for :titulo_pagina do %>administración > cuentas bancarias<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > cuentas bancarias<% end %>
+<style>
+  .grid-cabezal {
+    display: flex;
+  }
+  .grid-cabezal > div {
+    background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 2px;
+    width: 100%;
+  }
+  .grid-cabezal > div.grid-celda-izq {
+      border-top-left-radius: 10px;
+  }
+  .grid-cabezal > div.grid-celda-der {
+      border-top-right-radius: 10px;
+  }
+  .grid-fila {
+    display: flex;
+  }
+  .grid-celda {
+    font-weight: bold;
+    background-color: #eee;
+    padding: 10px;
+    margin: 2px;
+    width: 100%;
+  }
+</style>
+<% unless ctas_bancarias.empty? %>
+  <div class="grid-cabezal">
+    <div class="grid-celda-izq"style="min-width: 175px;">banco</div>
+    <div>tipo de cuenta</div>
+    <div>número</div>
+    <div>titular</div>
+    <div class="grid-celda-der">...</div>
+  </div>
+  <div class="grid-cuerpo">
+    <% ctas_bancarias.each do |cta_bancaria| %>
+      <div class="grid-fila">
+        <div class="grid-celda"><%= cta_bancaria.banco[:nombre] %></div>
+        <div class="grid-celda"><%= cta_bancaria[:tipo] %></div>
+        <div class="grid-celda"><%= cta_bancaria[:nro] %></div>
+        <div class="grid-celda"><%= cta_bancaria[:titular] %></div>
+        <div class="grid-celda" style="text-align: center"><%= link_to 'editar', administracion_editar_cta_bancaria_path(cta_bancaria[:_id]) %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

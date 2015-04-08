@@ -1,0 +1,14 @@
+<% content_for :titulo_pagina do %>administración > planes de dominios > nuevo<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'planes de dominios' , administracion_planes_dominios_path %> > nuevo<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  administracion_nuevo_plan_dominio_path, remote: true, html: { id: resource_name,  method: :post, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <%= form_campo f, :dominio, 'text_field', autocomplete: "off" %>
+  <%= form_campo f, :pais, 'select_field', opciones: [['seleccionar',''],['Internacional','int'],['Venezuela','ve']] %>
+  <%= form_campo f, :descripcion, 'text_area', autocomplete: "off" %>
+  <%= form_campo f, :precio_anual, 'text_field', autocomplete: "off", placeholder: '000', :label => 'Precio anual (ptos)' %>
+  <br/>
+  <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "nuevo plan de dominio", data: { disable_with: 'enviando...' } %></div>
+<% end %>

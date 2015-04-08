@@ -11,7 +11,7 @@
   <br/>
   <div style="font-weight: bold; font-size: 16px">Editar rol</div>
   <%= form_campo f, :rol, 'select', :opciones => [['seleccionar',''],'usuario','moderador','administrador'] %>
-  <%= form_campo f, :suspendido, 'check_box' %>
+  <%= form_campo f, :suspendido, 'check_box', label => 'Suspender' %>
   <br/>
   <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "editar cuenta", data: { disable_with: 'enviando...' } %></div>
 <% end %>

@@ -1,10 +1,10 @@
- #!/bin/sh -e
+#! /bin/sh
 ### BEGIN INIT INFO
 # Provides:          cumanaws
 # Required-Start:    $local_fs $remote_fs $syslog apache2 mongodb
 # Required-Stop:     $local_fs $remote_fs $syslog apache2 mongodb
-# Should-Start:      quota slapd pure-ftpd postgresql mysql dovecot postfix
-# Should-Stop:       quota slapd pure-ftpd postgresql mysql dovecot postfix
+# Should-Start:      pure-ftpd postgresql mysql dovecot postfix
+# Should-Stop:       pure-ftpd postgresql mysql dovecot postfix
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: cumanaws
@@ -13,9 +13,15 @@
 
 . /lib/lsb/init-functions
 
+if [ $USER != 'root' ]
+then
+    echo "Debes ejecutar este script como root o sudo."
+    exit 1
+end
+
 start() {
   log_begin_msg "Iniciando cumanaws"
-  /opt/cumanaws/scripts/rails server -d
+  /opt/cumanaws/scripts/rails server unicorn -e production -d
   log_end_msg 0
 }
 

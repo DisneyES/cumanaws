@@ -76,4 +76,14 @@ module ApplicationHelper
     return tipos
   end
   
+  def select_moneda
+    tipos = [['Selecione','']]
+    AppConfig.preferencias.monedas.each do |moneda|
+      tipos << [moneda['nombre'] + ' (' + moneda['codigo'] + ')', moneda['codigo']]
+    end
+    return tipos
+  end
+  
+  
+  
 end

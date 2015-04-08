@@ -1,0 +1,49 @@
+<% content_for :titulo_pagina do %>administración > planes de hospedaje web<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > planes de hospedaje web<% end %>
+<style>
+  .grid-cabezal {
+    display: flex;
+  }
+  .grid-cabezal > div {
+    background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 2px;
+    width: 100%;
+  }
+  .grid-cabezal > div.grid-celda-izq {
+      border-top-left-radius: 10px;
+  }
+  .grid-cabezal > div.grid-celda-der {
+      border-top-right-radius: 10px;
+  }
+  .grid-fila {
+    display: flex;
+  }
+  .grid-celda {
+    font-weight: bold;
+    background-color: #eee;
+    padding: 10px;
+    margin: 2px;
+    width: 100%;
+  }
+</style>
+<% unless planes_hospedaje.empty? %>
+  <div class="grid-cabezal">
+    <div class="grid-celda-izq"style="min-width: 175px;">nombre</div>
+    <div>precio mensual (Bs.)</div>
+    <div>precio anual (Bs.)</div>
+    <div class="grid-celda-der">...</div>
+  </div>
+  <div class="grid-cuerpo">
+    <% planes_hospedaje.each do |plan_hospedaje| %>
+      <div class="grid-fila">
+        <div class="grid-celda">.<%= plan_hospedaje[:nombre] %></div>
+        <div class="grid-celda"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan_hospedaje[:precio_mensual], :unit => '', separator: ",", delimiter: "." ) %></div>
+        <div class="grid-celda"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan_hospedaje[:precio_anual], :unit => '', separator: ",", delimiter: "." ) %></div>
+        <div class="grid-celda" style="text-align: center"><%= link_to 'editar', administracion_editar_plan_hospedaje_path(plan_hospedaje[:_id]) %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+<% content_for :titulo_pagina do %>administración > cuentas bancarias > nueva<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'cuentas bancarias' , administracion_ctas_bancarias_path %> > nueva<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  administracion_nueva_cta_bancaria_path, remote: true, html: { id: resource_name,  method: :post, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <%= form_campo f, :ent_banco, 'text_field', autocomplete: "off" %>
+  <%= form_campo f, :tipo, 'select_field', opciones: [['seleccionar',''],'ahorros','corriente'] %>
+  <%= form_campo f, :nro, 'text_field', autocomplete: "off", placeholder: '01234567890123456789' %>
+  <%= form_campo f, :titular, 'text_field', autocomplete: "off", placeholder: 'Juan Perez' %>
+  <%= form_campo f, :moneda, 'select_field', opciones: select_moneda %>
+  <br/>
+  <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "nueva cuenta bancaria", data: { disable_with: 'enviando...' } %></div>
+<% end %>

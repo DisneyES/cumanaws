@@ -1,5 +1,7 @@
 class Administracion::CuentasBancariasController < ApplicationController
   
+  before_action :authenticate_cuenta!
+  
   def index
     render :locals => { :ctas_bancarias => ctas_bancarias }
   end

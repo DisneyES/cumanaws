@@ -1,5 +1,7 @@
 class Administracion::ComprasController < ApplicationController
   
+  before_action :authenticate_cuenta!
+  
   def index
     render :locals => { :compras => compras }
   end
