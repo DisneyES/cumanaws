@@ -59,9 +59,12 @@ instalar_en_debian(){
     echo "Configurando cumanaws"
     mkdir /etc/cumanaws
     cp $BASEDIR/config/mongoid.ejemplo.yml $BASEDIR/config/mongoid.yml
+    cp $BASEDIR/config/database.ejemplo.yml $BASEDIR/config/database.yml
     cp $BASEDIR/config/cumanaws.ejemplo.yml $BASEDIR/config/cumanaws.yml
+    cp $BASEDIR/config/default.ejemplo.conf $BASEDIR/config/default.conf 
     ln -s $BASEDIR/config/cumanaws.yml /etc/cumanaws/
     ln -s $BASEDIR/config/mongoid.yml /etc/cumanaws/
+    ln -s $BASEDIR/config/default.conf /etc/default/cumanaws
     
     ln -s $BASEDIR/scripts/init.sh /etc/init.d/cumanaws
     update-rc.d cumanaws defaults
@@ -71,6 +74,7 @@ instalar_en_debian(){
     bundle install
     
     echo "¡listo!"
+    echo "AVISO: Recuerda editar los archivos de configuración en el directorio: /etc/cumanaws."
 }
 
 case `uname -n` in

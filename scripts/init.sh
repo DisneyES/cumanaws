@@ -19,11 +19,17 @@ then
     exit 1
 fi
 
+if [ $ENABLE != true ]
+then
+    echo "Debes activar cumanaws en el archivo ubicado en /etc/default/cumanaws."
+    exit 1
+fi
+
 start() {
   log_begin_msg "Iniciando cumanaws"
   if [! -e /opt/cumanaws/tmp/pids/daemon.pid ]
   then
-    start-stop-daemon -b -m -p /opt/cumanaws/tmp/pids/daemon.pid --start --exec /opt/cumanaws/scripts/rails -- server unicorn -b 127.0.0.1
+    start-stop-daemon -b -m -p /opt/cumanaws/tmp/pids/daemon.pid --start --exec /opt/cumanaws/scripts/rails -- server unicorn -e $ENVIRONMENT -b 127.0.0.1
   fi
   log_end_msg 0
 }
