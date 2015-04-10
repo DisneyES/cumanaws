@@ -8,6 +8,10 @@ then
     exit 1
 fi
 
+SCRIPT=$(readlink -f "$0")
+#SCRIPTDIR=$(dirname "$SCRIPT")
+BASEDIR=${SCRIPT/%\/scripts\/install.sh/}
+
 instalar_en_debian(){
     echo "Preparando la instalación de cumanaws en Debian"
 
@@ -19,8 +23,8 @@ instalar_en_debian(){
     echo "Instalando servidor web y servidores de aplicaciones"
     apt-get -y install apache2 unicorn gunicorn php5-fpm libapache2-mod-fcgid nodejs
     echo "Configurando servidor web"
-    cp /opt/cumanaws/config/apache-vh.ejemplo.conf /opt/cumanaws/config/apache-vh.conf
-    ln -s /opt/cumanaws/config/apache-vh.conf /etc/apache2/sites-available/cumanaws.conf
+    cp $BASEDIR/config/apache-vh.ejemplo.conf $BASEDIR/config/apache-vh.conf
+    ln -s $BASEDIR/config/apache-vh.conf /etc/apache2/sites-available/cumanaws.conf
     a2ensite cumanaws
     a2enmod ssl
     a2enmod rewrite
@@ -47,23 +51,23 @@ instalar_en_debian(){
     echo "include \"/etc/bind/names.conf.cumanaws\";" >> /etc/bind/named.conf
 
     echo "Instalando servidor FTP"
-    apt-get -y install pure-ftpd pure-ftpd-mysql
+    apt-get -y install pure-ftpd-mysql
     echo "Configurando servidor FTP"
     
     echo "Instalando paquetes necesarios para ejecutar cumanaws"
     apt-get -y install bundler libpq-dev libmysqlclient-dev nodejs
     echo "Configurando cumanaws"
     mkdir /etc/cumanaws
-    cp /opt/cumanaws/config/mongoid.ejemplo.yml /opt/cumanaws/config/mongoid.yml
-    cp /opt/cumanaws/config/cumanaws.ejemplo.yml /opt/cumanaws/config/cumanaws.yml
-    ln -s /opt/cumanaws/config/cumanaws.yml /etc/cumanaws/
-    ln -s /opt/cumanaws/config/mongoid.yml /etc/cumanaws/
+    cp $BASEDIR/config/mongoid.ejemplo.yml $BASEDIR/config/mongoid.yml
+    cp $BASEDIR/config/cumanaws.ejemplo.yml $BASEDIR/config/cumanaws.yml
+    ln -s $BASEDIR/config/cumanaws.yml /etc/cumanaws/
+    ln -s $BASEDIR/config/mongoid.yml /etc/cumanaws/
     
-    ln -s /opt/cumanaws/scripts/init.sh /etc/init.d/cumanaws
+    ln -s $BASEDIR/scripts/init.sh /etc/init.d/cumanaws
     update-rc.d cumanaws defaults
     systemctl daemon-reload
 
-    cd /opt/cumanaws/
+    cd $BASEDIR
     bundle install
     
     echo "¡listo!"
