@@ -23,8 +23,8 @@ instalar_en_debian(){
     echo "Instalando servidor web y servidores de aplicaciones"
     apt-get -y install apache2 unicorn gunicorn php5-fpm libapache2-mod-fcgid nodejs
     echo "Configurando servidor web"
-    cp $BASEDIR/config/apache-vh.ejemplo.conf $BASEDIR/config/apache-vh.conf
-    ln -s $BASEDIR/config/apache-vh.conf /etc/apache2/sites-available/cumanaws.conf
+    cp $BASEDIR/config/terceros/apache-vh.ejemplo.conf $BASEDIR/config/terceros/apache-vh.conf
+    ln -s $BASEDIR/config/terceros/apache-vh.conf /etc/apache2/sites-available/cumanaws.conf
     a2ensite cumanaws
     a2enmod ssl
     a2enmod rewrite
@@ -49,11 +49,16 @@ instalar_en_debian(){
     mkdir /etc/bind/zonas
     touch /etc/bind/named.conf.cumanaws
     echo "include \"/etc/bind/names.conf.cumanaws\";" >> /etc/bind/named.conf
+    service bind9 restart
 
     echo "Instalando servidor FTP"
     apt-get -y install pure-ftpd-mysql
     echo "Configurando servidor FTP"
-    
+    cp $BASEDIR/config/terceros/pureftpd-mysql.ejemplo.conf $BASEDIR/config/terceros/pureftpd-mysql.conf
+    mv /etc/pure-ftpd/db/mysql.conf /etc/pure-ftpd/db/mysql.conf.back
+    ln -s $BASEDIR/config/terceros/pureftpd-mysql.conf /etc/pure-ftpd/db/mysql.conf
+    service pure-ftpd-mysql restart
+
     echo "Instalando paquetes necesarios para ejecutar cumanaws"
     apt-get -y install bundler libpq-dev libmysqlclient-dev nodejs
     echo "Configurando cumanaws"
@@ -74,7 +79,19 @@ instalar_en_debian(){
     bundle install
     
     echo "¡listo!"
-    echo "AVISO: Recuerda editar los archivos de configuración en el directorio: /etc/cumanaws."
+    echo ""
+    echo "AVISO: Recuerda editar los archivos de configuración en el directorio:"
+    echo "/etc/cumanaws."
+    echo ""
+    echo "Crear la base de datos de terceros si se instala por primera vez:"
+    echo "# rake db:create"
+    echo "# rake db:schema:load"
+    echo ""
+    echo "Aplicar actualizaciones a la base de datos de terceros:"
+    echo "# rake db:migrate"
+    echo ""
+    echo "Precompilar recursos (CSS, JS, etc):"
+    echo "# rake assets:precompile"
 }
 
 case `uname -n` in

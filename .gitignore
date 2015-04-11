@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore Gemfile.lock
+/Gemfile.lock
+
 # Ignore bundler config.
 /.bundle
 
@@ -56,3 +59,4 @@ dump.rdb
 # Ignore precompiled assets
 # Heroku or Capistrano can and should regenerate them on every deploy
 public/assets
+

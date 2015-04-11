@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  password: MyString
+  uid: 1
+  gid: 1
+  dir: MyString
+  borrado: false
+
+two:
+  username: MyString
+  password: MyString
+  uid: 1
+  gid: 1
+  dir: MyString
+  borrado: false
