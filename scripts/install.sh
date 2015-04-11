@@ -23,7 +23,11 @@ instalar_en_debian(){
     echo "Instalando servidor web y servidores de aplicaciones"
     apt-get -y install apache2 unicorn gunicorn php5-fpm libapache2-mod-fcgid nodejs
     echo "Configurando servidor web"
-    cp $BASEDIR/config/terceros/apache-vh.ejemplo.conf $BASEDIR/config/terceros/apache-vh.conf
+    if [ ! -e $BASEDIR/config/terceros/apache-vh.conf ]
+    then
+        cp $BASEDIR/config/terceros/apache-vh.ejemplo.conf $BASEDIR/config/terceros/apache-vh.conf
+    fi
+    rm -f /etc/apache2/sites-available/cumanaws.conf
     ln -s $BASEDIR/config/terceros/apache-vh.conf /etc/apache2/sites-available/cumanaws.conf
     a2ensite cumanaws
     a2enmod ssl
@@ -54,8 +58,11 @@ instalar_en_debian(){
     echo "Instalando servidor FTP"
     apt-get -y install pure-ftpd-mysql
     echo "Configurando servidor FTP"
-    cp $BASEDIR/config/terceros/pureftpd-mysql.ejemplo.conf $BASEDIR/config/terceros/pureftpd-mysql.conf
-    mv /etc/pure-ftpd/db/mysql.conf /etc/pure-ftpd/db/mysql.conf.back
+    if [ ! -e $BASEDIR/config/terceros/pureftpd-mysql.conf ]
+    then
+        cp $BASEDIR/config/terceros/pureftpd-mysql.ejemplo.conf $BASEDIR/config/terceros/pureftpd-mysql.conf
+    fi
+    rm -f /etc/pure-ftpd/db/mysql.conf
     ln -s $BASEDIR/config/terceros/pureftpd-mysql.conf /etc/pure-ftpd/db/mysql.conf
     service pure-ftpd-mysql restart
 
@@ -63,14 +70,31 @@ instalar_en_debian(){
     apt-get -y install bundler libpq-dev libmysqlclient-dev nodejs
     echo "Configurando cumanaws"
     mkdir /etc/cumanaws
-    cp $BASEDIR/config/mongoid.ejemplo.yml $BASEDIR/config/mongoid.yml
-    cp $BASEDIR/config/database.ejemplo.yml $BASEDIR/config/database.yml
-    cp $BASEDIR/config/cumanaws.ejemplo.yml $BASEDIR/config/cumanaws.yml
-    cp $BASEDIR/config/default.ejemplo.conf $BASEDIR/config/default.conf 
+    if [ ! -e $BASEDIR/config/cumanaws.yml ]
+    then
+        cp $BASEDIR/config/cumanaws.ejemplo.yml $BASEDIR/config/cumanaws.yml
+    fi
+    rm -f /etc/cumanaws/cumanaws.yml
     ln -s $BASEDIR/config/cumanaws.yml /etc/cumanaws/
+    if [ ! -e $BASEDIR/config/mongoid.yml ]
+    then
+        cp $BASEDIR/config/mongoid.ejemplo.yml $BASEDIR/config/mongoid.yml
+    fi
+    rm -f /etc/cumanaws/mongoid.yml
     ln -s $BASEDIR/config/mongoid.yml /etc/cumanaws/
+    if [ ! -e $BASEDIR/config/database.yml ]
+    then
+        cp $BASEDIR/config/database.ejemplo.yml $BASEDIR/config/database.yml
+    fi
+    rm -f /etc/cumanaws/database.yml
+    ln -s $BASEDIR/config/database.yml /etc/cumanaws/
+    if [ ! -e $BASEDIR/config/default.conf ]
+    then
+        cp $BASEDIR/config/default.ejemplo.conf $BASEDIR/config/default.conf
+    fi
+    rm -f /etc/default/cumanaws
     ln -s $BASEDIR/config/default.conf /etc/default/cumanaws
-    
+    rm -f /etc/init.d/cumanaws
     ln -s $BASEDIR/scripts/init.sh /etc/init.d/cumanaws
     update-rc.d cumanaws defaults
     systemctl daemon-reload
