@@ -69,7 +69,10 @@ instalar_en_debian(){
     echo "Instalando paquetes necesarios para ejecutar cumanaws"
     apt-get -y install bundler libpq-dev libmysqlclient-dev nodejs
     echo "Configurando cumanaws"
-    mkdir /etc/cumanaws
+    if [ ! -d /etc/cumanaws ]
+    then
+        mkdir /etc/cumanaws
+    fi
     if [ ! -e $BASEDIR/config/cumanaws.yml ]
     then
         cp $BASEDIR/config/cumanaws.ejemplo.yml $BASEDIR/config/cumanaws.yml
