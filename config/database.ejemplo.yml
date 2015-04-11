@@ -1,0 +1,18 @@
+# Base de datos utilizada por terceros (Pure-FTPd, Dovecot, Postfix, etc).
+development:
+    adapter: mysql2
+    host: localhost
+    port: 3306
+    database: terceros_development
+    username: root
+    password: ****
+    encoding: utf8
+  
+production:
+    adapter: mysql2
+    host: localhost
+    port: 3306
+    database: terceros
+    username: root
+    password: ****
+    encoding: utf8
