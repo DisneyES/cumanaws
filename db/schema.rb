@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "terceros_ftp_users", force: :cascade do |t|
     t.string   "username",   limit: 255, unique: true, null: false
     t.string   "password",   limit: 255, null: false
-    t.integer  "gid",        limit: 11,   unique: true
+    t.string   "gid",        limit: 255, null: false
     t.string   "dir",        limit: 255, unique: true
     t.boolean  "borrado",    limit: 1,   default: false
     t.datetime "created_at", null: false
