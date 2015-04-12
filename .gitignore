@@ -21,6 +21,7 @@
 /config/mongoid.yml
 /config/database.yml
 /config/cumanaws.yml
+/config/secrets.yml
 
 /public/assets/*
 
