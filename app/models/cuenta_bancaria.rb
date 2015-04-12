@@ -1,16 +1,16 @@
 class CuentaBancaria
   include Mongoid::CumanawsBase
   
-  attr_accesor :ent_banco
+  attr_accessor :ent_banco
   
-  belongs_to :banco
+  belongs_to :banco, autosave: true
   field :nro, type: String
   field :tipo, type: String
   field :titular, type: String
   field :moneda, type: String
   field :borrado, type: Boolean
   
-  before_update :insertar_datos
+  before_save :insertar_datos
   
   after_initialize :para_editar
   

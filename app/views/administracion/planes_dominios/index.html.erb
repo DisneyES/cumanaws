@@ -29,9 +29,10 @@
     width: 100%;
   }
 </style>
+<div style="text-align: right; font-weight: bold; margin: 10px 0"><%= link_to 'Crear nuevo', administracion_nuevo_plan_dominio_path %></div>
 <% unless planes_dominios.empty? %>
   <div class="grid-cabezal">
-    <div class="grid-celda-izq"style="min-width: 175px;">dominio</div>
+    <div class="grid-celda-izq">dominio</div>
     <div>país</div>
     <div>precio anual (Bs.)</div>
     <div class="grid-celda-der">...</div>

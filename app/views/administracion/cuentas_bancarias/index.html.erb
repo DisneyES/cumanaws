@@ -29,11 +29,12 @@
     width: 100%;
   }
 </style>
+<div style="text-align: right; font-weight: bold; margin: 10px 0"><%= link_to 'Agregar', administracion_nueva_cta_bancaria_path %></div>
 <% unless ctas_bancarias.empty? %>
   <div class="grid-cabezal">
-    <div class="grid-celda-izq"style="min-width: 175px;">banco</div>
+    <div class="grid-celda-izq">banco</div>
     <div>tipo de cuenta</div>
-    <div>número</div>
+    <div style="min-width: 200px;">número</div>
     <div>titular</div>
     <div class="grid-celda-der">...</div>
   </div>
@@ -42,7 +43,7 @@
       <div class="grid-fila">
         <div class="grid-celda"><%= cta_bancaria.banco[:nombre] %></div>
         <div class="grid-celda"><%= cta_bancaria[:tipo] %></div>
-        <div class="grid-celda"><%= cta_bancaria[:nro] %></div>
+        <div class="grid-celda" style="min-width: 200px;"><%= cta_bancaria[:nro] %></div>
         <div class="grid-celda"><%= cta_bancaria[:titular] %></div>
         <div class="grid-celda" style="text-align: center"><%= link_to 'editar', administracion_editar_cta_bancaria_path(cta_bancaria[:_id]) %></div>
       </div>

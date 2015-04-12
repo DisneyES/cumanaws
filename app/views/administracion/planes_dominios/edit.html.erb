@@ -6,10 +6,10 @@
 <%= form_for resource, url:  administracion_editar_plan_dominio_path(resource[:_id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
   <%= form_resumen_errores %>
   <%= form_campo f, :dominio, 'text_field', autocomplete: "off" %>
-  <%= form_campo f, :pais, 'select_field', opciones: [['seleccionar',''],['Internacional','int'],['Venezuela','ve']] %>
+  <%= form_campo f, :pais, 'select', opciones: [['seleccionar',''],['Internacional','int'],['Venezuela','ve']] %>
   <%= form_campo f, :descripcion, 'text_area', autocomplete: "off" %>
   <%= form_campo f, :precio_anual, 'text_field', autocomplete: "off", placeholder: '000', :label => 'Precio anual (ptos)' %>
-  <%= form_campo f, :borrado, 'check_box', label => 'Eliminar' %>
+  <%= form_campo f, :borrado, 'check_box', :label => 'Eliminar' %>
   <br/>
   <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "editar plan de dominio", data: { disable_with: 'enviando...' } %></div>
 <% end %>

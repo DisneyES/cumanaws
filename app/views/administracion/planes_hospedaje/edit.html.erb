@@ -9,7 +9,7 @@
   <%= form_campo f, :descripcion, 'text_area', autocomplete: "off" %>
   <%= form_campo f, :precio_mensual, 'text_field', autocomplete: "off", placeholder: '000', :label => 'Precio mensual (ptos)' %>
   <%= form_campo f, :precio_anual, 'text_field', autocomplete: "off", placeholder: '000', :label => 'Precio anual (ptos)' %>
-  <%= form_campo f, :borrado, 'check_box', label => 'Eliminar' %>
+  <%= form_campo f, :borrado, 'check_box', :label => 'Eliminar' %>
   <br/>
   <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "editar plan de hospedaje", data: { disable_with: 'enviando...' } %></div>
 <% end %>

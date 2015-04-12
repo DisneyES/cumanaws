@@ -1,16 +1,16 @@
 <% content_for :titulo_pagina do %>administración > cuentas bancarias > editar<% end %>
-<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'cuentas bancarias' , administracion_ctas_bancarias_path %> > editar<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'cuentas bancarias' , administracion_cuentas_bancarias_path %> > editar<% end %>
 <script type="text/javascript">
   $(document).ready(function(){return formjs.constructor();});
 </script>
 <%= form_for resource, url:  administracion_editar_cta_bancaria_path(resource[:_id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
   <%= form_resumen_errores %>
-  <%= form_campo f, :banco, 'text_field', autocomplete: "off" %>
-  <%= form_campo f, :tipo, 'select_field', opciones: [['seleccionar',''],'ahorros','corriente'] %>
+  <%= form_campo f, :ent_banco, 'text_field', autocomplete: "off", label: 'Banco' %>
+  <%= form_campo f, :tipo, 'select', opciones: [['seleccionar',''],'ahorros','corriente'] %>
   <%= form_campo f, :nro, 'text_field', autocomplete: "off", placeholder: '01234567890123456789' %>
   <%= form_campo f, :titular, 'text_field', autocomplete: "off", placeholder: 'Juan Perez' %>
-  <%= form_campo f, :moneda, 'select_field', opciones: select_moneda %>
-  <%= form_campo f, :borrado, 'check_box', label => 'Eliminar' %>
+  <%= form_campo f, :moneda, 'select', opciones: select_moneda %>
+  <%= form_campo f, :borrado, 'check_box', :label => 'Eliminar' %>
   <br/>
   <div style="text-align:center" id="campo_cuenta_commit"><%= f.submit "editar cuenta bancaria", data: { disable_with: 'enviando...' } %></div>
 <% end %>
