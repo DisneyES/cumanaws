@@ -21,7 +21,7 @@ instalar_en_debian(){
     echo "Instalando servicios que administra cumanaws."
     
     echo "Instalando servidor web y servidores de aplicaciones"
-    apt-get -y install apache2 unicorn gunicorn php5-fpm libapache2-mod-fcgid nodejs
+    apt-get -y install apache2 unicorn gunicorn php5 php5-fpm libapache2-mod-fcgid nodejs
     echo "Configurando servidor web"
     if [ ! -e $BASEDIR/config/terceros/apache-vh.conf ]
     then
@@ -79,6 +79,12 @@ instalar_en_debian(){
     fi
     rm -f /etc/cumanaws/cumanaws.yml
     ln -s $BASEDIR/config/cumanaws.yml /etc/cumanaws/
+    if [ ! -e $BASEDIR/config/secrets.yml ]
+    then
+        cp $BASEDIR/config/secrets.ejemplo.yml $BASEDIR/config/secrets.yml
+    fi
+    rm -f /etc/cumanaws/secrets.yml
+    ln -s $BASEDIR/config/secrets.yml /etc/cumanaws/
     if [ ! -e $BASEDIR/config/mongoid.yml ]
     then
         cp $BASEDIR/config/mongoid.ejemplo.yml $BASEDIR/config/mongoid.yml
