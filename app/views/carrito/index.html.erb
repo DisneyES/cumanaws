@@ -12,14 +12,11 @@
   <div id="lista-articulos">
   <% articulos.each do |articulo| %>
     <% if articulo[:servicio] == 'hospedaje' %>
-      <% plan = AppConfig.preferencias.planes_hospedaje.select{|k| k['nombre'] == articulo[:plan] }[0] %>
-      <% descripcion = 'Hospedaje web: <b>'+plan['nombre']+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(plan['espacio']*1048576)+'</b>' %>
-      <% precio = number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*(articulo[:duracion] == 12 ? plan['precio_anual'] : plan['precio_mensual']*articulo[:duracion]), :unit => '', separator: ",", delimiter: "." ) %>
-    <% else %>
-      <% plan = AppConfig.preferencias.planes_dominios.select{|k| k['nombre'] == articulo[:plan] }[0] %>
-      <% descripcion = 'Dominio: <b>'+articulo['nombre_dominio']+'.'+articulo['plan']+'</b>' %>
-      <% precio = number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan['precio_anual'], :unit => '', separator: ",", delimiter: "." ) %>
+      <% descripcion = 'Hospedaje web: <b>'+articulo[:plan]+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(articulo[:espacio]*1048576)+'</b>' %>
+    <% elsif articulo[:servicio] == 'dominio' %>
+      <% descripcion = 'Dominio: <b>'+articulo[:nombre]+'.'+articulo[:dominio]+'</b>' %>
     <% end %>
+    <% precio = number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*articulo[:precio], :unit => '', separator: ",", delimiter: "." ) %>
     <div class="articulo" style="display: inline-flex;">
       <div class="articulo-descripcion" style="background-color: #eee; width: 654px; padding: 5px; margin: 2px"><%= descripcion.html_safe %></div>
       <div style="background-color: #eee;float: left; width: 100px; text-align: center; font-weight: bold; padding: 5px; margin: 2px">
@@ -34,9 +31,9 @@
           1 año
       <% end %></div>
       <div class="articulo-precio" style="background-color: #eee; width: 100px; text-align: right; padding: 12px 5px; margin: 2px"><%= precio %></div>
-      <div class="articulo-remover" style="background-color: #eee; text-align: center; width: 70px; padding: 12px 5px; margin: 2px"><%= link_to 'remover', remover_del_carrito_path(articulo[:_id]) %></div>
+      <div class="articulo-remover" style="background-color: #eee; text-align: center; width: 70px; padding: 12px 5px; margin: 2px"><%= link_to 'remover', remover_articulo_carrito_path(articulo[:_id]) %></div>
     </div>
-    <% total = total + ( articulo[:duracion] == 12 ? plan['precio_anual'] : ( articulo[:duracion] == 6 ? plan['precio_mensual']*6 : ( articulo[:duracion] == 3 ? plan['precio_mensual']*3 : plan['precio_mensual'] ) ) ) %>
+    <% total = total + articulo[:precio] %>
   <% end %>
   </div>
   <div id="pie-articulos">
@@ -50,15 +47,15 @@
 <% end %>
 <div style="margin: 50px 0 0 0">
   Si deseas pagar mediante deposito o transferencia bancaria, puedes hacerlo a través de las siguientes cuentas:
-  <% AppConfig.preferencias.metodos_pago.select{|k| k['tipo'] == 'banco'}[0]['cuentas'].each do |cta| %>
+  <% CuentaBancaria.where(:borrado => {'$exists' => false}).each do |cta| %>
     <div style="margin: 15px 0">
-      <% if cta['logo'] %>
-        <%= image_tag 'logos/'+cta['logo'], :align => 'left', :style =>'height: 65px; padding: 0 10px 0 0;' %>
+      <% if cta[:logo_src] %>
+        <%= image_tag 'logos/'+cta[:logo_src], :align => 'left', :style =>'height: 65px; padding: 0 10px 0 0;' %>
       <% end %>
-      Banco: <b><%= cta['empresa'] %></b><br/>
-      Número de cuenta: <b><%= cta['nro'] %></b><br/>
-      Tipo de cuenta: <b><%= cta['tipo'].capitalize %></b><br/>
-      Titular de la cuenta: <b><%= cta['titular'] %></b><br/>
+      Banco: <b><%= cta.banco.nombre %></b><br/>
+      Número de cuenta: <b><%= cta.nro %></b><br/>
+      Tipo de cuenta: <b><%= cta.tipo.capitalize %></b><br/>
+      Titular de la cuenta: <b><%= cta.titular %></b><br/>
     </div>
   <% end %>
   Luego registra la transacción haciendo clic en el botón "proceder a pagar".

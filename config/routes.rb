@@ -143,10 +143,10 @@ Rails.application.routes.draw do
   get 'clientes', controller: 'clientes', action: 'index', as: :clientes
   
   get 'carrito', controller: 'carrito', action: 'index', as: :carrito
-  get 'carrito/agregar/:servicio/:plan', controller: 'carrito', action: 'agregar', as: :agregar_hospedaje_al_carrito
-  get 'carrito/agregar/:servicio/:plan/:nombre_dominio', controller: 'carrito', action: 'agregar', as: :agregar_dominio_al_carrito
-  get 'carrito/remover/:id', controller: 'carrito', action: 'remover', as: :remover_del_carrito
-  get 'carrito/editararticulo/:id/:duracion', controller: 'carrito', action: 'alterar', as: :editar_articulo_del_carrito
+  get 'carrito/agregar/hospedaje/:id', controller: 'carrito', action: 'agregar_hospedaje', as: :agregar_hospedaje_carrito
+  get 'carrito/agregar/dominio/:id/:nombre', controller: 'carrito', action: 'agregar_dominio', as: :agregar_dominio_carrito
+  get 'carrito/remover/:id', controller: 'carrito', action: 'remover', as: :remover_articulo_carrito
+  get 'carrito/editar/:id/:duracion', controller: 'carrito', action: 'editar', as: :editar_articulo_carrito
   get 'carrito/pagar', controller: 'carrito', action: 'new', as: :pagar_carrito
   post 'carrito/pagar', controller: 'carrito', action: 'create'
   

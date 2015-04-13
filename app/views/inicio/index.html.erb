@@ -165,8 +165,8 @@ buscador de nombres de dominios disponibles.
       <input type="text" name="nombre" />
       <b>.</b>
       <select name="dominio">
-          <% AppConfig.preferencias.planes_dominios.each do |dom| %>
-            <option><%= dom['nombre'] %></option>
+          <% PlanDominio.where(:borrado => {'$exists' => false}).each do |dom| %>
+            <option><%= dom[:dominio] %></option>
           <% end %>
       </select>
       <input type="submit" name="buscar_dominio" value="buscar" />
@@ -186,11 +186,12 @@ buscador de nombres de dominios disponibles.
   Y todo puede ser administrado cómodamente con nuestro moderno panel para usuarios.
   <br/><br/>
   <div style="display: inline-block">
-  <% AppConfig.preferencias.planes_hospedaje.each do |hos| %>
+  <% PlanHospedaje.where(:borrado => {'$exists' => false}).each do |hos| %>
     <div style="background-color: #EEE;margin: 5px;padding: 10px;border-radius: 10px; width: 460px; float: left">
       <h2><%= hos['nombre'] %></h2>
+      <div style="margin: 10px 0; font-style: italic"><%= hos['descripcion'] %></div>
       <div>
-          Espacio de almacenamiento: <b><%= number_to_human_size(hos['espacio']*1048576) %></b>
+          Espacio de almacenamiento: <b><%= number_to_human_size(hos['espacio']*1048576, precision: 3) %></b>
           <div style="font-weight: bold; text-align: right"><%= link_to 'más información', servicios_hospedaje_path %></div>
       </div>
     </div>

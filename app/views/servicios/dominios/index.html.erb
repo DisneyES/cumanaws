@@ -7,8 +7,8 @@ buscador de nombres de dominios disponibles.
       <input type="text" name="nombre" <%= defined?(nombre) ? 'value='+nombre+'' : '' %> />
       <b>.</b>
       <select name="dominio">
-          <% AppConfig.preferencias.planes_dominios.each do |dom| %>
-            <option <%= defined?(dominio) && dominio == dom['nombre'] ? 'selected' : '' %> ><%= dom['nombre'] %></option>
+          <% PlanDominio.where(:borrado => {'$exists' => false}).each do |dom| %>
+            <option <%= defined?(dominio) && dominio == dom[:dominio] ? 'selected' : '' %> ><%= dom[:dominio] %></option>
           <% end %>
       </select>
       <input type="submit" name="buscar_dominio" value="buscar" />
@@ -17,14 +17,14 @@ buscador de nombres de dominios disponibles.
 <% if defined?(nombre) && defined?(dominio) %>
   <div>
     <div style="background-color: #EEE;margin: 10px;padding: 10px;border-radius: 10px">
-      El dominio <b><%=nombre%>.<%=dominio%></b> <%=  disponible ? '' : 'no' %> se encuentra disponible. <%=disponible ? '| <b>'.html_safe+link_to('adquirir', agregar_dominio_al_carrito_path('dominio',dominio.gsub('.','_'),nombre))+'</b>'.html_safe : '' %>
+      El dominio <b><%=nombre%>.<%=dominio%></b> <%=  disponible ? '' : 'no' %> se encuentra disponible. <%=disponible ? '| <b>'.html_safe+link_to('adquirir', agregar_dominio_carrito_path(_id,nombre))+'</b>'.html_safe : '' %>
     </div>
     <% unless otros.empty? %>
       <div>
         También puedes escoger alguna de las siguientes opciones:
         <% otros.each do |otro| %>
           <div style="background-color: #EEE;margin: 10px;padding: 10px;border-radius: 10px">
-            El dominio <b><%=otro[:nombre]%>.<%=otro[:dominio]%></b> se encuentra disponible. | <b><%=link_to 'adquirir', agregar_dominio_al_carrito_path('dominio',otro[:dominio].gsub('.','_'),otro[:nombre]) %></b>
+            El dominio <b><%=otro[:nombre]%>.<%=otro[:dominio]%></b> se encuentra disponible. | <b><%=link_to 'adquirir', agregar_dominio_carrito_path(otro[:_id],otro[:nombre]) %></b>
           </div>
         <% end %>
       </div>
