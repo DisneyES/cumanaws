@@ -41,6 +41,9 @@ class Administracion::PlanesHospedajeController < ApplicationController
   
   def update
     self.resource = PlanHospedaje.where(:_id => params[:id]).first
+    if params[:plan_hospedaje][:borrado] != '1'
+      params[:plan_hospedaje].delete(:borrado)
+    end
     if resource.update_attributes(params[:plan_hospedaje])
       respond_with resource do |format|
         format.json {render :json => { _exito: true, _mensaje: 'Plan de hospedaje web editado exitosamente.', _ubicacion: administracion_planes_hospedaje_path } }

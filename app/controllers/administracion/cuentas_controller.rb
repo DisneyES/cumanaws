@@ -24,7 +24,7 @@ class Administracion::CuentasController < ApplicationController
       params[:cuenta].delete(:password)
       params[:cuenta].delete(:password_confirmation) if params[:cuenta][:password_confirmation].blank?
     end
-    if params[:cuenta][:suspendido] == '0'
+    if params[:cuenta][:suspendido] != '1'
       params[:cuenta].delete(:suspendido)
     end
     if resource.update_attributes(params[:cuenta])

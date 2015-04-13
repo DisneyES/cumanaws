@@ -41,7 +41,10 @@ class Administracion::PlanesDominiosController < ApplicationController
   
   def update
     self.resource = PlanDominio.where(:_id => params[:id]).first
-    if resource.update_attributes(params[:plan_hospedaje])
+    if params[:plan_dominio][:borrado] != '1'
+      params[:plan_dominio].delete(:borrado)
+    end
+    if resource.update_attributes(params[:plan_dominio])
       respond_with resource do |format|
         format.json {render :json => { _exito: true, _mensaje: 'Plan de dominio editado exitosamente.', _ubicacion: administracion_planes_dominios_path } }
       end

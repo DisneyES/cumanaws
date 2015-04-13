@@ -41,6 +41,9 @@ class Administracion::CuentasBancariasController < ApplicationController
   
   def update
     self.resource = CuentaBancaria.where(:_id => params[:id]).first
+    if params[:cuenta_bancaria][:borrado] != '1'
+      params[:cuenta_bancaria].delete(:borrado)
+    end
     if resource.update_attributes(params[:cuenta_bancaria])
       respond_with resource do |format|
         format.json {render :json => { _exito: true, _mensaje: 'Cuenta bancaria editada exitosamente.', _ubicacion: administracion_cuentas_bancarias_path } }
