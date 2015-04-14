@@ -36,7 +36,7 @@ class Cuenta
   require_human_on :create
   
   has_one :persona, autosave: true  
-  has_one :puntaje, autosave: true
+  has_one :saldo, autosave: true
   has_one :locale, autosave: true
   
   ## Database authenticatable
@@ -127,7 +127,7 @@ class Cuenta
     self.persona.localidad=localidad
     self.persona.direccion=direccion
     
-    self.puntaje=Puntaje.new
+    self.saldo=Saldo.new
     
     self.locale=Locale.new
     

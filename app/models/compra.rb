@@ -15,7 +15,7 @@ class Compra
   
   field :nombre, type: String   # para adquirir dominios
   
-  field :precio, type: Integer
+  field :precio, type: Float
   
   field :enviado, type: Boolean
   field :aceptado, type: Boolean

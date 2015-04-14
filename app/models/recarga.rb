@@ -12,7 +12,7 @@ class Recarga
   field :monto, type: Float
   field :fecha, type: DateTime
   field :observaciones, type: String
-  field :puntos, type: Integer
+  field :saldo, type: Float
   field :aceptado, type: Boolean
   field :rechazado, type: Boolean
   
@@ -38,7 +38,7 @@ class Recarga
     
   def insertar_datos
     self.monto = ent_monto.gsub(',', '.').to_f
-    self.puntos = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
+    self.saldo = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
     if self.metodo_pago == 'banco'
       self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cta_bancaria).first
     end
@@ -53,24 +53,24 @@ class Recarga
   
   def procesar
     self.monto = ent_monto.gsub(',', '.').to_f
-    self.puntos = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
+    self.saldo = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
     if self.metodo_pago == 'banco'
       self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cta_bancaria).first
     end
-    puntaje = Puntaje.where(:cuenta_id => self.cuenta._id).first
+    saldo = Saldo.where(:cuenta_id => self.cuenta._id).first
     fondos = Fondo.where(:moneda => self.moneda).first
-    puntaje.espera = puntaje.espera - self.puntos
+    saldo.espera = saldo.espera - self.saldo
     fondos.espera = fondos.espera - self.monto
     if self.aceptado
-      puntaje.activo = puntaje.activo + self.puntos
+      saldo.activo = saldo.activo + self.saldo
       fondos.activo = fondos.activo + self.monto
-      movimiento_puntaje = MovimientoPuntaje.new
-      movimiento_puntaje.cuenta = self.cuenta
-      movimiento_puntaje.recarga = self
-      movimiento_puntaje.puntos = self.puntos
-      movimiento_puntaje.tipo = true
-      movimiento_puntaje.motivo = 'recarga'
-      movimiento_puntaje.save
+      movimiento_saldo = MovimientoSaldo.new
+      movimiento_saldo.cuenta = self.cuenta
+      movimiento_saldo.recarga = self
+      movimiento_saldo.saldo = self.saldo
+      movimiento_saldo.tipo = true
+      movimiento_saldo.motivo = 'recarga'
+      movimiento_saldo.save
       movimiento_fondo = MovimientoFondo.new
       movimiento_fondo.recarga = self
       movimiento_fondo.tipo = true
@@ -78,7 +78,7 @@ class Recarga
       movimiento_fondo.motivo = 'recarga'
       movimiento_fondo.save
     end
-    puntaje.save
+    saldo.save
     fondos.save
   end
   

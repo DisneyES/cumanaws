@@ -36,16 +36,36 @@
     <% total = total + articulo[:precio] %>
   <% end %>
   </div>
-  <div id="pie-articulos">
-    <div  style="background-color: #fff; border-bottom-left-radius: 10px;float: left; width: 768px; text-align: right; font-weight: bold; padding: 5px; margin: 2px">total (Bs.):</div>
+  <div id="precio-total">
+    <div  style="background-color: #fff; float: left; width: 768px; text-align: right; font-weight: bold; padding: 5px; margin: 2px">total (Bs.):</div>
     <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*total, :unit => '', separator: ",", delimiter: "." ) %></div>
+    <div style="background-color: #fff; float: left; width: 70px; text-align: center; padding: 5px; margin: 2px">...</div>
+  </div>
+  <div id="saldo-disponible">
+    <div  style="background-color: #fff; border-bottom-left-radius: 10px;float: left; width: 768px; text-align: right; font-weight: bold; padding: 5px; margin: 2px">saldo disponible (Bs.):</div>
+    <% saldo = Saldo.where(:cuenta_id => current_cuenta._id).first %>
+    <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px<%= saldo.activo < total ? '; color: #d00' : '' %> "><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*saldo.activo, :unit => '', separator: ",", delimiter: "." ) %></div>
     <div style="background-color: #fff; border-bottom-right-radius: 10px; float: left; width: 70px; text-align: center; padding: 5px; margin: 2px">...</div>
   </div>
-
+  <% if cuenta_signed_in? %>
+    <% if saldo.activo < total %>
+      <div style="text-align: center;font-weight:bold; padding: 10px">
+       
+      </div>
+    <% else %>
+      <div style="text-align: center;font-weight:bold; padding: 10px">
+        <%= form_tag(pagar_carrito_path, method: :get) do -%>
+          <%= button_tag 'proceder a pagar', type: 'submit', confirm: '¿esta seguro que desea continuar?' %>
+        <% end -%>
+      </div>
+    <% end %>
+  <% else %>
+    <div style="text-align: center;font-weight:bold; padding: 10px"><%= link_to 'para adquirir estos servicios debes tener una cuenta de usuario', iniciarsesion_redir_path('carrito') %></div>
+  <% end %>
 <% else %>
   <div style="text-align: center;font-weight:bold; padding: 10px">No se han agregado artículos</div>
 <% end %>
-<div style="margin: 50px 0 0 0">
+<div style="margin: 0">
   Si deseas pagar mediante deposito o transferencia bancaria, puedes hacerlo a través de las siguientes cuentas:
   <% CuentaBancaria.where(:borrado => {'$exists' => false}).each do |cta| %>
     <div style="margin: 15px 0">
@@ -58,14 +78,4 @@
       Titular de la cuenta: <b><%= cta.titular %></b><br/>
     </div>
   <% end %>
-  Luego registra la transacción haciendo clic en el botón "proceder a pagar".
 </div>
-<% if cuenta_signed_in? %>
-  <div style="text-align: center;font-weight:bold; padding: 10px">
-    <%= form_tag(pagar_carrito_path, method: :get) do -%>
-      <%= button_tag 'proceder a pagar', type: 'submit', confirm: '¿esta seguro que desea continuar?' %>
-    <% end -%>
-  </div>
-<% else %>
-  <div style="text-align: center;font-weight:bold; padding: 10px"><%= link_to 'para adquirir estos servicios debes tener una cuenta de usuario', iniciarsesion_redir_path('carrito') %></div>
-<% end %>
