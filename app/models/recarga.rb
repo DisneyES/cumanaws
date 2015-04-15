@@ -3,11 +3,11 @@ class Recarga
   
   belongs_to :cuenta
   
-  attr_accessor :ent_cta_bancaria, :ent_monto
+  attr_accessor :ent_cta_bancaria, :ent_monto, :ent_moneda
   
   field :metodo_pago, type: String
-  belongs_to :cuenta_bancaria, autosave: true
-  field :moneda, type: String, default: 'vef'
+  belongs_to :cuenta_bancaria
+  belongs_to :moneda
   field :codigo, type: String
   field :monto, type: Float
   field :fecha, type: DateTime
@@ -17,7 +17,7 @@ class Recarga
   field :rechazado, type: Boolean
   
   validates_presence_of :metodo_pago
-  validates_presence_of :moneda
+  validates_presence_of :ent_moneda
   validates_presence_of :codigo
   validates_presence_of :fecha
   

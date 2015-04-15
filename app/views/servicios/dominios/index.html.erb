@@ -35,12 +35,12 @@ buscador de nombres de dominios disponibles.
 
 <% @bloques_pri << {:titulo => 'información de planes', :contenido => capture do %>
   <div style="display: inline-block">
-  <% AppConfig.preferencias.planes_dominios.each do |dom| %>
+      <% PlanDominio.where(:borrado => {'$exists' => false}).each do |dom| %>
     <div style="background-color: #EEE;margin: 5px;padding: 10px;border-radius: 10px; width: 460px; float: left">
-      <h2>.<%= dom['nombre'] %></h2>
+      <h2>.<%= dom.dominio %></h2>
       <div>
-        Territorio: <b><%= dom['pais'] == 'int' ? 'Internacional' : AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==dom['pais']}[0]['nombre'] %></b><br/>
-        Precio anual: <b><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*dom['precio_anual'], :unit => AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['simbolo']+' ', separator: ",", delimiter: "." ) %></b>
+        Territorio: <b><%= dom.territorio == 'int' ? 'Internacional' : AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo']==dom['pais']}[0]['nombre'] %></b><br/>
+        Precio anual: <b><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*dom['precio_anual'], :unit => Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:simbolo]+' ', separator: ",", delimiter: "." ) %></b>
     </div>
     </div>
   <% end %>

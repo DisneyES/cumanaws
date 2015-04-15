@@ -18,6 +18,10 @@ module Mongoid
         end
       end
       
+      after_initialize do |document|
+        
+      end
+      
       before_update do |document|
         edicion = Edicion.new
         if $cuenta_signed_in

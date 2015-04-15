@@ -1,0 +1,15 @@
+<% content_for :titulo_pagina do %>administración > monedas > editar<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > <%=link_to 'monedas' , administracion_monedas_path %> > editar<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  administracion_editar_moneda_path(resource[:_id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <%= form_campo f, :nombre, 'text_field', autocomplete: "off" %>
+  <%= form_campo f, :codigo, 'text_field', autocomplete: "off", label: 'Código' %>
+  <%= form_campo f, :simbolo, 'text_field', autocomplete: "off", label: 'Símbolo' %>
+  <%= form_campo f, :conversion, 'text_field', autocomplete: "off", placeholder: '0000.0000', label: 'Conversión' %>
+  <%= form_campo f, :borrado, 'check_box', :label => 'Eliminar' %>
+  <br/>
+  <div style="text-align:center" id="campo_commit"><%= f.submit "editar moneda", data: { disable_with: 'enviando...' } %></div>
+<% end %>

@@ -43,8 +43,8 @@
       <div class="grid-fila">
         <div class="grid-celda"><%= plan_hospedaje[:nombre] %></div>
         <div class="grid-celda"><%= number_to_human_size(plan_hospedaje['espacio']*1048576, precision: 3) %></div>
-        <div class="grid-celda"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan_hospedaje[:precio_mensual], :unit => '', separator: ",", delimiter: "." ) %></div>
-        <div class="grid-celda"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan_hospedaje[:precio_anual], :unit => '', separator: ",", delimiter: "." ) %></div>
+        <div class="grid-celda"><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*plan_hospedaje[:precio_mensual], :unit => '', separator: ",", delimiter: "." ) %></div>
+        <div class="grid-celda"><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*plan_hospedaje[:precio_anual], :unit => '', separator: ",", delimiter: "." ) %></div>
         <div class="grid-celda" style="text-align: center"><%= link_to 'editar', administracion_editar_plan_hospedaje_path(plan_hospedaje[:_id]) %></div>
       </div>
     <% end %>

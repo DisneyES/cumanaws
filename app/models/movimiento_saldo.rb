@@ -5,7 +5,7 @@ class MovimientoSaldo
   belongs_to :recarga
   belongs_to :compra
   
-  field :saldo, type: Integer
+  field :saldo, type: Float
   field :tipo, type: Boolean
   field :descripcion, type: String
   field :motivo, type: String

@@ -4,10 +4,10 @@ class CuentaBancaria
   attr_accessor :ent_banco
   
   belongs_to :banco, autosave: true
+  belongs_to :moneda
   field :nro, type: String
   field :tipo, type: String
   field :titular, type: String
-  field :moneda, type: String
   field :borrado, type: Boolean
   
   before_save :insertar_datos

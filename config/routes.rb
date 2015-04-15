@@ -130,6 +130,12 @@ Rails.application.routes.draw do
   get 'administracion/editarctabancaria/:id', controller: 'administracion/cuentas_bancarias', action: 'edit', as: :administracion_editar_cta_bancaria
   put 'administracion/editarctabancaria/:id', controller: 'administracion/cuentas_bancarias', action: 'update'
   
+  get 'administracion/monedas', controller: 'administracion/monedas', action: 'index', as: :administracion_monedas
+  get 'administracion/nuevamoneda', controller: 'administracion/monedas', action: 'new', as: :administracion_nueva_moneda
+  post 'administracion/nuevamoneda', controller: 'administracion/monedas', action: 'create'
+  get 'administracion/editarmoneda/:id', controller: 'administracion/monedas', action: 'edit', as: :administracion_editar_moneda
+  put 'administracion/editarmoneda/:id', controller: 'administracion/monedas', action: 'update'
+  
   
   get 'servicios', controller: 'servicios', action: 'index', as: :servicios
   

@@ -1,0 +1,52 @@
+<% content_for :titulo_pagina do %>administración > monedas<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'administración' , administracion_path %> > monedas<% end %>
+<style>
+  .grid-cabezal {
+    display: flex;
+  }
+  .grid-cabezal > div {
+    background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 2px;
+    width: 100%;
+  }
+  .grid-cabezal > div.grid-celda-izq {
+      border-top-left-radius: 10px;
+  }
+  .grid-cabezal > div.grid-celda-der {
+      border-top-right-radius: 10px;
+  }
+  .grid-fila {
+    display: flex;
+  }
+  .grid-celda {
+    font-weight: bold;
+    background-color: #eee;
+    padding: 10px;
+    margin: 2px;
+    width: 100%;
+  }
+</style>
+<div style="text-align: right; font-weight: bold; margin: 10px 0"><%= link_to 'Agregar', administracion_nueva_moneda_path %></div>
+<% unless monedas.empty? %>
+  <div class="grid-cabezal">
+    <div class="grid-celda-izq">nombre</div>
+    <div>código</div>
+    <div>símbolo</div>
+    <div>conversión</div>
+    <div class="grid-celda-der">...</div>
+  </div>
+  <div class="grid-cuerpo">
+    <% monedas.each do |moneda| %>
+      <div class="grid-fila">
+        <div class="grid-celda"><%= moneda[:nombre] %></div>
+        <div class="grid-celda"><%= moneda[:codigo] %></div>
+        <div class="grid-celda"><%= moneda[:simbolo] %></div>
+        <div class="grid-celda"><%= moneda[:conversion] %></div>
+        <div class="grid-celda" style="text-align: center"><%= link_to 'editar', administracion_editar_moneda_path(moneda[:_id]) %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

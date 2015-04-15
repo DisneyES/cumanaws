@@ -33,7 +33,7 @@
 <% unless planes_dominios.empty? %>
   <div class="grid-cabezal">
     <div class="grid-celda-izq">dominio</div>
-    <div>país</div>
+    <div>territorio</div>
     <div>precio anual (Bs.)</div>
     <div class="grid-celda-der">...</div>
   </div>
@@ -41,8 +41,8 @@
     <% planes_dominios.each do |plan_dominio| %>
       <div class="grid-fila">
         <div class="grid-celda">.<%= plan_dominio[:dominio] %></div>
-        <div class="grid-celda"><%= plan_dominio[:pais] == 'int' ? 'Internacional' : AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo'] == plan_dominio[:pais]}[0]['nombre'] %></div>
-        <div class="grid-celda"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*plan_dominio[:precio_anual], :unit => '', separator: ",", delimiter: "." ) %></div>
+        <div class="grid-celda"><%= plan_dominio[:territorio] == 'int' ? 'Internacional' : AppConfig.preferencias.parametros_por_pais.select{|k| k['codigo'] == plan_dominio[:pais]}[0]['nombre'] %></div>
+        <div class="grid-celda"><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*plan_dominio[:precio_anual], :unit => '', separator: ",", delimiter: "." ) %></div>
         <div class="grid-celda" style="text-align: center"><%= link_to 'editar', administracion_editar_plan_dominio_path(plan_dominio[:_id]) %></div>
       </div>
     <% end %>

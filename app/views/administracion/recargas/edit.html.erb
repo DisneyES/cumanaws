@@ -11,7 +11,7 @@
   <%= form_campo f, :ent_monto, 'text_field', :label => 'Monto (Bs.)', placeholder: '0000,00' %>
   <%= form_campo f, :fecha, 'date_field', :label => 'Fecha de la transacción', default: Date.today, desde: Date.new(2015,03,29), hasta: Date.today %>
   <%= form_campo f, :observaciones, 'text_area' %>
-  <%= form_campo f, :puntos, 'text_field', :label => 'Puntos', placeholder: '0000' %>
+  <%= form_campo f, :saldo, 'text_field', placeholder: '0000' %>
   <br/>
   <div style="text-align:center" id="campo_recarga_commit">
     <%= f.submit "aceptar", data: { disable_with: 'enviando...' } %>
