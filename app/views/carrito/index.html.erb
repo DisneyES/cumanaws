@@ -16,7 +16,7 @@
     <% elsif articulo[:servicio] == 'dominio' %>
       <% descripcion = 'Dominio: <b>'+articulo[:nombre]+'.'+articulo[:dominio]+'</b>' %>
     <% end %>
-    <% precio = number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*articulo[:precio], :unit => '', separator: ",", delimiter: "." ) %>
+    <% precio = number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*articulo[:precio], :unit => '', separator: ",", delimiter: "." ) %>
     <div class="articulo" style="display: inline-flex;">
       <div class="articulo-descripcion" style="background-color: #eee; width: 654px; padding: 5px; margin: 2px"><%= descripcion.html_safe %></div>
       <div style="background-color: #eee;float: left; width: 100px; text-align: center; font-weight: bold; padding: 5px; margin: 2px">
@@ -38,19 +38,19 @@
   </div>
   <div id="precio-total">
     <div  style="background-color: #fff; float: left; width: 768px; text-align: right; font-weight: bold; padding: 5px; margin: 2px">total (Bs.):</div>
-    <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px"><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*total, :unit => '', separator: ",", delimiter: "." ) %></div>
+    <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px"><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*total, :unit => '', separator: ",", delimiter: "." ) %></div>
     <div style="background-color: #fff; float: left; width: 70px; text-align: center; padding: 5px; margin: 2px">...</div>
   </div>
   <div id="saldo-disponible">
     <div  style="background-color: #fff; border-bottom-left-radius: 10px;float: left; width: 768px; text-align: right; font-weight: bold; padding: 5px; margin: 2px">saldo disponible (Bs.):</div>
     <% saldo = Saldo.where(:cuenta_id => current_cuenta._id).first %>
-    <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px<%= saldo.activo < total ? '; color: #d00' : '' %> "><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*saldo.activo, :unit => '', separator: ",", delimiter: "." ) %></div>
+    <div style="background-color: #fff;float: left; width: 100px; text-align: right; font-weight: bold; padding: 5px; margin: 2px<%= saldo.activo < total ? '; color: #d00' : '' %> "><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*saldo.activo, :unit => '', separator: ",", delimiter: "." ) %></div>
     <div style="background-color: #fff; border-bottom-right-radius: 10px; float: left; width: 70px; text-align: center; padding: 5px; margin: 2px">...</div>
   </div>
   <% if cuenta_signed_in? %>
     <% if saldo.activo < total %>
       <div style="text-align: center;font-weight:bold; padding: 10px">
-       
+       No posees saldo suficiente para pagar estos servicios, para recargar tu saldo haz clic <%= link_to 'aquí', '#' %>.
       </div>
     <% else %>
       <div style="text-align: center;font-weight:bold; padding: 10px">
@@ -70,7 +70,7 @@
   <% CuentaBancaria.where(:borrado => {'$exists' => false}).each do |cta| %>
     <div style="margin: 15px 0">
       <% if cta[:logo_src] %>
-        <%= image_tag 'logos/'+cta[:logo_src], :align => 'left', :style =>'height: 65px; padding: 0 10px 0 0;' %>
+        <%= image_tag cta[:logo_src], :align => 'left', :style =>'height: 65px; padding: 0 10px 0 0;' %>
       <% end %>
       Banco: <b><%= cta.banco.nombre %></b><br/>
       Número de cuenta: <b><%= cta.nro %></b><br/>

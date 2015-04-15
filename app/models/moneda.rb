@@ -4,6 +4,8 @@ class Moneda
   field :nombre, type: String
   field :codigo, type: String
   field :simbolo, type: String
+  field :delimitador, type: String
+  field :separador, type: String
   field :conversion, type: Float
   field :borrado, type: Boolean
   
@@ -13,6 +15,8 @@ class Moneda
   validates_uniqueness_of :codigo
   validates_presence_of :simbolo
   validates_uniqueness_of :simbolo
+  validates_presence_of :delimitador
+  validates_presence_of :separador
   validates_presence_of :conversion
   
 end

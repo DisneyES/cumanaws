@@ -8,6 +8,8 @@
   <%= form_campo f, :nombre, 'text_field', autocomplete: "off" %>
   <%= form_campo f, :codigo, 'text_field', autocomplete: "off", label: 'Código' %>
   <%= form_campo f, :simbolo, 'text_field', autocomplete: "off", label: 'Símbolo' %>
+  <%= form_campo f, :delimitador, 'text_field', autocomplete: "off", placeholder: '.' %>
+  <%= form_campo f, :separador, 'text_field', autocomplete: "off", placeholder: ',' %>
   <%= form_campo f, :conversion, 'text_field', autocomplete: "off", placeholder: '0000.0000', label: 'Conversión' %>
   <br/>
   <div style="text-align:center" id="campo_commit"><%= f.submit "nueva moneda", data: { disable_with: 'enviando...' } %></div>
