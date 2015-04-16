@@ -17,6 +17,17 @@
 //= require adaptativo
 //= require_tree .
 
+//function startSpinner(){
+//    $('#spinner').css('display','block');
+//}
+//
+//function stopSpinner(){
+//    $('#spinner').css('display','none');
+//}
+//
+//$(document).on("page:fetch", startSpinner);
+//$(document).on("page:receive", stopSpinner);
+
 $(function(){
     $(window).scroll(function(){
         if($(window).scrollTop()>40){

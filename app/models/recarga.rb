@@ -3,9 +3,9 @@ class Recarga
   
   belongs_to :cuenta
   
-  attr_accessor :ent_cta_bancaria, :ent_monto, :ent_moneda
+  attr_accessor :ent_cta_bancaria, :ent_monto #, :ent_moneda
   
-  field :metodo_pago, type: String
+  field :metodo_pago, type: String, default: 'banco'
   belongs_to :cuenta_bancaria
   belongs_to :moneda
   field :codigo, type: String
@@ -17,7 +17,7 @@ class Recarga
   field :rechazado, type: Boolean
   
   validates_presence_of :metodo_pago
-  validates_presence_of :ent_moneda
+  # validates_presence_of :ent_moneda
   validates_presence_of :codigo
   validates_presence_of :fecha
   
@@ -37,26 +37,27 @@ class Recarga
   protected
     
   def insertar_datos
+    self.cuenta = $cuenta
     self.monto = ent_monto.gsub(',', '.').to_f
-    self.saldo = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
-    if self.metodo_pago == 'banco'
-      self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cta_bancaria).first
-    end
+    self.cuenta_bancaria = CuentaBancaria.where(:_id => ent_cta_bancaria).first
+    self.moneda = self.cuenta_bancaria.moneda
+    self.saldo = self.monto / self.moneda.conversion
+    saldo = Saldo.where(:cuenta_id => self.cuenta._id).first
+    saldo.espera = saldo.espera + self.saldo
+    saldo.save
   end
   
   def para_procesar
     if self.cuenta_bancaria && self.monto
-      self.ent_cta_bancaria = self.cuenta_bancaria.nro
+      self.ent_cta_bancaria = self.cuenta_bancaria._id
       self.ent_monto = self.monto.gsub.to_s.gsub('.', ',')
     end
   end
   
   def procesar
     self.monto = ent_monto.gsub(',', '.').to_f
-    self.saldo = (self.monto / AppConfig.preferencias.monedas.select{|k| k['codigo'] == moneda }[0]['conversion']).ceil
-    if self.metodo_pago == 'banco'
-      self.cuenta_bancaria = CuentaBancaria.where(:nro => ent_cta_bancaria).first
-    end
+    self.cuenta_bancaria = CuentaBancaria.where(:_id => ent_cta_bancaria).first
+    self.saldo = self.monto / self.moneda.conversion
     saldo = Saldo.where(:cuenta_id => self.cuenta._id).first
     fondos = Fondo.where(:moneda => self.moneda).first
     saldo.espera = saldo.espera - self.saldo
@@ -74,6 +75,7 @@ class Recarga
       movimiento_fondo = MovimientoFondo.new
       movimiento_fondo.recarga = self
       movimiento_fondo.tipo = true
+      movimiento_fondo.moneda = self.moneda
       movimiento_fondo.monto = self.monto
       movimiento_fondo.motivo = 'recarga'
       movimiento_fondo.save

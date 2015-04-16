@@ -60,7 +60,7 @@ module ApplicationHelper
     end
     return tipos
   end
-  def select_metodos_pago
+  def select_metodo_pago
     tipos = [['Selecione','']]
     AppConfig.preferencias.metodos_pago.each do |metodo|
       tipos << [metodo['nombre'],metodo['tipo']]
@@ -70,8 +70,8 @@ module ApplicationHelper
   
   def select_cta_bancaria
     tipos = [['Selecione','']]
-    AppConfig.preferencias.metodos_pago.select{|k| k['tipo'] == 'banco' }[0]['cuentas'].each do |cta|
-      tipos << [cta['empresa'] + ', ' + cta['nro'], cta['nro']]
+    CuentaBancaria.where(:borrado => {'$exists' => false}).each do |cta|
+      tipos << [cta.banco.nombre + ', ' + cta.nro, cta._id]
     end
     return tipos
   end

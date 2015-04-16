@@ -5,6 +5,7 @@ class MovimientoFondo
   belongs_to :dominio
   
   field :tipo, type: Boolean
+  belongs_to :moneda
   field :monto, type: Float
   field :descripcion, type: String
   field :motivo, type: String

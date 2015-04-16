@@ -50,7 +50,7 @@
   <% if cuenta_signed_in? %>
     <% if saldo.activo < total %>
       <div style="text-align: center;font-weight:bold; padding: 10px">
-       No posees saldo suficiente para pagar estos servicios, para recargar tu saldo haz clic <%= link_to 'aquí', '#' %>.
+       No posees saldo suficiente para pagar estos servicios, para recargar tu saldo haz clic <%= link_to 'aquí', mi_cuenta_recargar_saldo_path %>.
       </div>
     <% else %>
       <div style="text-align: center;font-weight:bold; padding: 10px">

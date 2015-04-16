@@ -95,7 +95,11 @@ Rails.application.routes.draw do
   get 'micuenta', controller: 'mi_cuenta', action: 'index', as: :mi_cuenta
   get 'micuenta/dominios', controller: 'mi_cuenta/dominios', action: 'index', as: :mi_cuenta_dominios
   get 'micuenta/hospedaje', controller: 'mi_cuenta/hospedaje', action: 'index', as: :mi_cuenta_hospedaje
-  get 'micuenta/balance', controller: 'mi_cuenta/balance', action: 'index', as: :mi_cuenta_balance
+  
+  get 'micuenta/saldo', controller: 'mi_cuenta/saldo', action: 'index', as: :mi_cuenta_saldo
+  get 'micuenta/recargarsaldo', controller: 'mi_cuenta/saldo', action: 'new', as: :mi_cuenta_recargar_saldo
+  post 'micuenta/recargarsaldo', controller: 'mi_cuenta/saldo', action: 'create'
+  
   get 'micuenta/configuracion', controller: 'mi_cuenta/configuracion', action: 'index', as: :mi_cuenta_configuracion
   
   get 'administracion', controller: 'administracion', action: 'index', as: :administracion
