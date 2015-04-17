@@ -5,7 +5,7 @@
 </script>
 <%= form_for resource, url:  administracion_procesar_recarga_path(resource[:_id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
   <%= form_resumen_errores %>
-  <%= form_campo f, :metodo_pago, 'select', :opciones => select_metodos_pago %>
+  <%#= form_campo f, :metodo_pago, 'select', :opciones => select_metodos_pago %>
   <%= form_campo f, :ent_cta_bancaria, 'select', :label => 'Cuenta bancaria', :opciones => select_cta_bancaria %>
   <%= form_campo f, :codigo, 'text_field', :label => 'Número de transacción', placeholder: '0000000000' %>
   <%= form_campo f, :ent_monto, 'text_field', :label => 'Monto (Bs.)', placeholder: '0000,00' %>

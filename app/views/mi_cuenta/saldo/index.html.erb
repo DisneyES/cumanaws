@@ -33,6 +33,6 @@
 <div>
   <% saldo = Saldo.where(:cuenta_id => current_cuenta._id).first %>
   Saldo:<br/>
-  activo: <b><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*saldo.activo, :unit => '', separator: ",", delimiter: "." ) %></b>
-  | en espera: <b><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*saldo.espera, :unit => '', separator: ",", delimiter: "." ) %></b>
+  activo: <b>Bs. <%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*saldo.activo, :unit => '', separator: ",", delimiter: "." ) %></b>
+  | en espera: <b>Bs. <%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*saldo.espera, :unit => '', separator: ",", delimiter: "." ) %></b>
 </div>

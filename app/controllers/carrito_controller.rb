@@ -81,8 +81,8 @@ class CarritoController < ApplicationController
           articulo.duracion = 12
           articulo.precio = articulo.plan_dominio.precio_anual
         elsif articulo.plan_hospedaje
-          articulo.duracion = ( params[:duracion] == '12' ? 12 : ( params[:duracion] == '6' ? 6 : params[:duracion] == '3' ? 3 : 1 ) )
-          articulo.precio = ( params[:duracion] == '12' ? articulo.plan_hospedaje.precio_anual : ( params[:duracion] == '6' ? articulo.plan_hospedaje.precio_mensual*6 : params[:duracion] == '3' ? articulo.plan_hospedaje.precio_mensual*3 : articulo.plan_hospedaje.precio_mensual ) )
+          articulo.duracion = ( params[:duracion] == '12' ? 12 : ( params[:duracion] == '6' ? 6 : (params[:duracion] == '3' ? 3 : 1) ) )
+          articulo.precio = ( params[:duracion] == '12' ? articulo.plan_hospedaje.precio_anual : ( params[:duracion] == '6' ? articulo.plan_hospedaje.precio_mensual*6 : (params[:duracion] == '3' ? articulo.plan_hospedaje.precio_mensual*3 : articulo.plan_hospedaje.precio_mensual) ) )
         end
         articulo.save
       end
@@ -92,7 +92,7 @@ class CarritoController < ApplicationController
   
   def articulos
     if cuenta_signed_in?
-      compras = Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false)
+      compras = Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false, :enviado.exists => false)
     elsif defined?(cookies[:tmp_carrito]) && BSON::ObjectId.legal?(cookies[:tmp_carrito])
       compras = Compra.where('tmp_carrito' => cookies[:tmp_carrito], :borrado.exists => false)
     else
@@ -117,47 +117,69 @@ class CarritoController < ApplicationController
     return articulos
   end
   
-  def resource_name
-    :recarga
-  end
-  
-  def build_resource(hash=nil)
-    self.resource = Recarga.new(hash)
-  end
-  
-  def new
-    monto = 0
-    Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false).each do |articulo|
-      if articulo[:servicio] == 'hospedaje'
-        plan = AppConfig.preferencias.planes_hospedaje.select{|k| k['nombre'] == articulo[:plan] }[0]
-        monto = (articulo[:duracion] == 12 ? plan['precio_anual'] : plan['precio_mensual']*articulo[:duracion]) + monto 
-      else
-        plan = AppConfig.preferencias.planes_dominios.select{|k| k['nombre'] == articulo[:plan] }[0]
-        monto = plan['precio_anual'] + monto 
+  def pagar
+    precio_total = Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false, :enviado.exists => false).sum(:precio)
+    saldo = Saldo.where(:cuenta_id => current_cuenta._id, :activo.gte => precio_total ).first
+    if saldo
+      orden_compra = OrdenCompra.new
+      orden_compra.nro = OrdenCompra.max(:nro) + 1
+      orden_compra.precio_total = precio_total
+      orden_compra.enviado = true
+      articulos_pagados = Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false, :enviado.exists => false).each do |articulo|
+        articulos_pagados.orden_compra = orden_compra
+        articulos_pagados.enviado = true
+        articulos_pagados.save
       end
-    end
-    monto = (AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*monto).to_s+',00'
-    build_resource({:ent_monto => monto, :metodo_pago => 'banco'})
-    respond_with self.resource
-  end
-  
-  def create
-    build_resource(params[:recarga])
-    if resource.save
-      respond_with resource, location: root_path do |format|
-        format.json {render :json => { _exito: true, _mensaje: 'Pago registrado exitosamente.', _ubicacion: root_path } }
-      end
+      saldo.activo = saldo.activo - precio_total
+      saldo.save
+      orden_compra.save
+      render :locals => { :articulos => articulos_pagados, :orden_compra => orden_compra }
     else
-      campos={}
-      resource.errors.each do |error|
-        campos[error]={_set: {error: resource.errors[error]} }
-      end
-      respond_with resource do |format|
-        format.json {render :json => { _exito: false, _canterrores: resource.errors.count, _campos: campos
-          }
-        }
-      end
+      redirect_to carrito_path
     end
   end
+  
+#  def resource_name
+#    :recarga
+#  end
+#  
+#  def build_resource(hash=nil)
+#    self.resource = Recarga.new(hash)
+#  end
+#  
+#  def new
+#    monto = 0
+#    Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false).each do |articulo|
+#      if articulo[:servicio] == 'hospedaje'
+#        plan = AppConfig.preferencias.planes_hospedaje.select{|k| k['nombre'] == articulo[:plan] }[0]
+#        monto = (articulo[:duracion] == 12 ? plan['precio_anual'] : plan['precio_mensual']*articulo[:duracion]) + monto 
+#      else
+#        plan = AppConfig.preferencias.planes_dominios.select{|k| k['nombre'] == articulo[:plan] }[0]
+#        monto = plan['precio_anual'] + monto 
+#      end
+#    end
+#    monto = (AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*monto).to_s+',00'
+#    build_resource({:ent_monto => monto, :metodo_pago => 'banco'})
+#    respond_with self.resource
+#  end
+#  
+#  def create
+#    build_resource(params[:recarga])
+#    if resource.save
+#      respond_with resource, location: root_path do |format|
+#        format.json {render :json => { _exito: true, _mensaje: 'Pago registrado exitosamente.', _ubicacion: root_path } }
+#      end
+#    else
+#      campos={}
+#      resource.errors.each do |error|
+#        campos[error]={_set: {error: resource.errors[error]} }
+#      end
+#      respond_with resource do |format|
+#        format.json {render :json => { _exito: false, _canterrores: resource.errors.count, _campos: campos
+#          }
+#        }
+#      end
+#    end
+#  end
   
 end

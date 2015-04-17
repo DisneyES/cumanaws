@@ -27,7 +27,7 @@
           <option value="6" <%= articulo[:duracion] == 6 ? 'selected' : '' %> >6 meses</option>
           <option value="12" <%= articulo[:duracion] == 12 ? 'selected' : '' %> >1 año</option>
         </select>
-      <% else %>
+      <% elsif articulo[:servicio] == 'dominio' %>
           1 año
       <% end %></div>
       <div class="articulo-precio" style="background-color: #eee; width: 100px; text-align: right; padding: 12px 5px; margin: 2px"><%= precio %></div>

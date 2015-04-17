@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16/04/2015, 01:05:57 PM
+    Author     : javier
+*/
+
+.grid-cabezal {
+    display: flex;
+}
+.grid-cabezal > div {
+    background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 2px;
+    width: 100%;
+}
+.grid-cabezal > div.grid-celda-izq {
+    border-top-left-radius: 10px;
+}
+.grid-cabezal > div.grid-celda-der {
+    border-top-right-radius: 10px;
+}
+.grid-fila {
+    display: flex;
+}
+.grid-celda {
+    font-weight: bold;
+    background-color: #eee;
+    padding: 10px;
+    margin: 2px;
+    width: 100%;
+}
+.grid-pie {
+    display: flex;
+}
+
+.grid-pie > div {
+    background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 2px;
+    width: 100%;
+}
+
+.grid-cabezal > div.grid-celda-izq {
+    border-bottom-left-radius: 10px;
+}
+.grid-cabezal > div.grid-celda-der {
+    border-bottom-right-radius: 10px;
+}

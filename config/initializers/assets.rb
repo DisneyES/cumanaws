@@ -18,6 +18,7 @@ Rails.application.config.assets.precompile += %w{
       form.js
       jquery.slides.min.js
 
+      grid.css
       form.css
 }
     

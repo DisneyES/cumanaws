@@ -20,7 +20,7 @@ class Administracion::RecargasController < ApplicationController
   
   def update
     self.resource = Recarga.where(:_id => params[:id]).first
-    if params[:recarga][:commit] == 'aceptar'
+    if params[:commit] == 'aceptar'
       params[:recarga][:aceptado] = true
     else
       params[:recarga][:rechazado] = true

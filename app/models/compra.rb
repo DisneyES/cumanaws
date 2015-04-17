@@ -3,6 +3,8 @@ class Compra
   
   belongs_to :cuenta
   
+  belogns_to :orden_compra
+  
   field :tmp_carrito, type: BSON::ObjectId
   
   belongs_to :plan_hospedaje

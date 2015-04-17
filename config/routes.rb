@@ -157,7 +157,7 @@ Rails.application.routes.draw do
   get 'carrito/agregar/dominio/:id/:nombre', controller: 'carrito', action: 'agregar_dominio', as: :agregar_dominio_carrito
   get 'carrito/remover/:id', controller: 'carrito', action: 'remover', as: :remover_articulo_carrito
   get 'carrito/editar/:id/:duracion', controller: 'carrito', action: 'editar', as: :editar_articulo_carrito
-  get 'carrito/pagar', controller: 'carrito', action: 'new', as: :pagar_carrito
+  get 'carrito/pagar', controller: 'carrito', action: 'pagar', as: :pagar_carrito
   post 'carrito/pagar', controller: 'carrito', action: 'create'
   
   get 'nosotros', controller: 'nosotros', action: 'index', as: :nosotros

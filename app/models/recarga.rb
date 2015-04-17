@@ -43,14 +43,20 @@ class Recarga
     self.moneda = self.cuenta_bancaria.moneda
     self.saldo = self.monto / self.moneda.conversion
     saldo = Saldo.where(:cuenta_id => self.cuenta._id).first
+    fondos = Fondo.where(:moneda => self.moneda).first
+    unless fondos
+      fondos = Fondo.new(:moneda => self.moneda)
+    end
     saldo.espera = saldo.espera + self.saldo
+    fondos.espera = fondos.espera + self.monto
     saldo.save
+    fondos.save
   end
   
   def para_procesar
     if self.cuenta_bancaria && self.monto
       self.ent_cta_bancaria = self.cuenta_bancaria._id
-      self.ent_monto = self.monto.gsub.to_s.gsub('.', ',')
+      self.ent_monto = self.monto.to_s.gsub('.', ',')
     end
   end
   
@@ -60,6 +66,9 @@ class Recarga
     self.saldo = self.monto / self.moneda.conversion
     saldo = Saldo.where(:cuenta_id => self.cuenta._id).first
     fondos = Fondo.where(:moneda => self.moneda).first
+    unless fondos
+      fondos = Fondo.new(:moneda => self.moneda)
+    end
     saldo.espera = saldo.espera - self.saldo
     fondos.espera = fondos.espera - self.monto
     if self.aceptado
@@ -73,6 +82,7 @@ class Recarga
       movimiento_saldo.motivo = 'recarga'
       movimiento_saldo.save
       movimiento_fondo = MovimientoFondo.new
+      movimiento_fondo.cuenta = self.cuenta
       movimiento_fondo.recarga = self
       movimiento_fondo.tipo = true
       movimiento_fondo.moneda = self.moneda
