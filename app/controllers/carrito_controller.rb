@@ -131,6 +131,13 @@ class CarritoController < ApplicationController
         articulos_pagados.save
       end
       saldo.activo = saldo.activo - precio_total
+      movimiento_saldo = MovimientoSaldo.new
+      movimiento_saldo.cuenta = current_cuenta
+      movimiento_saldo.orden_compra = orden_compra
+      movimiento_saldo.saldo = precio_total
+      movimiento_saldo.tipo = false
+      movimiento_saldo.motivo = 'compra'
+      movimiento_saldo.save
       saldo.save
       orden_compra.save
       render :locals => { :articulos => articulos_pagados, :orden_compra => orden_compra }
