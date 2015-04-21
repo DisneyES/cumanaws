@@ -50,6 +50,7 @@ tmp/*
 *#
 bin/*
 nbproject
+*.kdev4
 patches-*
 capybara-*.html
 dump.rdb

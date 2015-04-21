@@ -146,47 +146,4 @@ class CarritoController < ApplicationController
     end
   end
   
-#  def resource_name
-#    :recarga
-#  end
-#  
-#  def build_resource(hash=nil)
-#    self.resource = Recarga.new(hash)
-#  end
-#  
-#  def new
-#    monto = 0
-#    Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false).each do |articulo|
-#      if articulo[:servicio] == 'hospedaje'
-#        plan = AppConfig.preferencias.planes_hospedaje.select{|k| k['nombre'] == articulo[:plan] }[0]
-#        monto = (articulo[:duracion] == 12 ? plan['precio_anual'] : plan['precio_mensual']*articulo[:duracion]) + monto 
-#      else
-#        plan = AppConfig.preferencias.planes_dominios.select{|k| k['nombre'] == articulo[:plan] }[0]
-#        monto = plan['precio_anual'] + monto 
-#      end
-#    end
-#    monto = (AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*monto).to_s+',00'
-#    build_resource({:ent_monto => monto, :metodo_pago => 'banco'})
-#    respond_with self.resource
-#  end
-#  
-#  def create
-#    build_resource(params[:recarga])
-#    if resource.save
-#      respond_with resource, location: root_path do |format|
-#        format.json {render :json => { _exito: true, _mensaje: 'Pago registrado exitosamente.', _ubicacion: root_path } }
-#      end
-#    else
-#      campos={}
-#      resource.errors.each do |error|
-#        campos[error]={_set: {error: resource.errors[error]} }
-#      end
-#      respond_with resource do |format|
-#        format.json {render :json => { _exito: false, _canterrores: resource.errors.count, _campos: campos
-#          }
-#        }
-#      end
-#    end
-#  end
-  
 end

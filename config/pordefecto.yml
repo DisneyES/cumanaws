@@ -1,32 +1,57 @@
 pordefecto:
-    version:
-        numero: "0.1"
-    entorno:
-        url: "http://localhost:3000/"
+    
+    version: 0.0.0
+    
     servidor:
+        
+        appserver: unicorn
+        
         puerto: 3000
-        entorno_rails: 'development'
-    preferencias:
+        
+        binding: localhost
+        
+        entorno: development
+    
+    aplicacion:
+        
+        host: localhost
+        
+        url: http://localhost:3000
+        
         titulo: 'cuman&aacute; web services'
+        
         eslogan: ''
-        favicon_src: 'favicon.png'
-        logo_src: ''
+        
         descripcion: ''
+        
         etiquetas: 'dominios, registro de dominios, hospedaje web, alojamiento web, hosting, web hosting'
+        
+        favicon_src: 'favicon.png'
+        
+        logo_src: ''
+        
         resumen: '<!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
                     <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
                         &copy;
                     </span>
                     <!--[if lte IE 8]></span><![endif]-->
                     2015 cuman&aacute; web services'
-                    
+    
         roles:
             - nombre: usuario
-              
             - nombre: administrador
-              
+        
+        ns:
+            host:
+            mail:
+                
+        paypal:
+            id:
+                
+        bitcoin:
+            direccion:
 
-        parametros_por_pais:
+        paises:
             - nombre: Venezuela
               codigo: ve
               idioma: es
@@ -251,104 +276,6 @@ pordefecto:
                           codigo: ma
                         - nombre: Santa Bárbara del Zulia
                           codigo: sb
-        
-        monedas:
-            - codigo: btc
-              nombre: Bitcoin
-              simbolo: BTC
-              conversion: 0.00004631
-            - codigo: vef
-              nombre: Bolívar
-              simbolo: Bs.
-              conversion: 1
-              delimitador: '.'
-              separador: ','
-            - codigo: usd
-              nombre: 'Dolar estadounidense'
-              simbolo: $
-              conversion: 0.01
-            - codigo: eur
-              nombre: Euro
-              simbolo: €
-              conversion: 0.00883377
-              
-        planes_dominios:
-            - nombre: com
-              descripcion: ''
-              pais: int
-              precio_anual: 1500
-            - nombre: net
-              descripcion: ''
-              pais: int
-              precio_anual: 1500
-            - nombre: org
-              descripcion: ''
-              pais: int
-              precio_anual: 1500
-            - nombre: com.ve
-              descripcion: ''
-              pais: ve
-              precio_anual: 150
-            - nombre: net.ve
-              descripcion: ''
-              pais: ve
-              precio_anual: 150
-            - nombre: org.ve
-              descripcion: ''
-              pais: ve
-              precio_anual: 150
-            
-        planes_hospedaje:
-            - nombre: inicio
-              espacio: 256
-              precio_mensual: 100
-              precio_anual: 1000
-            - nombre: personal
-              espacio: 512
-              precio_mensual: 175
-              precio_anual: 1750
-            - nombre: intermedio
-              espacio: 1024
-              precio_mensual: 300
-              precio_anual: 3000
-            - nombre: profesional
-              espacio: 2048
-              descripcion: ''
-              precio_mensual: 500
-              precio_anual: 5000
-            - nombre: empresarial
-              espacio: 4096
-              descripcion: ''
-              precio_mensual: 800
-              precio_anual: 8000
-        
-        metodos_pago:
-            - tipo: banco
-              nombre: Deposito o transferencia bancaria
-              cuentas:
-                  - empresa: Banco de Venezuela
-                    logo: bdv.png
-                    nro: '01234567890123456789'
-                    tipo: ahorros
-                    titular: Bar Foo
-                    monedas:
-                        - vef
-                  - empresa: Banesco
-                    logo: banesco.png
-                    nro: '98765432109876543210'
-                    tipo: ahorros
-                    titular: Foo Bar
-                    monedas:
-                        - vef
-#            - tipo: paypal
-#              id: ''
-#              monedas:
-#                  - usd
-#                  - eur
-#            - tipo: bitcoin
-#              cartera: ''
-#            - tipo: litecoin
-#              cartera: ''
             
 development:
     

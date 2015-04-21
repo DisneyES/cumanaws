@@ -30,6 +30,22 @@ module Mongoid
         document.ediciones.push(edicion)
       end
       
+      def app_url
+        AppConfig.aplicacion.url
+      end
+      
+      def app_host
+        AppConfig.aplicacion.host
+      end
+      
+      def ns_host
+        AppConfig.aplicacion.ns.host
+      end
+      
+      def ns_mail
+        AppConfig.aplicacion.ns.mail
+      end
+      
     end
   
   end

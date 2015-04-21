@@ -31,7 +31,7 @@ start() {
   log_begin_msg "Iniciando cumanaws"
   if [ ! -e /opt/cumanaws/tmp/pids/daemon.pid ]
   then
-    start-stop-daemon -b -m -p /opt/cumanaws/tmp/pids/daemon.pid --start --exec /opt/cumanaws/scripts/rails -- server unicorn -e $ENVIRONMENT -b 127.0.0.1
+    start-stop-daemon -b -m -p /opt/cumanaws/tmp/pids/daemon.pid --start --exec /opt/cumanaws/scripts/rails -- server $APPSERVER -e $ENTORNO -b $BINDING -p $PUERTO
   fi
   log_end_msg 0
 }

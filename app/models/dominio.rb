@@ -6,18 +6,22 @@ class Dominio
   
   field :nombre, type: String
   
-  before_create :activar_servicio
+  has_many :subdominios
+  
+  before_create :crear_zona
+  before_update :editar_zona
+  before_update :editar_zona
   
   protected
   
-  def activar_servicio
+  def crear_zona
     # Crear el archivo de la zona en la configuración del servidor DNS
     zona = File.open('/etc/bind/zonas/'+self.nombre+'.'+self.plan_dominio[:dominio]+'.zone', 'w')
     zona.puts '; '+self.nombre+'.'+self.plan_dominio[:dominio]+'
 $TTL 3600
-'+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  SOA   ns.cumanaws.net.ve. dns@cumanaws.net.ve. ( '+DateTime.now.strftime("%Y%m%d%H%M%S")+' 3H 1H 1W 1D )
-                                                  IN  NS    ns.cumanaws.net.ve.
-'+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  CNAME cumanaws.net.ve.'
+'+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  SOA   '+ns_host+'. '+ns_mail+'. ( '+DateTime.now.strftime("%Y%m%d%H%M%S")+' 3H 1H 1W 1D )
+                                                  IN  NS    '+ns_host+'.
+'+self.nombre+'.'+self.plan_dominio[:dominio]+'.  IN  CNAME '+app_host+'.'
     zona.close
     
     # Agregar la zona a la configuración del servidor DNS
@@ -28,6 +32,10 @@ $TTL 3600
     # Reiniciar servidor DNS
     # service bind9 restart
     system("service bind9 restart")
+    
+  end
+  
+  def editar_zona
     
   end
   

@@ -6,11 +6,7 @@
       <meta name="keywords" content="<%= etiquetas %>" />
     <% end %>
     <title><%= yield(:titulo_pagina).present? ? titulo+' | '+yield(:titulo_pagina) : titulo %></title>
-    <% if favicon_src %>
-      <link rel="shortcut icon" href="<%= favicon_src %>" />
-    <% else %>
-      <link rel="shortcut icon" href="favicon.png" />
-    <% end %>
+    <link rel="shortcut icon" href="<%= favicon_src %>" />
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= yield(:head) %>

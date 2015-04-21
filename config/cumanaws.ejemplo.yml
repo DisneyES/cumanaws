@@ -1,22 +1,36 @@
 configuracion:
-    entorno:
-        #url: "http://localhost:3000/"
+    
     servidor:
-        #puerto: 3000
-        #entorno_rails: 'production'
-    preferencias:
-        # titulo: 'cuman&aacute; web services'
-        # eslogan: ''
-        # favicon_src: ''
-        # logo_src: ''
-        # descripcion: ''
-        # etiquetas: 'dominios, registro de dominios, hospedaje web, alojamiento web, hosting, web hosting'
-        # resumen: '<!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
-        #            <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
-        #                &copy;
-        #            </span>
-        #            <!--[if lte IE 8]></span><![endif]-->
-        #            2015 cuman&aacute; web services'
+#        appserver: unicorn
+#        puerto: 3000
+#        binding: localhost
+#        entorno: development
+
+    aplicacion:
+#        host: localhost
+#        url: http://localhost:3000
+#        titulo: 'cuman&aacute; web services'
+#        eslogan: ''
+#        descripcion: ''
+#        etiquetas: 'dominios, registro de dominios, hospedaje web, alojamiento web, hosting, web hosting'
+#        favicon_src: 'favicon.png'
+#        logo_src: ''
+#        resumen: '<!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+#                    <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+#                        &copy;
+#                    </span>
+#                    <!--[if lte IE 8]></span><![endif]-->
+#                    2015 cuman&aacute; web services'
+#
+#        ns:
+#            host:
+#            mail:
+#                
+#        paypal:
+#            id:
+#            
+#        bitcoin:
+#            direccion:
         
 development:
 
