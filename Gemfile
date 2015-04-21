@@ -63,3 +63,8 @@ gem 'chartkick', '~> 1.3.2'
 
 # Transacciones
 gem 'paypal-sdk-rest', '~> 1.1.2'
+
+# Gestión de procesos y servicios
+gem 'ruby-supervisor', '0.0.2'
+gem 'systemd', '0.0.1'
+gem 'systemd-journal', '1.2.2'
