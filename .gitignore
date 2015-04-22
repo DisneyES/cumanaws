@@ -62,3 +62,4 @@ dump.rdb
 # Heroku or Capistrano can and should regenerate them on every deploy
 public/assets
 
+.yardoc/

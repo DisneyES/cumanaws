@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Cumanaws::AppInfo
+  
   def titulo
     AppConfig.aplicacion.titulo.present? ? AppConfig.aplicacion.titulo.html_safe : 'cuman&aacute; web services'.html_safe
   end
@@ -68,7 +70,7 @@ module ApplicationHelper
 #    end
 #    return tipos
 #  end
-  
+
   def select_ctas_bancarias
     tipos = [['Selecione','']]
     CuentaBancaria.where(:borrado => {'$exists' => false}).each do |cta|
@@ -84,7 +86,5 @@ module ApplicationHelper
     end
     return tipos
   end
-  
-  
   
 end
