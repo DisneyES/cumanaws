@@ -24,6 +24,7 @@ class Terceros::ZoneFile
   # @option subdominios :prioridad [String] para registros MX
   def self.crear(nombre,dominio,subdominios=[])
     self.actualizar(nombre,dominio,subdominios)
+    incluir_en_named(nombre,dominio)
   end
   
   # To update an existing Zone File or create of not exists
@@ -48,13 +49,11 @@ $TTL 3600
     end
     zona.close
     
-    incluir_en_named(nombre,dominio)
-    
     # Reiniciar servidor Bind9
     system("service bind9 restart")
   end
   
-  # To include an Zone File in the named.conf
+  # To include an Zone File in named.conf if not exists already
   # @param nombre [String] Domain Name
   # @param dominio [String] Top Level Domain (TLD)
   def incluir_en_named(nombre,dominio)

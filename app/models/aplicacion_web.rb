@@ -11,4 +11,13 @@ class AplicacionWeb
   field :rechazado, type: Boolean
   field :borrado, type: Boolean
   
+  before_create :instalar
+  
+  protected
+  
+  # To create directories and do other stuff necessary to run the app
+  def instalar
+    
+  end
+  
 end
