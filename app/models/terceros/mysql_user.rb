@@ -1,5 +1,5 @@
 # Manage third party MySQL users
-class MysqlBdUser
+class MysqlUser
   
   # To initialize the class
   def initialize

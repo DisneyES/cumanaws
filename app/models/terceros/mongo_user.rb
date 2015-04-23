@@ -1,5 +1,5 @@
 # Manage third party MongoDB users
-class Terceros::MongoBdUser
+class Terceros::MongoUser
   
   # To initialize the class
   def initialize
