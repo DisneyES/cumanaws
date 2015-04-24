@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   hide_action *helpers
   helper_method *helpers
   
+  include RolInfo
+  
   def resource
     instance_variable_get(:"@#{resource_name}")
   end
