@@ -45,7 +45,7 @@ $TTL 3600
                          IN  NS    '+ns_host+'.
 '
     subdominios.each do |subdominio|
-      zona.puts ''+subdominio[:nombre]+' '+subdominio[:registro]+' '+( subdominio[:registro] == 'MX' ? ( subdominio[:prioridad] ? subdominio[:prioridad].to_s  : '10') : '' )+' '+subdominio[:direccion]+'.'
+      zona.puts ''+subdominio[:nombre]+' '+subdominio[:registro]+' '+( subdominio[:registro] == 'MX' ? ( subdominio[:prioridad] ? subdominio[:prioridad].to_s  : '10') : '' )+' '+subdominio[:direccion]
     end
     zona.close
     

@@ -1,5 +1,5 @@
-# Manage third party MySQL databases
-class Terceros::MysqlBd
+# Manage third party PgSQL databases
+class Terceros::Db::Pgsql
   
   # To initialize the class
   def initialize

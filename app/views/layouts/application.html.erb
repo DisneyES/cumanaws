@@ -50,8 +50,8 @@
                   <ul>
                     <li><%= link_to fa_icon("user lg")+' mi cuenta', mi_cuenta_path %></b></li>
                     <li><%= link_to '&nbsp; '.html_safe+fa_icon('globe lg')+' dominios ', mi_cuenta_dominios_path %></li>
-                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('server lg')+' hospedaje web', mi_cuenta_hospedaje_path %></li>
-                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('money lg')+' (saldo (Bs. '.html_safe+number_to_currency(Saldo.where(:cuenta_id =>current_cuenta._id).first[:activo]*Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion], :unit => '', separator: ",", delimiter: "." ), mi_cuenta_saldo_path %></li>
+                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('server lg')+' hospedajes web', mi_cuenta_hospedajes_path %></li>
+                    <li><%= link_to '&nbsp; '.html_safe+fa_icon('money lg')+' (saldo ('.html_safe+number_to_currency(Saldo.where(:cuenta_id =>current_cuenta._id).first[:activo]*Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion], :unit => 'Bs.', separator: ",", delimiter: "." , format: "%u %n"), mi_cuenta_saldo_path %></li>
                     <li><%= link_to '&nbsp; '.html_safe+fa_icon('wrench lg')+' configuración', mi_cuenta_configuracion_path %></li>
                     <% if current_cuenta.rol == 'administrador' %>
                       <li><hr/></li>

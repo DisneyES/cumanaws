@@ -1,4 +1,4 @@
-class MiCuentaController < ApplicationController
+class MiCuenta::HospedajesController < ApplicationController
   
   before_action :authenticate_cuenta!
   

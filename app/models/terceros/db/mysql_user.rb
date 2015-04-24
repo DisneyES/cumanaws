@@ -1,5 +1,5 @@
 # Manage third party MySQL users
-class MysqlUser
+class Terceros::Db::MysqlUser
   
   # To initialize the class
   def initialize

@@ -1,5 +1,5 @@
 # Manage third party MongoDB databases
-class Terceros::MongoBd
+class Terceros::Db::Mongodb
   
   # To initialize the class
   def initialize

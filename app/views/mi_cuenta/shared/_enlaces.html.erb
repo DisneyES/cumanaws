@@ -1,3 +1,3 @@
 <div style="text-align: center; font-size: 18px">
-  <b><%= link_to 'dominios', mi_cuenta_dominios_path %></b> | <b><%= link_to 'hospedaje web', mi_cuenta_hospedaje_path %></b> | <b><%= link_to 'balance (0)', mi_cuenta_balance_path %></b> | <b><%= link_to 'configuración', mi_cuenta_configuracion_path %></b>
+  <b><%= link_to 'dominios', mi_cuenta_dominios_path %></b> | <b><%= link_to 'hospedaje web', mi_cuenta_hospedajes_path %></b> | <b><%= link_to 'saldo (Bs. '.html_safe+number_to_currency(Saldo.where(:cuenta_id =>current_cuenta._id).first[:activo]*Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion], :unit => '', separator: ",", delimiter: "." )+')', mi_cuenta_saldo_path %></b> | <b><%= link_to 'configuración', mi_cuenta_configuracion_path %></b>
 </div>

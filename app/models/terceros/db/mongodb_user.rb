@@ -1,5 +1,5 @@
-# Manage third party PgSQL users
-class Terceros::PgsqlUser
+# Manage third party MongoDB users
+class Terceros::Db::MongodbUser
   
   # To initialize the class
   def initialize

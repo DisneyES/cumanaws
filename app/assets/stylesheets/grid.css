@@ -48,9 +48,9 @@ and open the template in the editor.
     width: 100%;
 }
 
-.grid-cabezal > div.grid-celda-izq {
+.grid-pie > div.grid-celda-izq {
     border-bottom-left-radius: 10px;
 }
-.grid-cabezal > div.grid-celda-der {
+.grid-pie > div.grid-celda-der {
     border-bottom-right-radius: 10px;
 }

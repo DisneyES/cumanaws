@@ -1,5 +1,51 @@
 <% content_for :titulo_pagina do %>mi cuenta<% end %>
 <% content_for :titulo_bloque do %>mi cuenta<% end %>
-<div style="text-align: center; font-size: 18px">
-  <b><%= link_to 'dominios', mi_cuenta_dominios_path %></b> | <b><%= link_to 'hospedaje web', mi_cuenta_hospedaje_path %></b> | <b><%= link_to 'balance (0)', mi_cuenta_balance_path %></b> | <b><%= link_to 'configuración', mi_cuenta_configuracion_path %></b>
+<style>
+    .mi_cuenta_enlace {
+      font-weight: bold;
+      text-align: center;
+      width: 153px;
+      margin: 5px;
+      float: left;
+      background-color: #EEE;
+      border-radius: 10px;
+    }
+    .mi_cuenta_enlace:hover {
+      background-color: #f5f5f5;
+    }
+    .mi_cuenta_enlace > a {
+      padding: 10px;
+      text-decoration: none;
+      display: block;
+    }
+    .mi_cuenta_enlace > a > i {
+      display: block;
+      margin: 5px;
+    }
+</style>
+<div style="display: table">
+  <div class="mi_cuenta_enlace">
+    <%= link_to(mi_cuenta_dominios_path) do %>
+      <%= fa_icon "globe 5x" %>
+      dominios
+    <% end %>
+  </div>
+  <div class="mi_cuenta_enlace">
+    <%= link_to(mi_cuenta_hospedajes_path) do %>
+      <%= fa_icon "server 5x" %>
+      hospedajes web
+    <% end %>
+  </div>
+  <div class="mi_cuenta_enlace">
+    <%= link_to(mi_cuenta_saldo_path) do %>
+      <%= fa_icon "money 5x" %>
+      saldo<br>(<%= number_to_currency(Saldo.where(:cuenta_id =>current_cuenta._id).first[:activo]*Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion], :unit => 'Bs.', separator: ",", delimiter: ".", format: '%u %n' ) %>)
+    <% end %>
+  </div>
+  <div class="mi_cuenta_enlace">
+    <%= link_to(mi_cuenta_configuracion_path) do %>
+      <%= fa_icon "wrench 5x" %>
+      configuración
+    <% end %>
+  </div>
 </div>

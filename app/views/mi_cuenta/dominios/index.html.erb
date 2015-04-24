@@ -1,45 +1,43 @@
 <% content_for :titulo_pagina do %>mi cuenta > dominios<% end %>
-<% content_for :titulo_bloque do %>mis dominios<% end %>
-<% @bloques_sup=[] %>
-<% @bloques_sup << {:titulo => 'mi cuenta', :contenido => capture do %>
-    <%= render "mi_cuenta/shared/enlaces" %>
-  <% end } %>
-<style>
-    .dominio {
-        margin: 10px 0;
-    }
-    .dominio > div {
-        margin-bottom: 5px;
-    }
-    .dominio > div > .titulo {
-        font-weight: bold;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-    .dominio > .nombre {
-        font-weight: bold;
-        font-size: 16px;
-    }
-    .dominio > .hosts > .host {
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-</style>
-<div class="dominio">
-    <div class="nombre">
-        cumanaws.com.ve
+<% content_for :titulo_bloque do %><%=link_to 'mi cuenta' , mi_cuenta_path %> > dominios<% end %>
+
+<div style="background-color: #e7e7e7;margin: 5px;padding: 10px;border-radius: 10px">
+  <h2>cumanaws.vm</h2>
+  <div style="text-align: right; font-weight: bold; margin: 10px 0"><%= link_to 'agregar host', '#' %></div>
+  <div>
+     <div class="grid-cabezal">
+      <div class="grid-celda-izq">host</div>
+      <div>registro</div>
+      <div style="max-width: 100px;">prioridad</div>
+      <div>dirección</div>
+      <div class="grid-celda-der" style="max-width: 100px;">...</div>
     </div>
-    <div class="hosts">
-        <div class="titulo">hosts:</div>
-        <div class="host">www.cumanaws.com.ve</div>
-        <div class="host">www1.cumanaws.com.ve</div>
-        <%= form_tag do %>
-          <%= text_field_tag 'host' %>.cumanaws.com.ve &nbsp; <%= submit_tag 'agregar host' %>
-        <% end %>
+    <div class="grid-cuerpo">
+      <div class="grid-fila">
+        <div class="grid-celda">cumanaws.vm</div>
+        <div class="grid-celda">A</div>
+        <div class="grid-celda" style="max-width: 100px;"></div>
+        <div class="grid-celda">127.0.0.1</div>
+        <div class="grid-celda" style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+      </div>
     </div>
-    <hr/>
+    <div class="grid-cuerpo">
+      <div class="grid-fila">
+        <div class="grid-celda">www.cumanaws.vm</div>
+        <div class="grid-celda">CNAME</div>
+        <div class="grid-celda" style="max-width: 100px;"></div>
+        <div class="grid-celda">cumanaws.vm.</div>
+        <div class="grid-celda" style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+      </div>
+    </div>
+    <div class="grid-cuerpo">
+      <div class="grid-fila">
+        <div class="grid-celda">cumanaws.vm</div>
+        <div class="grid-celda">MX</div>
+        <div class="grid-celda" style="max-width: 100px;">10</div>
+        <div class="grid-celda">cumanaws.vm.</div>
+        <div class="grid-celda" style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- <div style="text-align: center">Aun no posees dominios activos.<br/>
-  Puedes solicitar uno en la sección: <%= link_to 'servicios > dominios', '#' %>.<br/>
-  Si presenta algún inconveniente diríjase a la sección: <%= link_to 'contacto', '#' %>, para notificarlo.
-</div> -->
