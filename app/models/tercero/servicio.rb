@@ -1,5 +1,5 @@
 # Manage third party services
-class Terceros::Servicio
+class Tercero::Servicio
   
   # To initialize the class
   def initialize
@@ -38,7 +38,7 @@ class Terceros::Servicio
   
   # To get a list of the services
   def self.lista
-    system('systemctl','-t','service','-a')
+    `systemctl -t service -a`
   end
   
 end

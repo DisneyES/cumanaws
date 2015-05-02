@@ -1,5 +1,5 @@
-# Manage third party PgSQL users
-class Terceros::Db::PgsqlUser
+# Manage third party MySQL users
+class Tercero::Db::MysqlUser
   
   # To initialize the class
   def initialize

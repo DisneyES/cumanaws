@@ -1,5 +1,5 @@
 # Manage third party databases
-class Terceros::Db
+class Tercero::Db
   def initialize
     
   end

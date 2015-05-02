@@ -22,4 +22,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'cuenta_bancaria', 'cuentas_bancarias'
   inflect.irregular 'plan_dominio', 'planes_dominios'
   inflect.irregular 'plan_hospedaje', 'planes_hospedaje'
+  inflict.irregular 'dominio_registro', 'dominios_registros'
 end

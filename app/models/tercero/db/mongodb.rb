@@ -1,5 +1,5 @@
-# Manage third party PgSQL databases
-class Terceros::Db::Pgsql
+# Manage third party MongoDB databases
+class Tercero::Db::Mongodb
   
   # To initialize the class
   def initialize

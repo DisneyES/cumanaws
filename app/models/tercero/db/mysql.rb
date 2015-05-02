@@ -1,5 +1,5 @@
 # Manage third party MySQL databases
-class Terceros::Db::Mysql
+class Tercero::Db::Mysql
   
   # To initialize the class
   def initialize

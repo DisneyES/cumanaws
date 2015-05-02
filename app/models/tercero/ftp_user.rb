@@ -1,4 +1,4 @@
-class Terceros::FtpUser < ActiveRecord::Base
+class Tercero::FtpUser < ActiveRecord::Base
   
   validates_presence_of :username
   validates_length_of :username, minimum: 5, maximum: 20, allow_blank: true

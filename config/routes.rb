@@ -93,7 +93,13 @@ Rails.application.routes.draw do
   end
   
   get 'micuenta', controller: 'mi_cuenta', action: 'index', as: :mi_cuenta
+  
   get 'micuenta/dominios', controller: 'mi_cuenta/dominios', action: 'index', as: :mi_cuenta_dominios
+  get 'micuenta/dominios/agregarregistro/:dominio_id', controller: 'mi_cuenta/dominios/registros', action: 'new', as: :mi_cuenta_dominios_agregar_registro
+  post 'micuenta/dominios/agregarregistro/:dominio_id', controller: 'mi_cuenta/dominios/registros', action: 'create'
+  get 'micuenta/dominios/editarregistro/:id', controller: 'mi_cuenta/dominios/registros', action: 'edit', as: :mi_cuenta_dominios_editar_registro
+  put 'micuenta/dominios/editarregistro/:id', controller: 'mi_cuenta/dominios/registros', action: 'update'
+  
   get 'micuenta/hospedaje', controller: 'mi_cuenta/hospedajes', action: 'index', as: :mi_cuenta_hospedajes
   
   get 'micuenta/saldo', controller: 'mi_cuenta/saldo', action: 'index', as: :mi_cuenta_saldo
