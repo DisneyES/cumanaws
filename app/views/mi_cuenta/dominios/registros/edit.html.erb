@@ -1,0 +1,14 @@
+<% content_for :titulo_pagina do %>mi cuenta > dominios<% end %>
+<% content_for :titulo_bloque do %><%=link_to 'mi cuenta', mi_cuenta_path %> > <%=link_to 'dominios', mi_cuenta_dominios_path %> > editar registro<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){return formjs.constructor();});
+</script>
+<%= form_for resource, url:  mi_cuenta_dominios_editar_registro_path(params[:id]), remote: true, html: { id: resource_name,  method: :put, class: form_clase, 'data-type' => :json}  do |f|  %>
+  <%= form_resumen_errores %>
+  <%= form_campo f, :nombre, 'text_field', placeholder: 'www' %>
+  <%= form_campo f, :tipo, 'select', opciones: ['Seleccionar','A','AAAA','CNAME','MX'] %>
+  <%= form_campo f, :prioridad, 'text_field', placeholder: '10' %>
+  <%= form_campo f, :direccion, 'text_field', placeholder: '0.0.0.0'  %>
+  <br/>
+  <div style="text-align:center" id="campo_commit"><%= f.submit "enviar", data: { disable_with: 'enviando...' } %></div>
+<% end %>

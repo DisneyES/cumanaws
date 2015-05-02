@@ -6,7 +6,7 @@ class Dominio
   
   field :nombre, type: String
   
-  has_many :subdominios
+  has_many :dominios_registros, class_name: 'Dominio::Registro'
   
   before_create :crear_zona
   before_update :editar_zona

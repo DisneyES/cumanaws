@@ -3,11 +3,14 @@
 
 <div style="background-color: #e7e7e7;margin: 5px;padding: 10px;border-radius: 10px">
   <h2>cumanaws.vm</h2>
-  <div style="text-align: right; font-weight: bold; margin: 10px 0"><%= link_to 'agregar host', '#' %></div>
+  <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+    <div style="float: left; font-size: 16px">Registros de la zona</div>
+    <div style="float: right"><%= link_to 'agregar registro', '#' %></div>
+  </div>
   <div>
      <div class="grid-cabezal">
-      <div class="grid-celda-izq">host</div>
-      <div>registro</div>
+      <div class="grid-celda-izq">nombre</div>
+      <div>tipo</div>
       <div style="max-width: 100px;">prioridad</div>
       <div>dirección</div>
       <div class="grid-celda-der" style="max-width: 100px;">...</div>
