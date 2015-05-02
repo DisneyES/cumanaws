@@ -7,6 +7,8 @@ class Moneda
   field :delimitador, type: String
   field :separador, type: String
   field :conversion, type: Float
+  field :conversion_desde, type: DateTime
+  embeds_many :conversiones_anteriores
   field :borrado, type: Boolean
   
   validates_presence_of :nombre
