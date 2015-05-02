@@ -5,6 +5,8 @@ configuracion:
 #        puerto: 3000
 #        binding: localhost
 #        entorno: development
+#        worker_processes: 2
+#        timeout: 120
 
     aplicacion:
 #        host: localhost
