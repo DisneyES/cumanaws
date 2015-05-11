@@ -8,6 +8,8 @@ class AplicacionWeb
   field :dir, type: String
   field :entorno, type: String # production, development, text, etc...
   
+  belongs_to :dominio_registro, class_name: 'Dominio::Registro'
+  
   field :enviado, type: Boolean
   field :aceptado, type: Boolean
   field :rechazado, type: Boolean

@@ -28,7 +28,7 @@ and open the template in the editor.
 .grid-fila {
     display: flex;
 }
-.grid-celda {
+.grid-fila > div {
     font-weight: bold;
     background-color: #eee;
     padding: 10px;
