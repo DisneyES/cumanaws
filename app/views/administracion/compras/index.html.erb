@@ -36,26 +36,26 @@
     <div>usuario</div>
     <div style="min-width: 260px;">descripción</div>
     <div>duración</div>
-    <div>puntos</div>
+    <div>precio (Bs.)</div>
     <div class="grid-celda-der">...</div>
   </div>
   <div class="grid-cuerpo">
     <% compras.each do |compra| %>
       <% if compra.plan_hospedaje %>
-        <% descripcion = 'Compra de hospedaje web: <b>'+compra.plan_hospedaje['nombre']+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(compra.plan_hospedaje['espacio']*1048576)+'</b>' %>
+        <% descripcion = 'Compra de hospedaje web: <b>'.html_safe+compra.plan_hospedaje['nombre']+'</b><br/>Espacio de almacenamiento: <b>'.html_safe+number_to_human_size(compra.plan_hospedaje['espacio']*1048576)+'</b>'.html_safe %>
       <% elsif compra.plan_dominio %>
-        <% descripcion = 'Compra de dominio: <b>'+compra['nombre']+'.'+compra.plan_dominio['dominio']+'</b>' %>
+        <% descripcion = 'Compra de dominio: <b>'.html_safe+compra['nombre']+'.'+compra.plan_dominio['dominio']+'</b>'.html_safe %>
       <% elsif compra.hospedaje %>
-        <% descripcion = 'Renovación de hospedaje web: <b>'+compra.hospedaje.plan_hospedaje['nombre']+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(compra.hospedaje.plan_hospedaje['espacio']*1048576)+'</b>' %>
+        <% descripcion = 'Renovación de hospedaje web: <b>'.html_safe+compra.hospedaje.plan_hospedaje['nombre']+'</b><br/>Espacio de almacenamiento: <b>'.html_safe+number_to_human_size(compra.hospedaje.plan_hospedaje['espacio']*1048576)+'</b>'.html_safe %>
       <% elsif compra.dominio %>
-        <% descripcion = 'Renovación de dominio: <b>'+compra.dominio['nombre']+'.'+compra.dominio.plan_dominio['dominio']+'</b>' %>
+        <% descripcion = 'Renovación de dominio: <b>'.html_safe+compra.dominio['nombre']+'.'+compra.dominio.plan_dominio['dominio']+'</b>'.html_safe %>
       <% end %>
       <div class="grid-fila">
         <div class="grid-celda" style="min-width: 175px;"><%= compra[:creado][:fecha] %></div>
         <div class="grid-celda"><%= compra.cuenta[:username] %></div>
-        <div class="grid-celda" style="min-width: 260px;"><%= descripcion %></div>
-        <div class="grid-celda"><%= compra[:duracion] == 12 ? '1 año' : ( compra[:duracion] == 1 ? '1 mes' : compra[:duracion]+' meses' ) %></div>
-        <div class="grid-celda"><%= compra[:puntos] %></div>
+        <div class="grid-celda" style="min-width: 260px;font-weight: normal"><%= descripcion %></div>
+        <div class="grid-celda"><%= compra[:duracion] == 12 ? '1 año' : ( compra[:duracion] == 1 ? '1 mes' : compra[:duracion].to_s+' meses' ) %></div>
+        <div class="grid-celda"><%= compra[:precio] %></div>
         <div class="grid-celda" style="text-align: center"><%= link_to 'procesar', administracion_procesar_compra_path(compra[:_id]) %></div>
       </div>
     <% end %>

@@ -1,7 +1,7 @@
 <% content_for :titulo_pagina do %>carrito de compras > pagar<% end %>
 <% content_for :titulo_bloque do %>carrito de compras > pagar<% end %>
 <% unless articulos.empty? %>
-  <div style="margin: 10px 0; text-align: right">Orden de compra Nº: <b><%= order_compra.nro %></b></div>
+  <div style="margin: 10px 0; text-align: right">Orden de compra Nº: <b><%= orden_compra.nro %></b></div>
   <div class="grid-cabezal">
     <div class="grid-celda-izq">articulo</div>
     <div>duración</div>
@@ -9,10 +9,10 @@
   </div>
   <div class="grid-cuerpo">
     <% total = 0 %>
-    <% articulo.each do |articulo| %>
-      <% if articulo[:servicio] == 'hospedaje' %>
-        <% descripcion = 'Hospedaje web: <b>'+articulo[:plan]+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(articulo[:espacio]*1048576)+'</b>' %>
-      <% elsif articulo[:servicio] == 'dominio' %>
+    <% articulos.each do |articulo| %>
+      <% if articulo[:plan_hospedaje_id] %>
+        <% descripcion = 'Hospedaje web: <b>'+articulo.plan_hospedaje[:nombre]+'</b><br/>Espacio de almacenamiento: <b>'+number_to_human_size(articulo[:espacio]*1048576)+'</b>' %>
+      <% elsif articulo[:plan_dominio_id] %>
         <% descripcion = 'Dominio: <b>'+articulo[:nombre]+'.'+articulo[:dominio]+'</b>' %>
       <% end %>
       <% if articulo[:servicio] == 'hospedaje' %>
@@ -34,4 +34,4 @@
     <div class="grid-celda-der"><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado =>{'$exists' => false}).first[:conversion]*total, :unit => '', separator: ",", delimiter: "." ) %></div>
   </div>
   
-<% end %>
+<%  end %>

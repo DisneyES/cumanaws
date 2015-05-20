@@ -19,15 +19,15 @@ class Dominio
   end
   
   def editar_zona
-    subdominios=[]
-    Subdominio.where(:cuenta_id => cuenta_id, :dominio_id => _id, :borrado.exists => false).each do |subdominio|
-      h_subdominio={:nombre => subdominio[:nombre], :registro => subdominio[:registro], :direccion => subdominio[:direccion]}
-      if h_subdominio[:registro] == 'MX'
-        h_subdominio[:prioridad] = subdominio[:prioridad]
+    registros=[]
+    Dominio::Registro.where(:cuenta_id => cuenta_id, :dominio_id => _id, :borrado.exists => false).each do |registro|
+      h_registro={:nombre => registro[:nombre], :tipo => registro[:tipo], :direccion => registro[:direccion]}
+      if h_registro[:registro] == 'MX'
+        h_registro[:prioridad] = registro[:_id] != self._id ? registro[:prioridad] : self.prioridad
       end
-      subdominios.push(h_subdominio)
+      registros.push(h_registro)
     end
-    Terceros::ZoneFile.actualizar(self.nombre, self.plan_dominio[:dominio],subdominios)
+    Terceros::ZoneFile.actualizar(self.nombre, self.plan_dominio[:dominio],registros)
   end
   
 end

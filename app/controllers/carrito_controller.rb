@@ -122,13 +122,13 @@ class CarritoController < ApplicationController
     saldo = Saldo.where(:cuenta_id => current_cuenta._id, :activo.gte => precio_total ).first
     if saldo
       orden_compra = OrdenCompra.new
-      orden_compra.nro = OrdenCompra.max(:nro) + 1
+      orden_compra.nro = OrdenCompra.max(:nro).to_i + 1
       orden_compra.precio_total = precio_total
       orden_compra.enviado = true
-      articulos_pagados = Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false, :enviado.exists => false).each do |articulo|
-        articulos_pagados.orden_compra = orden_compra
-        articulos_pagados.enviado = true
-        articulos_pagados.save
+      Compra.where('cuenta_id' => current_cuenta.id, :borrado.exists => false, :enviado.exists => false).each do |articulo|
+        articulo.orden_compra = orden_compra
+        articulo.enviado = true
+        articulo.save
       end
       saldo.activo = saldo.activo - precio_total
       movimiento_saldo = MovimientoSaldo.new
@@ -140,7 +140,7 @@ class CarritoController < ApplicationController
       movimiento_saldo.save
       saldo.save
       orden_compra.save
-      render :locals => { :articulos => articulos_pagados, :orden_compra => orden_compra }
+      render :locals => { :articulos => Compra.where(:orden_compra => orden_compra ), :orden_compra => orden_compra }
     else
       redirect_to carrito_path
     end

@@ -23,4 +23,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'plan_dominio', 'planes_dominios'
   inflect.irregular 'plan_hospedaje', 'planes_hospedaje'
   inflect.irregular 'dominio_registro', 'dominios_registros'
+  inflect.irregular 'orden_compra', 'ordenes_compras'
 end

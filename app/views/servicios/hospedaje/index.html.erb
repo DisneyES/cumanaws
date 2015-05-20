@@ -19,8 +19,8 @@
       <div style="margin: 10px 0; font-style: italic"><%= hos['descripcion'] %></div>
       <div>
           Espacio de almacenamiento: <b><%= number_to_human_size(hos['espacio']*1048576, precision: 3) %></b><br/>
-          Precio mensual: <b><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*hos['precio_mensual'], :unit => AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['simbolo']+' ', separator: ",", delimiter: "." ) %></b><br/>
-          Precio anual: <b><%= number_to_currency(AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['conversion']*hos['precio_anual'], :unit => AppConfig.preferencias.monedas.select{|k| k['codigo'] == 'vef' }[0]['simbolo']+' ', separator: ",", delimiter: "." ) %></b>
+          Precio mensual: <b><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*hos['precio_mensual'], :unit => Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:simbolo]+' ', separator: ",", delimiter: "." ) %></b><br/>
+          Precio anual: <b><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*hos['precio_anual'], :unit => Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:simbolo]+' ', separator: ",", delimiter: "." ) %></b>
           <div style="font-weight: bold; text-align: right"><%=link_to 'adquirir', agregar_hospedaje_carrito_path(hos['id']) %></div>
       </div>
     </div>

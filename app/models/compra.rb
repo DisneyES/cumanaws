@@ -24,4 +24,30 @@ class Compra
   field :rechazado, type: Boolean
   field :borrado, type: Boolean
   
+  before_update :procesar
+  
+  protected
+  
+  def procesar
+    
+    if self.aceptado
+      if self.plan_hospedaje_id
+        hospedaje = Hospedaje.new
+        hospedaje.nro= Hosedaje.max(:nro).to_i + 1
+        hospedaje.cuenta = self.cuenta
+        hospedaje.plan_hospedaje = self.plan_hospedaje
+        hospedaje.save
+      elsif self.plan_dominio_id
+        dominio = Dominio.new
+        dominio.cuenta = self.cuenta
+        dominio.nombre = self.nombre
+        dominio.plan_dominio = self.plan_dominio
+        dominio.save
+      end
+    elsif self.rechazado
+      
+    end
+      
+  end
+  
 end
