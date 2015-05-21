@@ -46,6 +46,7 @@ pordefecto:
             - nombre: administrador
         
         ns:
+            ip:
             host:
             mail:
                 

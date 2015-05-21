@@ -38,7 +38,7 @@ class Tercero::ZoneFile
   def self.actualizar(nombre,dominio,registros=[])
     
     # Abrir el archivo de la zona en la configuración del servidor DNS
-    zona = File.open('/etc/bind/zonas/'+nombre+'.'+dominio+'.zone', 'w')
+    zona = File.open('/var/lib/cumanaws/bind/'+nombre+'.'+dominio+'.zone', 'w')
     zona.puts '; '+nombre+'.'+dominio+'
 $TTL 3600
 '+nombre+'.'+dominio+'.  IN  SOA   '+ns_host+'. '+ns_mail+'. ( '+DateTime.now.strftime("%Y%m%d%H%M%S")+' 3H 1H 1W 1D )
@@ -58,8 +58,8 @@ $TTL 3600
   # @param dominio [String] Top Level Domain (TLD)
   def incluir_en_named(nombre,dominio)
     # Agregar la zona a la configuración del servidor Bind9
-    named = File.open('/etc/bind/named.conf.cumanaws', 'a')
-    named.puts 'zone "'+nombre+'.'+dominio+'" { type master; file "/etc/bind/zonas/'+nombre+'.'+dominio+'.zone"; };'
+    named = File.open('/var/lib/cumanaws/bind/named.conf.cumanaws', 'a')
+    named.puts 'zone "'+nombre+'.'+dominio+'" { type master; file "/var/lib/cumanaws/bind/'+nombre+'.'+dominio+'.zone"; };'
     named.close
   end
   

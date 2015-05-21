@@ -39,7 +39,7 @@ buscador de nombres de dominios disponibles.
     <div style="background-color: #EEE;margin: 5px;padding: 10px;border-radius: 10px; width: 460px; float: left">
       <h2>.<%= dom.dominio %></h2>
       <div>
-        Territorio: <b><%= dom.territorio == 'int' ? 'Internacional' : AppConfig.aplicacion.paises.select{|k| k['codigo']==dom['pais']}[0]['nombre'] %></b><br/>
+        Territorio: <b><%= dom.territorio == 'int' ? 'Internacional' : AppConfig.aplicacion.paises.select{|k| k['codigo']==dom.territorio}[0]['nombre'] %></b><br/>
         Precio anual: <b><%= number_to_currency(Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:conversion]*dom['precio_anual'], :unit => Moneda.where(:codigo => 'VEF',:borrado => {'$exists' => false}).first[:simbolo]+' ', separator: ",", delimiter: "." ) %></b>
     </div>
     </div>

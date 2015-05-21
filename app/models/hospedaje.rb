@@ -33,7 +33,9 @@ class Hospedaje
     FileUtils.chmod_R(0700, '/home/'+self._id)
     
     # Crear un host con algo como 'h'+self.nro+'.'+app_host asociado a este hospedaje web
-    
+    zona = File.open('/var/lib/cumanaws/bind/'+AppConfig.aplicacion.host+'.zone', 'w')
+    zona.puts 'wh'+self.nro+' CNAME '+AppConfig.aplicacion.host+'.'
+    zona.close
     
   end
   

@@ -50,9 +50,9 @@ instalar_en_debian(){
     echo "Instalando servidor DNS"
     apt-get -y install bind9
     echo "Configurando servidor DNS"
-    mkdir /etc/bind/zonas
-    touch /etc/bind/named.conf.cumanaws
-    echo "include \"/etc/bind/names.conf.cumanaws\";" >> /etc/bind/named.conf
+    mkdir -p /var/lib/cumanaws/bind/
+    touch /var/lib/cumanaws/bind/named.conf.cumanaws
+    echo "include \"/var/lib/cumanaws/bind/names.conf.cumanaws\";" >> /etc/bind/named.conf
     service bind9 restart
 
     echo "Instalando servidor FTP"
