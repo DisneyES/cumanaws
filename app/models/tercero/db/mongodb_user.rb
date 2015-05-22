@@ -7,12 +7,12 @@ class Tercero::Db::MongodbUser
   end
   
   # To create user
-  def self.crear(bd,usuario,contrasenia)
+  def self.crear(usuario,contrasenia)
     
   end
   
   # To update user
-  def self.actualizar(bd,usuario,contrasenia)
+  def self.actualizar(usuario,contrasenia)
     
   end
   

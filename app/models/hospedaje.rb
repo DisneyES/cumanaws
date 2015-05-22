@@ -19,14 +19,16 @@ class Hospedaje
     
     # Asignar gestores de bases de datos
     Dir.mkdir('/home/'+self._id+'/db')       # Directorio donde se almacenan las bases de datos
+    
     Dir.mkdir('/home/'+self._id+'/db/pgsql') # Directorio donde se almacenan las bases de datos PostgreSQL
-    # Tablespace de PostgreSQL ('CREATE TABLESPACE '+self._id+' OWNER = '+self._id+' LOCATION \'/home/'+self._id+'/db/pgsql\'')
+    Tercero::Db::Pgsql::crear_tablespace(self._id, '/home/'+self._id+'/db/pgsql')
+    
     Dir.mkdir('/home/'+self._id+'/db/mysql') # Directorio donde se almacenan las bases de datos MySQL
     
     Dir.mkdir('/home/'+self._id+'/db/mongo') # Directorio donde se almacenan las bases de datos MongoDB
     
     # Asignar acceso por FTP
-    Dir.mkdir('/home/'+self._id+'/www')     # Directorio donde se almacenan los archivos accesibles desde FTP o HTTP/HTTPS
+    Dir.mkdir('/home/'+self._id+'/pub')     # Directorio donde se almacenan los archivos accesibles desde FTP o HTTP/HTTPS
     
     # Asignar permisos del usuario a los directorios creados 
     FileUtils.chown(self._id, self._id, '/home/'+self._id);

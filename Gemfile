@@ -14,7 +14,7 @@ gem 'unicorn-rails', '2.2.0'
 gem 'mongoid', '4.0.2'
 gem 'mongoid_rails_migrations', '1.1.0'
 gem "pg", "~> 0.17.1"
-gem 'mysql2', '~> 0.3.17'
+gem 'mysql2', '~> 0.3.18'
 gem "activerecord", "~> 4.2.0"
 
 # Localización

@@ -28,6 +28,14 @@ configuracion:
 #            ip:
 #            host:
 #            mail:
+#
+#        db:
+#            pgsql:
+#                user: postgres
+#                password: postgres
+#            mysql:
+#                user: mysql
+#                password: mysql
 #                
 #        paypal:
 #            id:
