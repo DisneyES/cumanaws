@@ -12,8 +12,8 @@ class Tercero::Db::Pgsql
   end
   
   # To create database
-  def self.crear(nombre,tablespace,user)
-    self.conn.exec('CREATE DATABASE '+nombre+' WITH OWNER '+user+' TABLESPACE '+tablespace)
+  def self.crear(nombre,tablespace,usuario)
+    self.conn.exec('CREATE DATABASE '+nombre+' WITH OWNER '+usuario+' TABLESPACE '+tablespace)
   end
   
 end

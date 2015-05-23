@@ -7,11 +7,11 @@ class Tercero::Db::Mysql
   end
   
   # To create database
-  def self.crear(nombre,homefolder,user)
+  def self.crear(nombre,homefolder,usuario)
     Dir.mkdir('/home/'+homefolder+'/db/mysql/'+nombre)
     File.symlink('/home/'+homefolder+'/db/mysql/'+nombre, '/var/lib/mysql/'+nombre)
     self.conn.query('CREATE DATABASE '+nombre)
-    self.conn.query('GRANT ALL PRIVILEGES ON '+nombre+'.* to '+user+'@localhost')
+    self.conn.query('GRANT ALL PRIVILEGES ON '+nombre+'.* to '+usuario+'@localhost')
     self.conn.query('FLUSH PRIVILEGES')
   end
   

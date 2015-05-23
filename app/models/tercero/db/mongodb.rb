@@ -7,13 +7,13 @@ class Tercero::Db::Mongodb
   end
   
   # To create database
-  def self.crear(nombre,homefolder,user,password)
+  def self.crear(nombre,homefolder,usuario)
     Dir.mkdir('/home/'+homefolder+'/db/mongo/'+nombre)
     File.symlink('/home/'+homefolder+'/db/mongo/'+nombre, '/var/lib/mongo/'+nombre)
+    self.conn.use('admin')
+    self.conn.auth(AppConfig.aplicacion.db.mongodb.user,AppConfig.aplicacion.db.mongodb.password)
+    self.conn['system.users'].find(:user => usuario ).update( '$set' => { :otherDBRoles => { nombre => ['dbAdmin','readWrite'] } } )
     self.conn.use(nombre)
-    self.conn['system.users'].insert(:user => user,
-        :readOnly => false,
-        :pwd => Digest::MD5::hexdigest(user+':mongo:'+password) )
   end
   
 end

@@ -36,6 +36,9 @@ configuracion:
 #            mysql:
 #                user: mysql
 #                password: mysql
+#            mongodb:
+#                user: mongo
+#                password: mongo
 #                
 #        paypal:
 #            id:
