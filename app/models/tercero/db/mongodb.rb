@@ -12,8 +12,11 @@ class Tercero::Db::Mongodb
     File.symlink('/home/'+homefolder+'/db/mongo/'+nombre, '/var/lib/mongo/'+nombre)
     self.conn.use('admin')
     self.conn.auth(AppConfig.aplicacion.db.mongodb.user,AppConfig.aplicacion.db.mongodb.password)
-    self.conn['system.users'].find(:user => usuario ).update( '$set' => { :otherDBRoles => { nombre => ['dbAdmin','readWrite'] } } )
+    query=self.conn['system.users'].find(:user => usuario )
+    pwd=query.first[:pwd]
+    query.update( '$set' => { :otherDBRoles => { nombre => ['dbAdmin','readWrite'] } } )
     self.conn.use(nombre)
+    self.conn['system.users'].insert( :user => usuario, :pwd => pwd, :roles => { nombre => ['dbAdmin','readWrite'] } )
   end
   
 end

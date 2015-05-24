@@ -17,7 +17,16 @@ class Tercero::Db::MongodbUser
   def self.cambiar_contrasenia(usuario,contrasenia)
     self.conn.use('admin')
     self.conn.auth(AppConfig.aplicacion.db.mongodb.user,AppConfig.aplicacion.db.mongodb.password)
-    self.conn['system.users'].find(:user => usuario).update('$set' => { :pwd => Digest::MD5::hexdigest(usuario+':mongo:'+contrasenia), :roles => [] } )
+    query=self.conn['system.users'].find(:user => usuario)
+    fetch=query.first
+    query.update('$set' => { :pwd => Digest::MD5::hexdigest(usuario+':mongo:'+contrasenia) } )
+    if fetch[:otherDBRoles]
+      fetch[:otherDBRoles].each do |key,value|
+        self.conn.use(key)
+        query=self.conn['system.users'].find(:user => usuario)
+        query.update('$set' => { :pwd => Digest::MD5::hexdigest(usuario+':mongo:'+contrasenia) } )
+      end
+    end
   end
   
 end
