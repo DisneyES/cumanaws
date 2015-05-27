@@ -40,7 +40,7 @@ stop() {
   log_begin_msg "Deteniendo cumanaws"
   if [ -e /opt/cumanaws/tmp/pids/daemon.pid ]
   then
-    start-stop-daemon -p /opt/cumanaws/tmp/pids/daemon.pid --stop
+    start-stop-daemon -p /opt/cumanaws/tmp/pids/daemon.pid --stop --remove-pidfile
   fi
   log_end_msg 0
 }
