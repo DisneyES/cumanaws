@@ -6,7 +6,13 @@
 
 Is still a child and there are a lot of missing features for now.
 
-It will provide a full-featured platform to manage the following services:
+## Goals:
+
+**Must be completely open source**
+
+**Must be easy to use for anyone (providers and costumers).**
+
+**It will provide a full-featured platform that it will work with the following services:**
 
 Web server:
 
@@ -37,3 +43,8 @@ DNS Server:
 FTP Server:
 
 * PureFTPd
+
+**Also it will be integrated with the following applications:**
+
+* Roundcube (web-based email client)
+* ownCloud (online data storage and synchronization)
