@@ -1,5 +1,9 @@
-class AplicacionWeb
+class Hospedaje::AplicacionWeb
   include Mongoid::CumanawsBase
+  
+  belongs_to :cuenta
+  belongs_to :hospedaje
+  belongs_to :dominio_registro, class_name: 'Dominio::Registro'
   
   field :nombre, type: String
   field :lenguaje, type: String # nodejs, php, python, ruby
@@ -8,12 +12,10 @@ class AplicacionWeb
   field :dir, type: String
   field :entorno, type: String # production, development, text, etc...
   
-  belongs_to :dominio_registro, class_name: 'Dominio::Registro'
-  
-  field :enviado, type: Boolean
-  field :aceptado, type: Boolean
-  field :rechazado, type: Boolean
+  field :activado, type: Boolean
   field :borrado, type: Boolean
+  
+  field :suspendido, type: Boolean
   
   before_create :instalar
   

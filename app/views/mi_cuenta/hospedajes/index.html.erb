@@ -1,115 +1,147 @@
 <% content_for :titulo_pagina do %>mi cuenta > hospedajes web<% end %>
 <% content_for :titulo_bloque do %><%=link_to 'mi cuenta' , mi_cuenta_path %> > hospedajes web<% end %>
 
-<div style="background-color: #e7e7e7;margin: 5px;padding: 10px;border-radius: 10px">
-  <h2>wh1</h2>
-  
-  <div style="margin: 20px 0">
-    <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
-      <div style="float: left; font-size: 16px">Aplicaciones web</div>
-      <div style="float: right"><%= link_to 'crear aplicación web', '#' %></div>
-    </div>
-    <div>
-       <div class="grid-cabezal">
-        <div class="grid-celda-izq">nombre</div>
-        <div>app server</div>
-        <div>host</div>
-        <div>estado</div>
-        <div class="grid-celda-der" style="max-width: 100px;">...</div>
+<% if hospedajes %>
+  <% hospedajes.each do |hospedaje| %>
+    <div style="background-color: #e7e7e7;margin: 5px;padding: 10px;border-radius: 10px">
+      <h2>wh<%=hospedaje[:nro] %></h2>
+
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Aplicaciones web</div>
+          <div style="float: right"><%= link_to 'crear aplicación web', '#' %></div>
+        </div>
+        
+        <% if hospedaje.aplicaciones_web %>
+          <div>
+            <div class="grid-cabezal">
+              <div class="grid-celda-izq">nombre</div>
+              <div>app server</div>
+              <div>host</div>
+              <div>estado</div>
+              <div class="grid-celda-der" style="max-width: 100px;">...</div>
+            </div>
+          <% hospedaje.hospedaje_aplicaciones_web.each do |aplicacion_web| %>
+              <div class="grid-cuerpo">
+                <div class="grid-fila">
+                  <div><%=aplicacion_web[:nombre] %></div>
+                  <div><%=aplicacion_web[:app_server] %></div>
+                  <div><%=aplicacion_web.dominio_registro[:nombre]+'.'+aplicacion_web.dominio_registro.dominio[:nombre]+'.'+aplicacion_web.dominio_registro.dominio.plan_dominio[:dominio] %></div>
+                  <div style="text-align: center">activo</div>
+                  <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+                </div>
+              </div>
+          <% end %>
+            </div>
+        <% end %>
       </div>
-      <div class="grid-cuerpo">
-        <div class="grid-fila">
-          <div>cumanaws.vm</div>
-          <div>Unicorn</div>
-          <div>cumanaws.vm</div>
-          <div style="text-align: center">activo</div>
-          <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Usuarios de bases de datos</div>
+          <div style="float: right"><%= link_to 'Crear usuario', '#' %></div>
+        </div>
+        <div>
+           <div class="grid-cabezal">
+            <div class="grid-celda-izq">nombre de usuario</div>
+            <div>gestor</div>
+            <div>estado</div>
+            <div class="grid-celda-der" style="max-width: 100px;">...</div>
+          </div>
+          <div class="grid-cuerpo">
+            <div class="grid-fila">
+              <div>cumanaws_vm</div>
+              <div>MySQL</div>
+              <div style="text-align: center">activo</div>
+              <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  
-  <div style="margin: 20px 0">
-    <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
-      <div style="float: left; font-size: 16px">Bases de datos</div>
-      <div style="float: right"><%= link_to 'Crear base de datos', '#' %></div>
-    </div>
-    <div>
-       <div class="grid-cabezal">
-        <div class="grid-celda-izq">nombre</div>
-        <div>gestor</div>
-        <div>usuarios</div>
-        <div>estado</div>
-        <div class="grid-celda-der" style="max-width: 100px;">...</div>
-      </div>
-      <div class="grid-cuerpo">
-        <div class="grid-fila">
-          <div>cumanaws_vm</div>
-          <div>MySQL</div>
-          <div>root, cumanaws, javier</div>
-          <div style="text-align: center">activo</div>
-          <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+      
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Bases de datos</div>
+          <div style="float: right"><%= link_to 'Crear base de datos', '#' %></div>
+        </div>
+        <div>
+           <div class="grid-cabezal">
+            <div class="grid-celda-izq">nombre</div>
+            <div>gestor</div>
+            <div>usuarios</div>
+            <div>estado</div>
+            <div class="grid-celda-der" style="max-width: 100px;">...</div>
+          </div>
+          <div class="grid-cuerpo">
+            <div class="grid-fila">
+              <div>cumanaws_vm</div>
+              <div>MySQL</div>
+              <div>root, cumanaws, javier</div>
+              <div style="text-align: center">activo</div>
+              <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  
-  <div style="margin: 20px 0">
-    <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
-      <div style="float: left; font-size: 16px">Correos electrónicos</div>
-      <div style="float: right"><%= link_to 'Crear correo electrónico', '#' %></div>
-    </div>
-    <div>
-       <div class="grid-cabezal">
-        <div class="grid-celda-izq">nombre de usuario</div>
-        <div>cuota</div>
-        <div>estado</div>
-        <div class="grid-celda-der" style="max-width: 100px;">...</div>
-      </div>
-      <div class="grid-cuerpo">
-        <div class="grid-fila">
-          <div>cumanaws@cumanaws.com</div>
-          <div>1 GB</div>
-          <div style="text-align: center">activo</div>
-          <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Correos electrónicos</div>
+          <div style="float: right"><%= link_to 'Crear correo electrónico', '#' %></div>
+        </div>
+        <div>
+           <div class="grid-cabezal">
+            <div class="grid-celda-izq">nombre de usuario</div>
+            <div>cuota</div>
+            <div>estado</div>
+            <div class="grid-celda-der" style="max-width: 100px;">...</div>
+          </div>
+          <div class="grid-cuerpo">
+            <div class="grid-fila">
+              <div>cumanaws@cumanaws.com</div>
+              <div>1 GB</div>
+              <div style="text-align: center">activo</div>
+              <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  
-  <div style="margin: 20px 0">
-    <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
-      <div style="float: left; font-size: 16px">Cuentas FTP</div>
-      <div style="float: right"><%= link_to 'Crear cuenta FTP', '#' %></div>
-    </div>
-    <div>
-       <div class="grid-cabezal">
-        <div class="grid-celda-izq">nombre de usuario</div>
-        <div>privilegios</div>
-        <div>estado</div>
-        <div class="grid-celda-der" style="max-width: 100px;">...</div>
-      </div>
-      <div class="grid-cuerpo">
-        <div class="grid-fila">
-          <div>cumanaws</div>
-          <div>todos</div>
-          <div style="text-align: center">activo</div>
-          <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Cuentas FTP</div>
+          <div style="float: right"><%= link_to 'Crear cuenta FTP', '#' %></div>
+        </div>
+        <div>
+           <div class="grid-cabezal">
+            <div class="grid-celda-izq">nombre de usuario</div>
+            <div>privilegios</div>
+            <div>estado</div>
+            <div class="grid-celda-der" style="max-width: 100px;">...</div>
+          </div>
+          <div class="grid-cuerpo">
+            <div class="grid-fila">
+              <div>cumanaws</div>
+              <div>todos</div>
+              <div style="text-align: center">activo</div>
+              <div style="max-width: 100px;text-align: center"><%= link_to 'editar', '#' %></div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Utilidades</div>
+        </div>
+      </div>
+
+      <div style="margin: 20px 0">
+        <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
+          <div style="float: left; font-size: 16px">Registros</div>
+        </div>
+      </div>
+
     </div>
-  </div>
-  
-  <div style="margin: 20px 0">
-    <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
-      <div style="float: left; font-size: 16px">Utilidades</div>
-    </div>
-  </div>
-  
-  <div style="margin: 20px 0">
-    <div style="font-weight: bold; margin: 5px 0; display: inline-block; width: 100%">
-      <div style="float: left; font-size: 16px">Registros</div>
-    </div>
-  </div>
-  
-</div>
+  <% end %>
+<% end %>

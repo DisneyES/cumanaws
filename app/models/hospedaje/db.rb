@@ -10,6 +10,10 @@ class Hospedaje::Db
   
   field :params, type: Hash
   
+  validates_presence_of :gestor
+  validates_presence_of :nombre
+  validates_uniqueness_of :nombre, :scope => [ :gestor ]
+  
   before_create :crear
 #  before_update :actualizar
   

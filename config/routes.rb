@@ -100,7 +100,11 @@ Rails.application.routes.draw do
   get 'micuenta/dominios/editarregistro/:id', controller: 'mi_cuenta/dominios/registros', action: 'edit', as: :mi_cuenta_dominios_editar_registro
   put 'micuenta/dominios/editarregistro/:id', controller: 'mi_cuenta/dominios/registros', action: 'update'
   
-  get 'micuenta/hospedaje', controller: 'mi_cuenta/hospedajes', action: 'index', as: :mi_cuenta_hospedajes
+  get 'micuenta/hospedajes', controller: 'mi_cuenta/hospedajes', action: 'index', as: :mi_cuenta_hospedajes
+  get 'micuenta/hospedajes/crearapp/:wh_id', controller: 'mi_cuenta/hospedajes/apps', action: 'new', as: :mi_cuenta_hospedajes_crear_app
+  post 'micuenta/hospedajes/crearapp/:wh_id', controller: 'mi_cuenta/hospedajes/apps', action: 'create'
+  get 'micuenta/hospedajes/editarapp/:wh_id/:id', controller: 'mi_cuenta/hospedajes/apps', action: 'edit', as: :mi_cuenta_hospedajes_editar_app
+  put 'micuenta/hospedajes/editarapp/:wh_id/:id', controller: 'mi_cuenta/hospedajes/apps', action: 'update'
   
   get 'micuenta/saldo', controller: 'mi_cuenta/saldo', action: 'index', as: :mi_cuenta_saldo
   get 'micuenta/recargarsaldo', controller: 'mi_cuenta/saldo', action: 'new', as: :mi_cuenta_recargar_saldo

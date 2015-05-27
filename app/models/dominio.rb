@@ -6,6 +6,9 @@ class Dominio
   
   field :nombre, type: String
   
+  field :borrado, type: Boolean
+  field :expirado, type: Boolean
+  
   has_many :dominios_registros, class_name: 'Dominio::Registro'
   
   before_create :crear_zona

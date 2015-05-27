@@ -6,6 +6,13 @@ class Hospedaje
   
   field :nro, type: Integer
   
+  has_many :hospdaje_aplicaciones_web, class_name: 'Hospedaje::AplicacionWeb'
+  has_many :hospdaje_db_user, class_name: 'Hospedaje::DbUser'
+  has_many :hospdaje_db, class_name: 'Hospedaje::Db'
+  
+  field :borrado, type: Boolean
+  field :expirado, type: Boolean
+  
   before_create :instalar
   
   protected

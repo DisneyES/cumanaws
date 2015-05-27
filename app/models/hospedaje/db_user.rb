@@ -10,6 +10,11 @@ class Hospedaje::DbUser
   field :usuario, type: String
   
   field :params, type: Hash
+  
+  validates_presence_of :gestor
+  validates_presence_of :usuario
+  validates_uniqueness_of :usuario, :scope => [ :gestor ]
+  validates_presence_of :contrasenia
     
   before_create :crear
   before_update :actualizar
